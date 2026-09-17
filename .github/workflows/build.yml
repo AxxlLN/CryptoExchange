@@ -1,4 +1,5 @@
-name: SonarQube
+name: SonarQube Build
+
 on:
   push:
     branches:
@@ -21,27 +22,21 @@ jobs:
           java-version: '21'
           distribution: 'zulu'
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
       - name: Make wrapper executable
         run: chmod +x mvnw
 
-      - name: Build, Test and Analyze
+      - name: Build and Test with JaCoCo
+        run: ./mvnw -B clean test jacoco:report
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./mvnw -B clean test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
-            -Dsonar.projectKey=AxxlLN_CryptoExchange \
+        with:
+          args: >
             -Dsonar.organization=axxlln
+            -Dsonar.projectKey=AxxlLN_CryptoExchange
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.java.binaries=target/classes
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
