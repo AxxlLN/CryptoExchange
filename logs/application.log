@@ -27179,3 +27179,43 @@ java.lang.IllegalStateException: ApplicationContext failure threshold (1) exceed
 2026-09-17 23:03:24.167 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-09-17 23:03:24.170 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-09-17 23:03:24.174 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-09-17 23:36:25.470 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-09-17 23:36:25.522 [restartedMain] INFO  c.c.exchange.ExchangeApplication - Starting ExchangeApplication using Java 23.0.2 with PID 5952 (E:\exchange\CryptoExchange\target\classes started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-17 23:36:25.524 [restartedMain] DEBUG c.c.exchange.ExchangeApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-17 23:36:25.525 [restartedMain] INFO  c.c.exchange.ExchangeApplication - No active profile set, falling back to 1 default profile: "default"
+2026-09-17 23:36:25.595 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-09-17 23:36:25.595 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-09-17 23:36:26.539 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-17 23:36:26.619 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 72 ms. Found 6 JPA repository interfaces.
+2026-09-17 23:36:27.000 [restartedMain] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-17 23:36:27.015 [restartedMain] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-17 23:36:27.499 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-09-17 23:36:27.509 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-09-17 23:36:27.511 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-09-17 23:36:27.511 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-09-17 23:36:27.559 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-09-17 23:36:27.560 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1963 ms
+2026-09-17 23:36:27.657 [restartedMain] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-17 23:36:27.821 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-17 23:36:27.875 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-09-17 23:36:27.908 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-17 23:36:28.131 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-17 23:36:28.152 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-09-17 23:36:28.437 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5aeae2d6
+2026-09-17 23:36:28.439 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-09-17 23:36:29.403 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-17 23:36:29.523 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-17 23:36:29.857 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-17 23:36:30.716 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-17 23:36:31.011 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6e238f78, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@585f98e8, org.springframework.security.web.context.SecurityContextHolderFilter@57ed00b9, org.springframework.security.web.header.HeaderWriterFilter@2738ce24, org.springframework.web.filter.CorsFilter@527ee7a8, org.springframework.security.web.authentication.logout.LogoutFilter@476407c, com.crypto.exchange.web.security.JwtAuthenticationFilter@2e3e71bf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@44311781, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@586295ef, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@440d2720, org.springframework.security.web.session.SessionManagementFilter@426d2269, org.springframework.security.web.access.ExceptionTranslationFilter@99ff734, org.springframework.security.web.access.intercept.AuthorizationFilter@45ce6094]
+2026-09-17 23:36:31.358 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-09-17 23:36:31.375 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-09-17 23:36:31.388 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-09-17 23:36:31.401 [restartedMain] INFO  c.c.exchange.ExchangeApplication - Started ExchangeApplication in 6.36 seconds (process running for 6.827)
+2026-09-17 23:36:31.412 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-17 23:36:31.412 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-17 23:36:32.101 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-17 23:36:32.102 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 690 ms with result = null
+2026-09-17 23:36:35.313 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-17 23:36:35.316 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-09-17 23:36:35.319 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
