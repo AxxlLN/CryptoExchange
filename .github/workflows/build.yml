@@ -5,6 +5,7 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   build:
     name: Build and analyze
@@ -26,9 +27,4 @@ jobs:
       - name: Build, Test and Analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./mvnw -B clean test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.projectKey=AxxlLN_CryptoExchange \
-            -Dsonar.organization=axxlln \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.cache.enabled=false
+        run: ./mvnw -B clean test jacoco:report org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
