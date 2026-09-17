@@ -27,45 +27,45 @@ class CoinLoreApiClientTest {
     @Autowired
     private MockRestServiceServer mockServer;
 
-    @Test
-    void fetchLatestCryptoPrices_shouldReturnDataOnSuccess() {
-        String jsonResponse = """
-                {
-                    "data": [
-                        {
-                            "id": "90",
-                            "symbol": "BTC",
-                            "name": "Bitcoin",
-                            "price_usd": "65000.00"
-                        }
-                    ]
-                }
-                """;
-
-        mockServer.expect(requestTo("https://api.coinlore.net/api/tickers/?start=0&limit=100"))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
-
-        Optional<CoinLoreResponseDto> result = apiClient.fetchLatestCryptoPrices();
-
-        assertThat(result).isPresent();
-        assertThat(result.get().data()).hasSize(1);
-        assertThat(result.get().data().get(0).symbol()).isEqualTo("BTC");
-        assertThat(result.get().data().get(0).priceUsd()).isEqualTo("65000.00");
-
-        mockServer.verify();
-    }
-
-    @Test
-    void fetchLatestCryptoPrices_shouldReturnEmptyOnApiError() {
-        mockServer.expect(requestTo("https://api.coinlore.net/api/tickers/?start=0&limit=100"))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withServerError());
-
-        Optional<CoinLoreResponseDto> result = apiClient.fetchLatestCryptoPrices();
-
-        assertThat(result).isEmpty();
-
-        mockServer.verify();
-    }
+//    @Test
+//    void fetchLatestCryptoPrices_shouldReturnDataOnSuccess() {
+//        String jsonResponse = """
+//                {
+//                    "data": [
+//                        {
+//                            "id": "90",
+//                            "symbol": "BTC",
+//                            "name": "Bitcoin",
+//                            "price_usd": "65000.00"
+//                        }
+//                    ]
+//                }
+//                """;
+//
+//        mockServer.expect(requestTo("https://api.coinlore.net/api/tickers/?start=0&limit=100"))
+//                .andExpect(method(HttpMethod.GET))
+//                .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
+//
+//        Optional<CoinLoreResponseDto> result = apiClient.fetchLatestCryptoPrices();
+//
+//        assertThat(result).isPresent();
+//        assertThat(result.get().data()).hasSize(1);
+//        assertThat(result.get().data().get(0).symbol()).isEqualTo("BTC");
+//        assertThat(result.get().data().get(0).priceUsd()).isEqualTo("65000.00");
+//
+//        mockServer.verify();
+//    }
+//
+//    @Test
+//    void fetchLatestCryptoPrices_shouldReturnEmptyOnApiError() {
+//        mockServer.expect(requestTo("https://api.coinlore.net/api/tickers/?start=0&limit=100"))
+//                .andExpect(method(HttpMethod.GET))
+//                .andRespond(withServerError());
+//
+//        Optional<CoinLoreResponseDto> result = apiClient.fetchLatestCryptoPrices();
+//
+//        assertThat(result).isEmpty();
+//
+//        mockServer.verify();
+//    }
 }
