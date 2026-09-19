@@ -45,7 +45,7 @@ class UserTest {
 
     @Test
     @DisplayName("onCreate не должен перезаписывать уже существующую роль")
-    void onCreate_ShouldPreserveExistingRoleWhenRoleIsAlreadySet() {
+    void onCreateShouldPreserveExistingRoleWhenRoleIsAlreadySet() {
         User user = User.builder()
                 .role(Role.ROLE_ADMIN)
                 .build();
