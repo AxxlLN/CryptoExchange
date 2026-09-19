@@ -16,6 +16,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @RestControllerAdvice
 @Slf4j
@@ -26,7 +28,7 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleNotFoundException(Exception ex) {
         log.warn("Resource not found: {}", ex.getMessage());
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.NOT_FOUND.value(),
                 "Not Found",
                 ex.getMessage()
@@ -45,7 +47,7 @@ public class GlobalExceptionHandler {
 
         log.warn("Validation failed: {}", errorMessage);
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.BAD_REQUEST.value(),
                 "Bad Request",
                 errorMessage.toString().trim()
@@ -62,7 +64,7 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleBadRequestException(Exception ex) {
         log.warn("Bad Request: {}", ex.getMessage());
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.BAD_REQUEST.value(),
                 "Bad Request",
                 ex.getMessage()
@@ -74,7 +76,7 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleBadCredentials(BadCredentialsException ex) {
         log.warn("Authentication failed: {}", ex.getMessage());
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.UNAUTHORIZED.value(),
                 "Unauthorized",
                 "Неверное имя пользователя или пароль"
@@ -86,7 +88,7 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleAuthenticationException(AuthenticationException ex) {
         log.warn("Authentication failed: {}", ex.getMessage());
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.UNAUTHORIZED.value(),
                 "Unauthorized",
                 "Неверные учетные данные или невалидный токен"
@@ -98,7 +100,7 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
         log.warn("User conflict: {}", ex.getMessage());
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.CONFLICT.value(),
                 "Conflict",
                 ex.getMessage()
@@ -110,7 +112,7 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleAccessDeniedException(AccessDeniedException ex) {
         log.warn("Access denied: {}", ex.getMessage());
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.FORBIDDEN.value(),
                 "Forbidden",
                 "Недостаточно прав для выполнения операции"
@@ -121,7 +123,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ErrorResponse handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex) {
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.METHOD_NOT_ALLOWED.value(),
                 "Method Not Allowed",
                 ex.getMessage()
@@ -133,7 +135,7 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleInternalServerError(Exception ex) {
         log.error("Unhandled Internal Server Error", ex);
         return new ErrorResponse(
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Internal Server Error",
                 "Произошла внутренняя ошибка сервера"

@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
@@ -47,7 +48,7 @@ class UserControllerIntegrationTest {
         );
 
         UserResponseDto responseDto = new UserResponseDto(
-                userId, "myuser", "my@mail.com", Role.ROLE_USER, OffsetDateTime.now()
+                userId, "myuser", "my@mail.com", Role.ROLE_USER, OffsetDateTime.now(ZoneOffset.UTC)
         );
 
         given(userService.getUserProfile(userId)).willReturn(responseDto);

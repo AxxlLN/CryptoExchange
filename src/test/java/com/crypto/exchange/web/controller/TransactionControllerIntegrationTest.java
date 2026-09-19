@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -64,7 +65,7 @@ class TransactionControllerIntegrationTest {
                 100L, 10L, 20L, "BTC", "ETH",
                 new BigDecimal("1.5"), new BigDecimal("25.0"),
                 null, TransactionResponseDto.TransactionDirection.OUTGOING,
-                OffsetDateTime.now()
+                OffsetDateTime.now(ZoneOffset.UTC)
         );
 
         Page<TransactionResponseDto> transactionPage = new PageImpl<>(List.of(dto));

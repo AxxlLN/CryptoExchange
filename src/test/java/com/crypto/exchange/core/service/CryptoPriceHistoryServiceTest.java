@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,7 +51,7 @@ class CryptoPriceHistoryServiceTest {
         CryptoPriceHistory historyEntity = new CryptoPriceHistory();
         historyEntity.setId(100L);
         historyEntity.setPriceUsd(new BigDecimal("65000.0000"));
-        historyEntity.setRecordedAt(OffsetDateTime.now());
+        historyEntity.setRecordedAt(OffsetDateTime.now(ZoneOffset.UTC));
 
         Page<CryptoPriceHistory> historyPage = new PageImpl<>(List.of(historyEntity), pageable, 1);
         when(priceHistoryRepository.findAllByCryptoCurrencyId(eq(cryptoId), eq(pageable))).thenReturn(historyPage);

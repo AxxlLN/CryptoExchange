@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -46,7 +47,7 @@ class CryptoCurrencyControllerIntegrationTest {
     @Test
     void getAllCryptos_shouldReturnList_whenCryptosExist() throws Exception {
         CryptoCurrencyResponseDto dto = new CryptoCurrencyResponseDto(
-                1L, "BTC", "Bitcoin", new BigDecimal("65000.00"), OffsetDateTime.now()
+                1L, "BTC", "Bitcoin", new BigDecimal("65000.00"), OffsetDateTime.now(ZoneOffset.UTC)
         );
 
         given(cryptoService.getAllCryptocurrencies()).willReturn(List.of(dto));
@@ -63,7 +64,7 @@ class CryptoCurrencyControllerIntegrationTest {
     void getCryptoById_shouldReturnCrypto_whenIdExists() throws Exception {
         Long cryptoId = 1L;
         CryptoCurrencyResponseDto dto = new CryptoCurrencyResponseDto(
-                cryptoId, "ETH", "Ethereum", new BigDecimal("3500.50"), OffsetDateTime.now()
+                cryptoId, "ETH", "Ethereum", new BigDecimal("3500.50"), OffsetDateTime.now(ZoneOffset.UTC)
         );
 
         given(cryptoService.getCryptoById(cryptoId)).willReturn(dto);
@@ -79,7 +80,7 @@ class CryptoCurrencyControllerIntegrationTest {
     void getPriceHistory_shouldReturnPageOfHistory_whenValidIdProvided() throws Exception {
         Long cryptoId = 1L;
         CryptoPriceHistoryDto historyDto = new CryptoPriceHistoryDto(
-                new BigDecimal("3450.00"), OffsetDateTime.now()
+                new BigDecimal("3450.00"), OffsetDateTime.now(ZoneOffset.UTC)
         );
 
         Page<CryptoPriceHistoryDto> historyPage = new PageImpl<>(List.of(historyDto));

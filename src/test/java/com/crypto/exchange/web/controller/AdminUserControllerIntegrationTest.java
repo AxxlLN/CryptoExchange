@@ -14,6 +14,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -50,10 +51,10 @@ class AdminUserControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN") // Соответствует ROLE_ADMIN
+    @WithMockUser(roles = "ADMIN")
     void getAllUsers_shouldReturnOk_whenUserIsAdmin() throws Exception {
         UserResponseDto dto = new UserResponseDto(
-                1L, "testuser", "test@mail.com", Role.ROLE_ADMIN, OffsetDateTime.now()
+                1L, "testuser", "test@mail.com", Role.ROLE_ADMIN, OffsetDateTime.now(ZoneOffset.UTC)
         );
         given(userService.getAllUsers()).willReturn(List.of(dto));
 
@@ -67,7 +68,7 @@ class AdminUserControllerIntegrationTest {
     void getUserById_shouldReturnOk_whenUserIsAdmin() throws Exception {
         Long userId = 1L;
         UserResponseDto dto = new UserResponseDto(
-                userId, "testuser", "test@mail.com", Role.ROLE_ADMIN, OffsetDateTime.now()
+                userId, "testuser", "test@mail.com", Role.ROLE_ADMIN, OffsetDateTime.now(ZoneOffset.UTC)
         );
         given(userService.getUserById(userId)).willReturn(dto);
 

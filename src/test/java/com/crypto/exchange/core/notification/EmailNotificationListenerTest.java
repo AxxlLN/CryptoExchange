@@ -15,6 +15,7 @@ import org.thymeleaf.context.Context;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -47,7 +48,7 @@ class EmailNotificationListenerTest {
                 new BigDecimal("65000.00"),
                 TransactionType.EXCHANGE,
                 TransactionResponseDto.TransactionDirection.OUTGOING,
-                OffsetDateTime.now()
+                OffsetDateTime.now(ZoneOffset.UTC)
         );
         TransactionCompletedEvent event = new TransactionCompletedEvent("test@example.com", txDto);
 
@@ -73,7 +74,7 @@ class EmailNotificationListenerTest {
                 new BigDecimal("65000.00"),
                 TransactionType.EXCHANGE,
                 TransactionResponseDto.TransactionDirection.OUTGOING,
-                OffsetDateTime.now()
+                OffsetDateTime.now(ZoneOffset.UTC)
         );
         TransactionCompletedEvent eventWithNullEmail = new TransactionCompletedEvent(null, txDto);
         TransactionCompletedEvent eventWithBlankEmail = new TransactionCompletedEvent("   ", txDto);
@@ -97,7 +98,7 @@ class EmailNotificationListenerTest {
                 new BigDecimal("65000.00"),
                 TransactionType.EXCHANGE,
                 TransactionResponseDto.TransactionDirection.OUTGOING,
-                OffsetDateTime.now()
+                OffsetDateTime.now(ZoneOffset.UTC)
         );
         TransactionCompletedEvent event = new TransactionCompletedEvent("test@example.com", txDto);
 

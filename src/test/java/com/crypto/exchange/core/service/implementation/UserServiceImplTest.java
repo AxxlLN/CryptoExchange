@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,7 @@ class UserServiceImplTest {
                 .username("john_doe")
                 .email("john@example.com")
                 .role(Role.ROLE_USER)
-                .createdAt(OffsetDateTime.now())
+                .createdAt(OffsetDateTime.now(ZoneOffset.UTC))
                 .build();
 
         expectedDto = new UserResponseDto(

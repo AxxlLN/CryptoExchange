@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +29,7 @@ class UserMapperTest {
                 .username("john_doe")
                 .email("john@example.com")
                 .role(Role.ROLE_USER)
-                .createdAt(OffsetDateTime.now())
+                .createdAt(OffsetDateTime.now(ZoneOffset.UTC))
                 .build();
 
         registerRequest = new RegisterRequest(

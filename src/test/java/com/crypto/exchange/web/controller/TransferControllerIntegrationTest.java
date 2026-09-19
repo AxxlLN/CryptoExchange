@@ -18,7 +18,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -67,7 +68,7 @@ class TransferControllerIntegrationTest {
                 "0x123456789abcdef",
                 "BTC",
                 new BigDecimal("0.5"),
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 "SUCCESS"
         );
 

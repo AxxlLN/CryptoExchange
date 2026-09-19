@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "crypto_price_history")
@@ -31,6 +32,6 @@ public class CryptoPriceHistory {
 
     @PrePersist
     public void onCreate() {
-        this.recordedAt = OffsetDateTime.now();
+        this.recordedAt = OffsetDateTime.now(ZoneOffset.UTC);
     }
 }

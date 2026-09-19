@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @Service
 @RequiredArgsConstructor
@@ -106,7 +108,7 @@ public class TransferServiceImpl implements TransferService {
                 recipientWallet.getAddress(),
                 crypto.getSymbol(),
                 request.amount(),
-                LocalDateTime.now(),
+                OffsetDateTime.now(ZoneOffset.UTC),
                 "SUCCESS"
         );
     }

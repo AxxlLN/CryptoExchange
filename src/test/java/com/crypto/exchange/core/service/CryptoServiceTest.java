@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ class CryptoServiceTest {
                 .symbol("BTC")
                 .name("Bitcoin")
                 .priceUsd(new BigDecimal("65000.0000"))
-                .updatedAt(OffsetDateTime.now())
+                .updatedAt(OffsetDateTime.now(ZoneOffset.UTC))
                 .build();
 
         when(cryptoRepository.findAll()).thenReturn(List.of(crypto));
@@ -67,7 +68,7 @@ class CryptoServiceTest {
                 .symbol("ETH")
                 .name("Ethereum")
                 .priceUsd(new BigDecimal("3000.0000"))
-                .updatedAt(OffsetDateTime.now())
+                .updatedAt(OffsetDateTime.now(ZoneOffset.UTC))
                 .build();
 
         when(cryptoRepository.findById(cryptoId)).thenReturn(Optional.of(crypto));

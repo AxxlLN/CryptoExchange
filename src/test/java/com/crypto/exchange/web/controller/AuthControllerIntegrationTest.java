@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -46,7 +47,7 @@ class AuthControllerIntegrationTest {
         RegisterRequest request = new RegisterRequest("newuser", "user@mail.com", "securePassword123");
 
         UserResponseDto userDto = new UserResponseDto(
-                1L, "newuser", "user@mail.com", Role.ROLE_USER, OffsetDateTime.now()
+                1L, "newuser", "user@mail.com", Role.ROLE_USER, OffsetDateTime.now(ZoneOffset.UTC)
         );
         AuthResponseDto responseDto = new AuthResponseDto("jwt-token-string", userDto);
 
@@ -76,7 +77,7 @@ class AuthControllerIntegrationTest {
         LoginRequest request = new LoginRequest("newuser", "securePassword123");
 
         UserResponseDto userDto = new UserResponseDto(
-                1L, "newuser", "user@mail.com", Role.ROLE_USER, OffsetDateTime.now()
+                1L, "newuser", "user@mail.com", Role.ROLE_USER, OffsetDateTime.now(ZoneOffset.UTC)
         );
         AuthResponseDto responseDto = new AuthResponseDto("jwt-token-string", userDto);
 

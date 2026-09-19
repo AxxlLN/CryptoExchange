@@ -12,6 +12,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +26,7 @@ class CryptoMapperTest {
 
     @BeforeEach
     void setUp() {
-        now = OffsetDateTime.now();
+        now = OffsetDateTime.now(ZoneOffset.UTC);
 
         cryptoCurrency = CryptoCurrency.builder()
                 .id(1L)

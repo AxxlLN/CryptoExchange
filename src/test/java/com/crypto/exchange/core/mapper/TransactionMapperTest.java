@@ -14,6 +14,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +40,7 @@ class TransactionMapperTest {
         walletUser2 = Wallet.builder().id(20L).user(user2).build();
 
         btcCrypto = CryptoCurrency.builder().id(100L).symbol("BTC").build();
-        now = OffsetDateTime.now();
+        now = OffsetDateTime.now(ZoneOffset.UTC);
     }
 
     @Nested
