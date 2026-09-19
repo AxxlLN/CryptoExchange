@@ -20,13 +20,13 @@ class WalletMapperTest {
 
     private final WalletMapper walletMapper = Mappers.getMapper(WalletMapper.class);
 
-    private CryptoCurrency btcCurrency;
     private WalletBalance btcBalance;
+
     private Wallet wallet;
 
     @BeforeEach
     void setUp() {
-        btcCurrency = CryptoCurrency.builder()
+        CryptoCurrency btcCurrency = CryptoCurrency.builder()
                 .id(100L)
                 .externalId("bitcoin")
                 .symbol("BTC")

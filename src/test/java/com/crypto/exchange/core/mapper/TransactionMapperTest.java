@@ -22,18 +22,20 @@ class TransactionMapperTest {
 
     private final TransactionMapper transactionMapper = Mappers.getMapper(TransactionMapper.class);
 
-    private User user1;
-    private User user2;
     private Wallet walletUser1;
+
     private Wallet walletUser1Second;
+
     private Wallet walletUser2;
+
     private CryptoCurrency btcCrypto;
+
     private OffsetDateTime now;
 
     @BeforeEach
     void setUp() {
-        user1 = User.builder().id(1L).build();
-        user2 = User.builder().id(2L).build();
+        User user1 = User.builder().id(1L).build();
+        User user2 = User.builder().id(2L).build();
 
         walletUser1 = Wallet.builder().id(10L).user(user1).build();
         walletUser1Second = Wallet.builder().id(11L).user(user1).build();

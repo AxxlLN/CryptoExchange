@@ -61,21 +61,22 @@ class TransferServiceImplTest {
     @InjectMocks
     private TransferServiceImpl transferService;
 
-    private User senderUser;
-    private User recipientUser;
     private Wallet senderWallet;
+
     private Wallet recipientWallet;
+
     private CryptoCurrency btcCrypto;
+
     private TransferRequestDto transferRequestDto;
 
     @BeforeEach
     void setUp() {
-        senderUser = User.builder()
+        User senderUser = User.builder()
                 .id(1L)
                 .email("sender@example.com")
                 .build();
 
-        recipientUser = User.builder()
+        User recipientUser = User.builder()
                 .id(2L)
                 .email("recipient@example.com")
                 .build();

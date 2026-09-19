@@ -42,7 +42,7 @@ class CryptoPriceHistoryServiceTest {
     private CryptoPriceHistoryService cryptoPriceHistoryService;
 
     @Test
-    void getPriceHistory_shouldReturnPageOfDtosWhenCryptoExists() {
+    void getPriceHistoryShouldReturnPageOfDtosWhenCryptoExists() {
         Long cryptoId = 1L;
         Pageable pageable = PageRequest.of(0, 10);
 
