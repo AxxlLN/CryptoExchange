@@ -36,7 +36,7 @@ class LoggingAspectTest {
 
     @Test
     @DisplayName("Should successfully log method execution and return result")
-    void logExecutionDetails_Success() throws Throwable {
+    void logExecutionDetailsSuccess() throws Throwable {
         when(joinPoint.proceed()).thenReturn("successResult");
 
         Object result = loggingAspect.logExecutionDetails(joinPoint);
@@ -47,7 +47,7 @@ class LoggingAspectTest {
 
     @Test
     @DisplayName("Should rethrow IllegalArgumentException when target method throws it")
-    void logExecutionDetails_IllegalArgumentException() throws Throwable {
+    void logExecutionDetailsIllegalArgumentException() throws Throwable {
         when(joinPoint.proceed()).thenThrow(new IllegalArgumentException("Invalid arg"));
 
         assertThatThrownBy(() -> loggingAspect.logExecutionDetails(joinPoint))
@@ -57,7 +57,7 @@ class LoggingAspectTest {
 
     @Test
     @DisplayName("Should rethrow generic Throwable when target method fails")
-    void logExecutionDetails_GenericException() throws Throwable {
+    void logExecutionDetailsGenericException() throws Throwable {
         when(joinPoint.proceed()).thenThrow(new RuntimeException("Database error"));
 
         assertThatThrownBy(() -> loggingAspect.logExecutionDetails(joinPoint))
