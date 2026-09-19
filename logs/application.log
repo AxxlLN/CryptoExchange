@@ -4199,3 +4199,987 @@ java.lang.RuntimeException: SMTP server error
 2026-09-19 18:31:55.418 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-09-19 18:31:55.420 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
 2026-09-19 18:31:55.421 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-09-19 19:47:36.396 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Starting TransactionControllerIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:36.399 [main] DEBUG c.c.e.w.c.TransactionControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:36.400 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:39.618 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4d019b91, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1648e988, org.springframework.security.web.context.SecurityContextHolderFilter@62c2f554, org.springframework.security.web.header.HeaderWriterFilter@3687a3d, org.springframework.web.filter.CorsFilter@32e57671, org.springframework.security.web.authentication.logout.LogoutFilter@546754ed, com.crypto.exchange.web.security.JwtAuthenticationFilter@758ceb39, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@73eb8ecd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4c7d18e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6c26ee04, org.springframework.security.web.session.SessionManagementFilter@54de742a, org.springframework.security.web.access.ExceptionTranslationFilter@7d1be48c, org.springframework.security.web.access.intercept.AuthorizationFilter@38dc79c0]
+2026-09-19 19:47:39.949 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:39.949 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:39.949 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:39.950 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:47:39.993 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Started TransactionControllerIntegrationTest in 4.185 seconds (process running for 8.708)
+2026-09-19 19:47:40.439 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.SecurityConfigIntegrationTest]: SecurityConfigIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:40.459 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.SecurityConfigIntegrationTest
+2026-09-19 19:47:40.467 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:40.508 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Starting SecurityConfigIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:40.508 [main] DEBUG c.c.e.w.s.SecurityConfigIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:40.508 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - The following 1 profile is active: "test"
+2026-09-19 19:47:41.199 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:47:41.269 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:47:41.561 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:47:41.602 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:47:42.044 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:47:42.182 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-09-19 19:47:42.246 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:47:42.409 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:47:42.474 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-09-19 19:47:43.060 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:47:43.063 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-09-19 19:47:43.123 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:47:44.861 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:47:44.973 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:47:45.581 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-19 19:47:46.941 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:47:47.077 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7603b456, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@41dfc619, org.springframework.security.web.context.SecurityContextHolderFilter@19b44e52, org.springframework.security.web.header.HeaderWriterFilter@766b9269, org.springframework.web.filter.CorsFilter@534649a1, org.springframework.security.web.authentication.logout.LogoutFilter@29d3c708, com.crypto.exchange.web.security.JwtAuthenticationFilter@3be2a7bf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@8099623, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@225ba591, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c52eb5c, org.springframework.security.web.session.SessionManagementFilter@718829b2, org.springframework.security.web.access.ExceptionTranslationFilter@1a9177b0, org.springframework.security.web.access.intercept.AuthorizationFilter@1227b396]
+2026-09-19 19:47:47.535 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:47.535 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:47.535 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:47.536 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:47:47.557 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Started SecurityConfigIntegrationTest in 7.09 seconds (process running for 16.272)
+2026-09-19 19:47:47.571 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:47:47.572 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:47:47.780 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:47:47.789 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:47:47.797 [main] WARN  c.c.e.c.s.CryptoInitializerService - No matching cryptocurrency symbols found in API response.
+2026-09-19 19:47:47.806 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:47:47.825 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.TransferControllerIntegrationTest]: TransferControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:47.838 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.TransferControllerIntegrationTest
+2026-09-19 19:47:47.845 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:47.868 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Starting TransferControllerIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:47.868 [main] DEBUG c.c.e.w.c.TransferControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:47.868 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:48.154 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6e0dc394, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@59c6ef2a, org.springframework.security.web.context.SecurityContextHolderFilter@58f9b183, org.springframework.security.web.header.HeaderWriterFilter@6729c3f5, org.springframework.web.filter.CorsFilter@6ff5cbb7, org.springframework.security.web.authentication.logout.LogoutFilter@1995dd32, com.crypto.exchange.web.security.JwtAuthenticationFilter@1cd28df7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d6d9d82, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4472cdb1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@617c12f3, org.springframework.security.web.session.SessionManagementFilter@1cda82b3, org.springframework.security.web.access.ExceptionTranslationFilter@1f954698, org.springframework.security.web.access.intercept.AuthorizationFilter@4ad88bf9]
+2026-09-19 19:47:48.257 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:48.258 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:48.258 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:48.259 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:47:48.272 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Started TransferControllerIntegrationTest in 0.428 seconds (process running for 16.988)
+2026-09-19 19:47:48.435 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: recipientAddress: Укажите адрес кошелька получателя; cryptoExternalId: Укажите external_id криптовалюты (например, bitcoin, ethereum); amount: Сумма должна быть больше 0; fromWalletId: Укажите ID кошелька списания; 
+2026-09-19 19:47:49.050 [main] INFO  c.c.e.c.n.EmailNotificationListener - Квитанция отправлена на test@example.com по транзакции #1
+2026-09-19 19:47:49.055 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:47:49.055 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:47:49.072 [main] ERROR c.c.e.c.n.EmailNotificationListener - Ошибка при отправке письма для транзакции #1
+java.lang.RuntimeException: SMTP server error
+	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101)
+	at com.crypto.exchange.core.notification.EmailNotificationListener.handleTransactionCompleted(EmailNotificationListener.java:44)
+	at com.crypto.exchange.core.notification.EmailNotificationListenerTest.handleTransactionCompletedShouldCatchExceptionAndNotThrow(EmailNotificationListenerTest.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:66)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:237)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
+2026-09-19 19:47:49.140 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest]: CryptoCurrencyControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:49.153 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest
+2026-09-19 19:47:49.159 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:49.181 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Starting CryptoCurrencyControllerIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:49.181 [main] DEBUG c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:49.182 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:49.558 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@d117345, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@fb1550f, org.springframework.security.web.context.SecurityContextHolderFilter@799f5107, org.springframework.security.web.header.HeaderWriterFilter@518608f5, org.springframework.web.filter.CorsFilter@23804d36, org.springframework.security.web.authentication.logout.LogoutFilter@4dc9ed6d, com.crypto.exchange.web.security.JwtAuthenticationFilter@5d448b79, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3980412e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58a0374b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4defffc1, org.springframework.security.web.session.SessionManagementFilter@1a819d4a, org.springframework.security.web.access.ExceptionTranslationFilter@285d004a, org.springframework.security.web.access.intercept.AuthorizationFilter@2fb83730]
+2026-09-19 19:47:49.642 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:49.642 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:49.642 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:49.643 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:47:49.656 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Started CryptoCurrencyControllerIntegrationTest in 0.498 seconds (process running for 18.372)
+2026-09-19 19:47:49.657 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:47:49.657 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 2085 ms with result = null
+2026-09-19 19:47:49.982 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.WalletControllerIntegrationTest]: WalletControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:49.989 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.WalletControllerIntegrationTest
+2026-09-19 19:47:49.994 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:50.012 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Starting WalletControllerIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:50.012 [main] DEBUG c.c.e.w.c.WalletControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:50.012 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:50.268 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1155f409, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1284866b, org.springframework.security.web.context.SecurityContextHolderFilter@48a50dcf, org.springframework.security.web.header.HeaderWriterFilter@292d7a76, org.springframework.web.filter.CorsFilter@5b6fc7bf, org.springframework.security.web.authentication.logout.LogoutFilter@c41e27a, com.crypto.exchange.web.security.JwtAuthenticationFilter@2cb054e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@706f698e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@32d3433f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@29d65f96, org.springframework.security.web.session.SessionManagementFilter@373d2b4b, org.springframework.security.web.access.ExceptionTranslationFilter@7a084f4a, org.springframework.security.web.access.intercept.AuthorizationFilter@2f0bb81c]
+2026-09-19 19:47:50.324 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:50.324 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:50.324 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:50.324 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:47:50.331 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Started WalletControllerIntegrationTest in 0.338 seconds (process running for 19.046)
+2026-09-19 19:47:50.529 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:47:50.529 [main] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.TestService.testMethod() executed in 0 ms with result = successResult
+2026-09-19 19:47:50.533 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:47:50.534 [main] ERROR c.c.e.core.aspect.LoggingAspect - Illegal argument: [arg1] in com.crypto.exchange.TestService.testMethod()
+2026-09-19 19:47:50.539 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:47:50.539 [main] ERROR c.c.e.core.aspect.LoggingAspect - Exception in com.crypto.exchange.TestService.testMethod() with cause = 'NULL' and exception = 'Database error'
+2026-09-19 19:47:50.542 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:50.546 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.UserControllerIntegrationTest
+2026-09-19 19:47:50.549 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:50.561 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Starting UserControllerIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:50.561 [main] DEBUG c.c.e.w.c.UserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:50.561 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:50.863 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2394d8bc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7172438b, org.springframework.security.web.context.SecurityContextHolderFilter@59153abb, org.springframework.security.web.header.HeaderWriterFilter@754015c9, org.springframework.web.filter.CorsFilter@7cc4818e, org.springframework.security.web.authentication.logout.LogoutFilter@286f5b6e, com.crypto.exchange.web.security.JwtAuthenticationFilter@213e80b2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@397206b1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4ce9a20b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3055af67, org.springframework.security.web.session.SessionManagementFilter@73bce3d1, org.springframework.security.web.access.ExceptionTranslationFilter@5b076008, org.springframework.security.web.access.intercept.AuthorizationFilter@79948d]
+2026-09-19 19:47:50.930 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:50.930 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:50.930 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:50.930 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:47:50.937 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Started UserControllerIntegrationTest in 0.389 seconds (process running for 19.652)
+2026-09-19 19:47:50.967 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.ExchangeApplicationTests]: ExchangeApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:50.972 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.ExchangeApplicationTests
+2026-09-19 19:47:50.975 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:50.989 [main] INFO  c.c.e.ExchangeApplicationTests - Starting ExchangeApplicationTests using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:50.990 [main] DEBUG c.c.e.ExchangeApplicationTests - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:50.991 [main] INFO  c.c.e.ExchangeApplicationTests - The following 1 profile is active: "test"
+2026-09-19 19:47:51.154 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:47:51.173 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:47:51.218 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:47:51.219 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:47:51.281 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:47:51.283 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:47:51.287 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:47:51.288 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-09-19 19:47:51.289 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:47:51.290 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-09-19 19:47:51.290 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:47:51.428 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:47:51.457 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:47:51.665 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:47:51.751 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@663a42c4, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3fa3ffd4, org.springframework.security.web.context.SecurityContextHolderFilter@1cdb0146, org.springframework.security.web.header.HeaderWriterFilter@30465386, org.springframework.web.filter.CorsFilter@5eff708c, org.springframework.security.web.authentication.logout.LogoutFilter@13c95136, com.crypto.exchange.web.security.JwtAuthenticationFilter@6801ce96, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@10fdb30d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@12a508f7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@477f7045, org.springframework.security.web.session.SessionManagementFilter@64d42d04, org.springframework.security.web.access.ExceptionTranslationFilter@2a34d3db, org.springframework.security.web.access.intercept.AuthorizationFilter@5409a214]
+2026-09-19 19:47:51.919 [main] INFO  c.c.e.ExchangeApplicationTests - Started ExchangeApplicationTests in 0.945 seconds (process running for 20.634)
+2026-09-19 19:47:51.919 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:47:51.919 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:47:51.937 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 999 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:47:51.942 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 1 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:47:51.946 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest]: AdminUserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:51.950 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest
+2026-09-19 19:47:51.951 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:51.964 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Starting AdminUserControllerIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:51.964 [main] DEBUG c.c.e.w.c.AdminUserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:51.964 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:52.165 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@760d5349, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@12ff11d7, org.springframework.security.web.context.SecurityContextHolderFilter@2b6c46b1, org.springframework.security.web.header.HeaderWriterFilter@405f4e64, org.springframework.web.filter.CorsFilter@2258a278, org.springframework.security.web.authentication.logout.LogoutFilter@57867205, com.crypto.exchange.web.security.JwtAuthenticationFilter@59e0d5de, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@fbc0e95, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@35aa4d68, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4353a9f1, org.springframework.security.web.session.SessionManagementFilter@505d25f, org.springframework.security.web.access.ExceptionTranslationFilter@7d3b39f0, org.springframework.security.web.access.intercept.AuthorizationFilter@5f07cdb7]
+2026-09-19 19:47:52.221 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:52.221 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:52.221 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:52.222 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:47:52.228 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Started AdminUserControllerIntegrationTest in 0.277 seconds (process running for 20.943)
+2026-09-19 19:47:52.279 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AuthControllerIntegrationTest]: AuthControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:52.282 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AuthControllerIntegrationTest
+2026-09-19 19:47:52.284 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:52.296 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Starting AuthControllerIntegrationTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:52.297 [main] DEBUG c.c.e.w.c.AuthControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:52.297 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:52.532 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:47:52.533 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 614 ms with result = null
+2026-09-19 19:47:52.636 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4475c22a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18197c47, org.springframework.security.web.context.SecurityContextHolderFilter@4a09f599, org.springframework.security.web.header.HeaderWriterFilter@3c9166, org.springframework.web.filter.CorsFilter@1b7e1fc4, org.springframework.security.web.authentication.logout.LogoutFilter@65c72ee5, com.crypto.exchange.web.security.JwtAuthenticationFilter@46e737dd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@43109a8b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2743942e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6ba723ab, org.springframework.security.web.session.SessionManagementFilter@da94952, org.springframework.security.web.access.ExceptionTranslationFilter@2765dea5, org.springframework.security.web.access.intercept.AuthorizationFilter@199d2696]
+2026-09-19 19:47:52.694 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:47:52.694 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:47:52.694 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:47:52.695 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:47:52.701 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Started AuthControllerIntegrationTest in 0.417 seconds (process running for 21.416)
+2026-09-19 19:47:52.734 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: email: Некорректный формат email; 
+2026-09-19 19:47:52.749 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: password: Пароль не может быть пустым; 
+2026-09-19 19:47:52.898 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.core.integration.client.CoinLoreApiClientTest]: CoinLoreApiClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:52.909 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.core.integration.client.CoinLoreApiClientTest
+2026-09-19 19:47:52.913 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:47:52.937 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Starting CoinLoreApiClientTest using Java 23.0.2 with PID 15312 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:47:52.937 [main] DEBUG c.c.e.c.i.c.CoinLoreApiClientTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:47:52.937 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:47:53.047 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Started CoinLoreApiClientTest in 0.135 seconds (process running for 21.762)
+2026-09-19 19:47:53.069 [main] ERROR c.c.e.i.client.CoinLoreApiClient - Crypto API Error: 500 Internal Server Error: [no body]
+2026-09-19 19:47:53.072 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest]: JwtTokenProviderIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:47:53.074 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest
+2026-09-19 19:47:53.317 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:47:53.330 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-09-19 19:47:53.332 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-09-19 19:47:53.340 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:47:53.341 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-09-19 19:47:53.343 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-09-19 19:50:28.870 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Starting TransactionControllerIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:28.871 [main] DEBUG c.c.e.w.c.TransactionControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:28.872 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:32.072 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@31b1bd96, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e95c8fc, org.springframework.security.web.context.SecurityContextHolderFilter@3b722d9b, org.springframework.security.web.header.HeaderWriterFilter@5a0ffa11, org.springframework.web.filter.CorsFilter@6c6fa59c, org.springframework.security.web.authentication.logout.LogoutFilter@6d8c15f0, com.crypto.exchange.web.security.JwtAuthenticationFilter@646fd50b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6fa01780, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1c8e79e7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16e404ad, org.springframework.security.web.session.SessionManagementFilter@63a68b94, org.springframework.security.web.access.ExceptionTranslationFilter@3a702263, org.springframework.security.web.access.intercept.AuthorizationFilter@5dce48b4]
+2026-09-19 19:50:32.379 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:32.379 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:32.379 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:32.380 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:50:32.429 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Started TransactionControllerIntegrationTest in 4.179 seconds (process running for 8.591)
+2026-09-19 19:50:32.805 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.SecurityConfigIntegrationTest]: SecurityConfigIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:32.825 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.SecurityConfigIntegrationTest
+2026-09-19 19:50:32.834 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:32.868 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Starting SecurityConfigIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:32.868 [main] DEBUG c.c.e.w.s.SecurityConfigIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:32.868 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - The following 1 profile is active: "test"
+2026-09-19 19:50:33.474 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:50:33.539 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:50:33.784 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:50:33.814 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:50:34.196 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:50:34.302 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-09-19 19:50:34.365 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:50:34.511 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:50:34.555 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-09-19 19:50:35.043 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:50:35.047 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-09-19 19:50:35.088 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:50:36.578 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:50:36.690 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:50:37.225 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-19 19:50:38.391 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:50:38.519 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@757e564d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@404da000, org.springframework.security.web.context.SecurityContextHolderFilter@3aaf1216, org.springframework.security.web.header.HeaderWriterFilter@6226087a, org.springframework.web.filter.CorsFilter@e27d0d5, org.springframework.security.web.authentication.logout.LogoutFilter@1768e0c, com.crypto.exchange.web.security.JwtAuthenticationFilter@61beae3a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7357551f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21e0e6d7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62135cc5, org.springframework.security.web.session.SessionManagementFilter@390b7042, org.springframework.security.web.access.ExceptionTranslationFilter@d78893d, org.springframework.security.web.access.intercept.AuthorizationFilter@6e304d11]
+2026-09-19 19:50:38.917 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:38.917 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:38.917 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:38.917 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:50:38.934 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Started SecurityConfigIntegrationTest in 6.101 seconds (process running for 15.096)
+2026-09-19 19:50:38.952 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:50:38.953 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:50:39.161 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:50:39.169 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:50:39.173 [main] WARN  c.c.e.c.s.CryptoInitializerService - No matching cryptocurrency symbols found in API response.
+2026-09-19 19:50:39.178 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:50:39.185 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.TransferControllerIntegrationTest]: TransferControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:39.192 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.TransferControllerIntegrationTest
+2026-09-19 19:50:39.196 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:39.223 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Starting TransferControllerIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:39.223 [main] DEBUG c.c.e.w.c.TransferControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:39.223 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:39.587 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1cd28df7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2c0323e6, org.springframework.security.web.context.SecurityContextHolderFilter@6dbae5db, org.springframework.security.web.header.HeaderWriterFilter@493ecdd, org.springframework.web.filter.CorsFilter@76c63b22, org.springframework.security.web.authentication.logout.LogoutFilter@fc7e4d7, com.crypto.exchange.web.security.JwtAuthenticationFilter@59db9538, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@53f9f56c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@48171eca, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5100d34e, org.springframework.security.web.session.SessionManagementFilter@5bf079b, org.springframework.security.web.access.ExceptionTranslationFilter@69fae0e0, org.springframework.security.web.access.intercept.AuthorizationFilter@63188f23]
+2026-09-19 19:50:39.646 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:39.646 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:39.646 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:39.646 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:50:39.652 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Started TransferControllerIntegrationTest in 0.457 seconds (process running for 15.814)
+2026-09-19 19:50:39.741 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: fromWalletId: Укажите ID кошелька списания; cryptoExternalId: Укажите external_id криптовалюты (например, bitcoin, ethereum); amount: Сумма должна быть больше 0; recipientAddress: Укажите адрес кошелька получателя; 
+2026-09-19 19:50:40.371 [main] INFO  c.c.e.c.n.EmailNotificationListener - Квитанция отправлена на test@example.com по транзакции #1
+2026-09-19 19:50:40.374 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:50:40.375 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:50:40.391 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:50:40.392 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 1439 ms with result = null
+2026-09-19 19:50:40.392 [main] ERROR c.c.e.c.n.EmailNotificationListener - Ошибка при отправке письма для транзакции #1
+java.lang.RuntimeException: SMTP server error
+	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101)
+	at com.crypto.exchange.core.notification.EmailNotificationListener.handleTransactionCompleted(EmailNotificationListener.java:44)
+	at com.crypto.exchange.core.notification.EmailNotificationListenerTest.handleTransactionCompletedShouldCatchExceptionAndNotThrow(EmailNotificationListenerTest.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:66)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:237)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
+2026-09-19 19:50:40.451 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest]: CryptoCurrencyControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:40.457 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest
+2026-09-19 19:50:40.460 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:40.475 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Starting CryptoCurrencyControllerIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:40.475 [main] DEBUG c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:40.475 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:40.806 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@101c6003, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@25ce502, org.springframework.security.web.context.SecurityContextHolderFilter@2abb5f03, org.springframework.security.web.header.HeaderWriterFilter@5340adf5, org.springframework.web.filter.CorsFilter@13decc71, org.springframework.security.web.authentication.logout.LogoutFilter@75bcfdc7, com.crypto.exchange.web.security.JwtAuthenticationFilter@415275d5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2d9e171d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7be7385e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7f02dcb4, org.springframework.security.web.session.SessionManagementFilter@5ad48858, org.springframework.security.web.access.ExceptionTranslationFilter@7ddf4fb6, org.springframework.security.web.access.intercept.AuthorizationFilter@6a20d20c]
+2026-09-19 19:50:40.861 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:40.861 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:40.861 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:40.862 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:50:40.868 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Started CryptoCurrencyControllerIntegrationTest in 0.408 seconds (process running for 17.031)
+2026-09-19 19:50:41.140 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.WalletControllerIntegrationTest]: WalletControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:41.144 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.WalletControllerIntegrationTest
+2026-09-19 19:50:41.146 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:41.161 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Starting WalletControllerIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:41.162 [main] DEBUG c.c.e.w.c.WalletControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:41.162 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:41.409 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@41c74b1f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c2205e, org.springframework.security.web.context.SecurityContextHolderFilter@250679de, org.springframework.security.web.header.HeaderWriterFilter@262097d0, org.springframework.web.filter.CorsFilter@1b163800, org.springframework.security.web.authentication.logout.LogoutFilter@24cc61d8, com.crypto.exchange.web.security.JwtAuthenticationFilter@7800ac53, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@38a75dc3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a9bd310, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@78df8cab, org.springframework.security.web.session.SessionManagementFilter@54df8fd9, org.springframework.security.web.access.ExceptionTranslationFilter@511984b1, org.springframework.security.web.access.intercept.AuthorizationFilter@62c03d54]
+2026-09-19 19:50:41.463 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:41.463 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:41.464 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:41.464 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:50:41.471 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Started WalletControllerIntegrationTest in 0.325 seconds (process running for 17.633)
+2026-09-19 19:50:41.664 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:50:41.664 [main] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.TestService.testMethod() executed in 0 ms with result = successResult
+2026-09-19 19:50:41.668 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:50:41.668 [main] ERROR c.c.e.core.aspect.LoggingAspect - Illegal argument: [arg1] in com.crypto.exchange.TestService.testMethod()
+2026-09-19 19:50:41.670 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:50:41.671 [main] ERROR c.c.e.core.aspect.LoggingAspect - Exception in com.crypto.exchange.TestService.testMethod() with cause = 'NULL' and exception = 'Database error'
+2026-09-19 19:50:41.673 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:41.676 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.UserControllerIntegrationTest
+2026-09-19 19:50:41.678 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:41.689 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Starting UserControllerIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:41.690 [main] DEBUG c.c.e.w.c.UserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:41.690 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:42.055 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@168c820a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@546921ad, org.springframework.security.web.context.SecurityContextHolderFilter@4c0e1ff1, org.springframework.security.web.header.HeaderWriterFilter@7fc0abb9, org.springframework.web.filter.CorsFilter@44547273, org.springframework.security.web.authentication.logout.LogoutFilter@469096e0, com.crypto.exchange.web.security.JwtAuthenticationFilter@a01113b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ef9422f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@49ea32a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16897bc0, org.springframework.security.web.session.SessionManagementFilter@74715995, org.springframework.security.web.access.ExceptionTranslationFilter@694b71de, org.springframework.security.web.access.intercept.AuthorizationFilter@33a36b7]
+2026-09-19 19:50:42.110 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:42.110 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:42.110 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:42.110 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:50:42.118 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Started UserControllerIntegrationTest in 0.44 seconds (process running for 18.28)
+2026-09-19 19:50:42.146 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.ExchangeApplicationTests]: ExchangeApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:42.150 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.ExchangeApplicationTests
+2026-09-19 19:50:42.153 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:42.170 [main] INFO  c.c.e.ExchangeApplicationTests - Starting ExchangeApplicationTests using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:42.170 [main] DEBUG c.c.e.ExchangeApplicationTests - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:42.170 [main] INFO  c.c.e.ExchangeApplicationTests - The following 1 profile is active: "test"
+2026-09-19 19:50:42.324 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:50:42.340 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:50:42.387 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:50:42.388 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:50:42.428 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:50:42.430 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:50:42.433 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:50:42.434 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-09-19 19:50:42.435 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:50:42.435 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-09-19 19:50:42.435 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:50:42.530 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:50:42.557 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:50:42.772 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:50:42.859 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5d92aa8a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3960c576, org.springframework.security.web.context.SecurityContextHolderFilter@3862158f, org.springframework.security.web.header.HeaderWriterFilter@1a94a0eb, org.springframework.web.filter.CorsFilter@f598422, org.springframework.security.web.authentication.logout.LogoutFilter@788382ac, com.crypto.exchange.web.security.JwtAuthenticationFilter@40eaff7d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f506538, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@407c11c1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@e5f6052, org.springframework.security.web.session.SessionManagementFilter@341483b7, org.springframework.security.web.access.ExceptionTranslationFilter@65a44a39, org.springframework.security.web.access.intercept.AuthorizationFilter@24d4ba69]
+2026-09-19 19:50:43.006 [main] INFO  c.c.e.ExchangeApplicationTests - Started ExchangeApplicationTests in 0.853 seconds (process running for 19.168)
+2026-09-19 19:50:43.006 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:50:43.006 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:50:43.025 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 999 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:50:43.029 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 1 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:50:43.035 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest]: AdminUserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:43.039 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest
+2026-09-19 19:50:43.042 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:43.055 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Starting AdminUserControllerIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:43.055 [main] DEBUG c.c.e.w.c.AdminUserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:43.055 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:43.103 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:50:43.103 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 97 ms with result = null
+2026-09-19 19:50:43.257 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@758dcf0c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@16515a41, org.springframework.security.web.context.SecurityContextHolderFilter@4639dfe5, org.springframework.security.web.header.HeaderWriterFilter@10e77aa8, org.springframework.web.filter.CorsFilter@5dc68beb, org.springframework.security.web.authentication.logout.LogoutFilter@c9df448, com.crypto.exchange.web.security.JwtAuthenticationFilter@5973c50b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49822490, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@629b3532, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6147f7ed, org.springframework.security.web.session.SessionManagementFilter@c7d4a73, org.springframework.security.web.access.ExceptionTranslationFilter@744f6f75, org.springframework.security.web.access.intercept.AuthorizationFilter@6fea7ae4]
+2026-09-19 19:50:43.302 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:43.302 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:43.302 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:43.303 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:50:43.310 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Started AdminUserControllerIntegrationTest in 0.269 seconds (process running for 19.472)
+2026-09-19 19:50:43.357 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AuthControllerIntegrationTest]: AuthControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:43.360 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AuthControllerIntegrationTest
+2026-09-19 19:50:43.362 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:43.375 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Starting AuthControllerIntegrationTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:43.376 [main] DEBUG c.c.e.w.c.AuthControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:43.376 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:43.576 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6e51fd99, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5409a214, org.springframework.security.web.context.SecurityContextHolderFilter@30465386, org.springframework.security.web.header.HeaderWriterFilter@258bbf9f, org.springframework.web.filter.CorsFilter@663a42c4, org.springframework.security.web.authentication.logout.LogoutFilter@12a508f7, com.crypto.exchange.web.security.JwtAuthenticationFilter@70bbf43f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64d42d04, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1cdb0146, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3fa3ffd4, org.springframework.security.web.session.SessionManagementFilter@2a34d3db, org.springframework.security.web.access.ExceptionTranslationFilter@68b78e24, org.springframework.security.web.access.intercept.AuthorizationFilter@13c95136]
+2026-09-19 19:50:43.623 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:50:43.623 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:50:43.623 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:50:43.625 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:50:43.633 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Started AuthControllerIntegrationTest in 0.271 seconds (process running for 19.795)
+2026-09-19 19:50:43.678 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: email: Некорректный формат email; 
+2026-09-19 19:50:43.697 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: password: Пароль не может быть пустым; 
+2026-09-19 19:50:43.841 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.core.integration.client.CoinLoreApiClientTest]: CoinLoreApiClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:43.850 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.core.integration.client.CoinLoreApiClientTest
+2026-09-19 19:50:43.852 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:50:43.866 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Starting CoinLoreApiClientTest using Java 23.0.2 with PID 19664 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:50:43.867 [main] DEBUG c.c.e.c.i.c.CoinLoreApiClientTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:50:43.867 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:50:43.961 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Started CoinLoreApiClientTest in 0.109 seconds (process running for 20.123)
+2026-09-19 19:50:43.981 [main] ERROR c.c.e.i.client.CoinLoreApiClient - Crypto API Error: 500 Internal Server Error: [no body]
+2026-09-19 19:50:43.984 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest]: JwtTokenProviderIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:50:43.985 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest
+2026-09-19 19:50:44.266 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:50:44.280 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-09-19 19:50:44.282 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-09-19 19:50:44.286 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:50:44.287 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-09-19 19:50:44.288 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-09-19 19:53:30.483 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Starting TransactionControllerIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:30.485 [main] DEBUG c.c.e.w.c.TransactionControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:30.485 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:33.544 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3ee31776, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@123b003c, org.springframework.security.web.context.SecurityContextHolderFilter@5bd240c2, org.springframework.security.web.header.HeaderWriterFilter@2d11764a, org.springframework.web.filter.CorsFilter@3a3343f7, org.springframework.security.web.authentication.logout.LogoutFilter@2149cc6, com.crypto.exchange.web.security.JwtAuthenticationFilter@18ca6ec0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3a54f351, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6923305, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@679c7ce7, org.springframework.security.web.session.SessionManagementFilter@74846614, org.springframework.security.web.access.ExceptionTranslationFilter@6d05e545, org.springframework.security.web.access.intercept.AuthorizationFilter@506f09ed]
+2026-09-19 19:53:33.867 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:33.867 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:33.867 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:33.869 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 2 ms
+2026-09-19 19:53:33.909 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Started TransactionControllerIntegrationTest in 4.017 seconds (process running for 8.315)
+2026-09-19 19:53:34.289 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.SecurityConfigIntegrationTest]: SecurityConfigIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:34.310 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.SecurityConfigIntegrationTest
+2026-09-19 19:53:34.320 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:34.355 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Starting SecurityConfigIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:34.356 [main] DEBUG c.c.e.w.s.SecurityConfigIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:34.356 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - The following 1 profile is active: "test"
+2026-09-19 19:53:34.950 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:53:35.018 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 57 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:53:35.262 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:53:35.295 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:53:35.676 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:53:35.768 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-09-19 19:53:35.837 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:53:35.987 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:53:36.028 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-09-19 19:53:36.518 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:53:36.521 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-09-19 19:53:36.562 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:53:38.398 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:53:38.515 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:53:39.129 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-19 19:53:40.443 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:53:40.646 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@49dbf338, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6546174b, org.springframework.security.web.context.SecurityContextHolderFilter@1ca81382, org.springframework.security.web.header.HeaderWriterFilter@35d33435, org.springframework.web.filter.CorsFilter@65c09cbb, org.springframework.security.web.authentication.logout.LogoutFilter@2351fc14, com.crypto.exchange.web.security.JwtAuthenticationFilter@145bf3b5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5112895e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7dcc6dd5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@185956b1, org.springframework.security.web.session.SessionManagementFilter@6b3d394f, org.springframework.security.web.access.ExceptionTranslationFilter@5f4246b7, org.springframework.security.web.access.intercept.AuthorizationFilter@78f0a290]
+2026-09-19 19:53:41.114 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:41.114 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:41.115 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:41.118 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:53:41.150 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Started SecurityConfigIntegrationTest in 6.83 seconds (process running for 15.555)
+2026-09-19 19:53:41.166 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:53:41.166 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:53:41.395 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:53:41.400 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:53:41.404 [main] WARN  c.c.e.c.s.CryptoInitializerService - No matching cryptocurrency symbols found in API response.
+2026-09-19 19:53:41.408 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:53:41.416 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.TransferControllerIntegrationTest]: TransferControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:41.421 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.TransferControllerIntegrationTest
+2026-09-19 19:53:41.425 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:41.448 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Starting TransferControllerIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:41.448 [main] DEBUG c.c.e.w.c.TransferControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:41.448 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:41.899 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2e309170, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@692c398b, org.springframework.security.web.context.SecurityContextHolderFilter@10c7c3ff, org.springframework.security.web.header.HeaderWriterFilter@24e0e197, org.springframework.web.filter.CorsFilter@1b1ba604, org.springframework.security.web.authentication.logout.LogoutFilter@2ead3edb, com.crypto.exchange.web.security.JwtAuthenticationFilter@10cfda6b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4f0cc6cd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6cc36ae2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@154a1b4, org.springframework.security.web.session.SessionManagementFilter@66815eb0, org.springframework.security.web.access.ExceptionTranslationFilter@31cddb39, org.springframework.security.web.access.intercept.AuthorizationFilter@705d5112]
+2026-09-19 19:53:41.954 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:41.955 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:41.955 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:41.955 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:53:41.962 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Started TransferControllerIntegrationTest in 0.538 seconds (process running for 16.368)
+2026-09-19 19:53:42.060 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: amount: Сумма должна быть больше 0; fromWalletId: Укажите ID кошелька списания; recipientAddress: Укажите адрес кошелька получателя; cryptoExternalId: Укажите external_id криптовалюты (например, bitcoin, ethereum); 
+2026-09-19 19:53:42.702 [main] INFO  c.c.e.c.n.EmailNotificationListener - Квитанция отправлена на test@example.com по транзакции #1
+2026-09-19 19:53:42.706 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:53:42.707 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:53:42.721 [main] ERROR c.c.e.c.n.EmailNotificationListener - Ошибка при отправке письма для транзакции #1
+java.lang.RuntimeException: SMTP server error
+	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101)
+	at com.crypto.exchange.core.notification.EmailNotificationListener.handleTransactionCompleted(EmailNotificationListener.java:44)
+	at com.crypto.exchange.core.notification.EmailNotificationListenerTest.handleTransactionCompletedShouldCatchExceptionAndNotThrow(EmailNotificationListenerTest.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:66)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:237)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
+2026-09-19 19:53:42.785 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:53:42.786 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 1620 ms with result = null
+2026-09-19 19:53:42.791 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest]: CryptoCurrencyControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:42.797 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest
+2026-09-19 19:53:42.801 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:42.818 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Starting CryptoCurrencyControllerIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:42.818 [main] DEBUG c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:42.818 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:43.097 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@d86edd2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73ee0207, org.springframework.security.web.context.SecurityContextHolderFilter@321201b6, org.springframework.security.web.header.HeaderWriterFilter@2ada2c86, org.springframework.web.filter.CorsFilter@4e44088b, org.springframework.security.web.authentication.logout.LogoutFilter@6a12808d, com.crypto.exchange.web.security.JwtAuthenticationFilter@7a65b70b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@313457ba, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4af1e306, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@57499353, org.springframework.security.web.session.SessionManagementFilter@135231c6, org.springframework.security.web.access.ExceptionTranslationFilter@42c82dbb, org.springframework.security.web.access.intercept.AuthorizationFilter@3c24b616]
+2026-09-19 19:53:43.152 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:43.152 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:43.152 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:43.153 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:53:43.160 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Started CryptoCurrencyControllerIntegrationTest in 0.359 seconds (process running for 17.566)
+2026-09-19 19:53:43.463 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.WalletControllerIntegrationTest]: WalletControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:43.467 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.WalletControllerIntegrationTest
+2026-09-19 19:53:43.470 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:43.487 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Starting WalletControllerIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:43.488 [main] DEBUG c.c.e.w.c.WalletControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:43.488 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:43.801 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5bf6b928, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a718bf8, org.springframework.security.web.context.SecurityContextHolderFilter@1170c8bd, org.springframework.security.web.header.HeaderWriterFilter@382c7df7, org.springframework.web.filter.CorsFilter@2c252be0, org.springframework.security.web.authentication.logout.LogoutFilter@6f8f7d1, com.crypto.exchange.web.security.JwtAuthenticationFilter@704c0764, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23481f26, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@78500d7d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c45e5b5, org.springframework.security.web.session.SessionManagementFilter@312b1901, org.springframework.security.web.access.ExceptionTranslationFilter@1af50fea, org.springframework.security.web.access.intercept.AuthorizationFilter@1d69ab2a]
+2026-09-19 19:53:43.865 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:43.865 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:43.866 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:43.866 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:53:43.873 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Started WalletControllerIntegrationTest in 0.403 seconds (process running for 18.278)
+2026-09-19 19:53:44.064 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:53:44.064 [main] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.TestService.testMethod() executed in 0 ms with result = successResult
+2026-09-19 19:53:44.066 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:53:44.067 [main] ERROR c.c.e.core.aspect.LoggingAspect - Illegal argument: [arg1] in com.crypto.exchange.TestService.testMethod()
+2026-09-19 19:53:44.071 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:53:44.071 [main] ERROR c.c.e.core.aspect.LoggingAspect - Exception in com.crypto.exchange.TestService.testMethod() with cause = 'NULL' and exception = 'Database error'
+2026-09-19 19:53:44.074 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:44.079 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.UserControllerIntegrationTest
+2026-09-19 19:53:44.081 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:44.095 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Starting UserControllerIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:44.095 [main] DEBUG c.c.e.w.c.UserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:44.095 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:44.357 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@424fce6a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@56ed2e90, org.springframework.security.web.context.SecurityContextHolderFilter@36098d39, org.springframework.security.web.header.HeaderWriterFilter@9d62e22, org.springframework.web.filter.CorsFilter@2c25352d, org.springframework.security.web.authentication.logout.LogoutFilter@3985b66d, com.crypto.exchange.web.security.JwtAuthenticationFilter@4ce0ad97, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@222499ef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a3b04b7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@71b947aa, org.springframework.security.web.session.SessionManagementFilter@4eb2e9f3, org.springframework.security.web.access.ExceptionTranslationFilter@3264dbac, org.springframework.security.web.access.intercept.AuthorizationFilter@7d341eb5]
+2026-09-19 19:53:44.408 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:44.408 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:44.408 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:44.408 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:53:44.415 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Started UserControllerIntegrationTest in 0.334 seconds (process running for 18.82)
+2026-09-19 19:53:44.443 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.ExchangeApplicationTests]: ExchangeApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:44.447 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.ExchangeApplicationTests
+2026-09-19 19:53:44.450 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:44.466 [main] INFO  c.c.e.ExchangeApplicationTests - Starting ExchangeApplicationTests using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:44.466 [main] DEBUG c.c.e.ExchangeApplicationTests - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:44.466 [main] INFO  c.c.e.ExchangeApplicationTests - The following 1 profile is active: "test"
+2026-09-19 19:53:44.640 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:53:44.659 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:53:44.705 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:53:44.706 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:53:44.756 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:53:44.758 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:53:44.762 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:53:44.762 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-09-19 19:53:44.763 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:53:44.763 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-09-19 19:53:44.764 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:53:44.877 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:53:44.903 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:53:45.103 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:53:45.203 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@b7b7e3f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45792bd5, org.springframework.security.web.context.SecurityContextHolderFilter@62ad3dee, org.springframework.security.web.header.HeaderWriterFilter@2a57c21d, org.springframework.web.filter.CorsFilter@4add2ed7, org.springframework.security.web.authentication.logout.LogoutFilter@9c8f09d, com.crypto.exchange.web.security.JwtAuthenticationFilter@2b3535ff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@71e515ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@65b666e1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2ceb8470, org.springframework.security.web.session.SessionManagementFilter@3efb256c, org.springframework.security.web.access.ExceptionTranslationFilter@7a29f3e, org.springframework.security.web.access.intercept.AuthorizationFilter@68c0b8f]
+2026-09-19 19:53:45.378 [main] INFO  c.c.e.ExchangeApplicationTests - Started ExchangeApplicationTests in 0.929 seconds (process running for 19.784)
+2026-09-19 19:53:45.378 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:53:45.378 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:53:45.395 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 999 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:53:45.399 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 1 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:53:45.404 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest]: AdminUserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:45.407 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest
+2026-09-19 19:53:45.411 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:45.423 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Starting AdminUserControllerIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:45.423 [main] DEBUG c.c.e.w.c.AdminUserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:45.424 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:45.482 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:53:45.482 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 104 ms with result = null
+2026-09-19 19:53:45.624 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@10e825c7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@57f0ad51, org.springframework.security.web.context.SecurityContextHolderFilter@7312ee40, org.springframework.security.web.header.HeaderWriterFilter@38f32f27, org.springframework.web.filter.CorsFilter@5db377d3, org.springframework.security.web.authentication.logout.LogoutFilter@6af5b54e, com.crypto.exchange.web.security.JwtAuthenticationFilter@79a7cec3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ba9b0e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24910689, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@347fd422, org.springframework.security.web.session.SessionManagementFilter@6c98da57, org.springframework.security.web.access.ExceptionTranslationFilter@61b2ed89, org.springframework.security.web.access.intercept.AuthorizationFilter@17cfcd5a]
+2026-09-19 19:53:45.672 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:45.672 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:45.672 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:45.672 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:53:45.679 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Started AdminUserControllerIntegrationTest in 0.268 seconds (process running for 20.085)
+2026-09-19 19:53:45.729 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AuthControllerIntegrationTest]: AuthControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:45.732 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AuthControllerIntegrationTest
+2026-09-19 19:53:45.735 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:45.747 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Starting AuthControllerIntegrationTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:45.747 [main] DEBUG c.c.e.w.c.AuthControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:45.747 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:45.979 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@468ca4ff, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c1a1a54, org.springframework.security.web.context.SecurityContextHolderFilter@47998504, org.springframework.security.web.header.HeaderWriterFilter@18f779b5, org.springframework.web.filter.CorsFilter@58a449e9, org.springframework.security.web.authentication.logout.LogoutFilter@6b5e3a40, com.crypto.exchange.web.security.JwtAuthenticationFilter@31fa1b63, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4e7820af, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6d61c204, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2b04f4b7, org.springframework.security.web.session.SessionManagementFilter@2225e5a0, org.springframework.security.web.access.ExceptionTranslationFilter@c80ad1d, org.springframework.security.web.access.intercept.AuthorizationFilter@7be9daf]
+2026-09-19 19:53:46.060 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:53:46.060 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:53:46.060 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:53:46.061 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:53:46.071 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Started AuthControllerIntegrationTest in 0.335 seconds (process running for 20.476)
+2026-09-19 19:53:46.102 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: email: Некорректный формат email; 
+2026-09-19 19:53:46.117 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: password: Пароль не может быть пустым; 
+2026-09-19 19:53:46.256 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.core.integration.client.CoinLoreApiClientTest]: CoinLoreApiClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:46.268 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.core.integration.client.CoinLoreApiClientTest
+2026-09-19 19:53:46.271 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:53:46.286 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Starting CoinLoreApiClientTest using Java 23.0.2 with PID 13468 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:53:46.286 [main] DEBUG c.c.e.c.i.c.CoinLoreApiClientTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:53:46.286 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:53:46.375 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Started CoinLoreApiClientTest in 0.105 seconds (process running for 20.781)
+2026-09-19 19:53:46.393 [main] ERROR c.c.e.i.client.CoinLoreApiClient - Crypto API Error: 500 Internal Server Error: [no body]
+2026-09-19 19:53:46.396 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest]: JwtTokenProviderIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:53:46.397 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest
+2026-09-19 19:53:46.609 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:53:46.617 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-09-19 19:53:46.619 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-09-19 19:53:46.624 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:53:46.626 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-09-19 19:53:46.627 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-09-19 19:56:55.650 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Starting TransactionControllerIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:56:55.651 [main] DEBUG c.c.e.w.c.TransactionControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:56:55.651 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:56:58.720 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@775e8b92, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4b1e4312, org.springframework.security.web.context.SecurityContextHolderFilter@2a8556ea, org.springframework.security.web.header.HeaderWriterFilter@85e55e1, org.springframework.web.filter.CorsFilter@6eabdbb, org.springframework.security.web.authentication.logout.LogoutFilter@58218340, com.crypto.exchange.web.security.JwtAuthenticationFilter@1076f72c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@bb5bceb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3d42005c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@115956d, org.springframework.security.web.session.SessionManagementFilter@1e95c8fc, org.springframework.security.web.access.ExceptionTranslationFilter@5dce48b4, org.springframework.security.web.access.intercept.AuthorizationFilter@696aa2c1]
+2026-09-19 19:56:59.061 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:56:59.061 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:56:59.062 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:56:59.063 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:56:59.110 [main] INFO  c.c.e.w.c.TransactionControllerIntegrationTest - Started TransactionControllerIntegrationTest in 4.001 seconds (process running for 8.421)
+2026-09-19 19:56:59.528 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.SecurityConfigIntegrationTest]: SecurityConfigIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:56:59.548 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.SecurityConfigIntegrationTest
+2026-09-19 19:56:59.561 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:56:59.595 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Starting SecurityConfigIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:56:59.595 [main] DEBUG c.c.e.w.s.SecurityConfigIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:56:59.595 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - The following 1 profile is active: "test"
+2026-09-19 19:57:00.250 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:57:00.319 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:57:00.603 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:57:00.642 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:57:01.012 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:57:01.109 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-09-19 19:57:01.170 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:57:01.339 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:57:01.384 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-09-19 19:57:01.956 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:57:01.959 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-09-19 19:57:01.999 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:57:03.521 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:57:03.629 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:57:04.175 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-19 19:57:05.673 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:57:05.807 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@413148a1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@19e61223, org.springframework.security.web.context.SecurityContextHolderFilter@4c7ee0f8, org.springframework.security.web.header.HeaderWriterFilter@5d21fc0d, org.springframework.web.filter.CorsFilter@7abf6575, org.springframework.security.web.authentication.logout.LogoutFilter@78241579, com.crypto.exchange.web.security.JwtAuthenticationFilter@b5c2768, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5356eb22, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1c5b4d1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4f9cced0, org.springframework.security.web.session.SessionManagementFilter@7a8a935, org.springframework.security.web.access.ExceptionTranslationFilter@7e9c3560, org.springframework.security.web.access.intercept.AuthorizationFilter@3080a2d0]
+2026-09-19 19:57:06.286 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:57:06.287 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:57:06.287 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:57:06.288 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:57:06.329 [main] INFO  c.c.e.w.s.SecurityConfigIntegrationTest - Started SecurityConfigIntegrationTest in 6.769 seconds (process running for 15.639)
+2026-09-19 19:57:06.353 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:57:06.354 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:57:06.588 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:57:06.595 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:57:06.600 [main] WARN  c.c.e.c.s.CryptoInitializerService - No matching cryptocurrency symbols found in API response.
+2026-09-19 19:57:06.605 [main] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 1 cryptocurrencies with CoinLore IDs
+2026-09-19 19:57:06.615 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.TransferControllerIntegrationTest]: TransferControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:06.621 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.TransferControllerIntegrationTest
+2026-09-19 19:57:06.626 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:06.649 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Starting TransferControllerIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:06.649 [main] DEBUG c.c.e.w.c.TransferControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:06.650 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:57:06.986 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@17b2125a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@39035bc0, org.springframework.security.web.context.SecurityContextHolderFilter@62d1231b, org.springframework.security.web.header.HeaderWriterFilter@4a3c2ca4, org.springframework.web.filter.CorsFilter@7f6232f3, org.springframework.security.web.authentication.logout.LogoutFilter@7aba84a8, com.crypto.exchange.web.security.JwtAuthenticationFilter@45321d46, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@18ab124, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2af8f4bd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@56ff6444, org.springframework.security.web.session.SessionManagementFilter@626b3617, org.springframework.security.web.access.ExceptionTranslationFilter@324a3e43, org.springframework.security.web.access.intercept.AuthorizationFilter@435d4d26]
+2026-09-19 19:57:07.057 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:57:07.058 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:57:07.058 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:57:07.058 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:57:07.065 [main] INFO  c.c.e.w.c.TransferControllerIntegrationTest - Started TransferControllerIntegrationTest in 0.44 seconds (process running for 16.376)
+2026-09-19 19:57:07.164 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: recipientAddress: Укажите адрес кошелька получателя; fromWalletId: Укажите ID кошелька списания; cryptoExternalId: Укажите external_id криптовалюты (например, bitcoin, ethereum); amount: Сумма должна быть больше 0; 
+2026-09-19 19:57:07.778 [main] INFO  c.c.e.c.n.EmailNotificationListener - Квитанция отправлена на test@example.com по транзакции #1
+2026-09-19 19:57:07.782 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:57:07.782 [main] WARN  c.c.e.c.n.EmailNotificationListener - Пропуск отправки письма: email не указан для транзакции #1
+2026-09-19 19:57:07.795 [main] ERROR c.c.e.c.n.EmailNotificationListener - Ошибка при отправке письма для транзакции #1
+java.lang.RuntimeException: SMTP server error
+	at org.springframework.mail.javamail.JavaMailSender.send(JavaMailSender.java:101)
+	at com.crypto.exchange.core.notification.EmailNotificationListener.handleTransactionCompleted(EmailNotificationListener.java:44)
+	at com.crypto.exchange.core.notification.EmailNotificationListenerTest.handleTransactionCompletedShouldCatchExceptionAndNotThrow(EmailNotificationListenerTest.java:110)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:66)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:237)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
+2026-09-19 19:57:07.848 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:57:07.848 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 1494 ms with result = null
+2026-09-19 19:57:07.861 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest]: CryptoCurrencyControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:07.866 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.CryptoCurrencyControllerIntegrationTest
+2026-09-19 19:57:07.869 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:07.885 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Starting CryptoCurrencyControllerIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:07.886 [main] DEBUG c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:07.886 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:57:08.206 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2358a64f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@384fa6a6, org.springframework.security.web.context.SecurityContextHolderFilter@75de0f6c, org.springframework.security.web.header.HeaderWriterFilter@30ade4bb, org.springframework.web.filter.CorsFilter@8ec6c1f, org.springframework.security.web.authentication.logout.LogoutFilter@59c8588a, com.crypto.exchange.web.security.JwtAuthenticationFilter@45e19527, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39ae3944, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@66798af6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@32f605d4, org.springframework.security.web.session.SessionManagementFilter@614b6c09, org.springframework.security.web.access.ExceptionTranslationFilter@9d8bc97, org.springframework.security.web.access.intercept.AuthorizationFilter@3b60381e]
+2026-09-19 19:57:08.259 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:57:08.259 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:57:08.259 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:57:08.260 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:57:08.266 [main] INFO  c.c.e.w.c.CryptoCurrencyControllerIntegrationTest - Started CryptoCurrencyControllerIntegrationTest in 0.397 seconds (process running for 17.577)
+2026-09-19 19:57:08.543 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.WalletControllerIntegrationTest]: WalletControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:08.547 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.WalletControllerIntegrationTest
+2026-09-19 19:57:08.549 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:08.563 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Starting WalletControllerIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:08.563 [main] DEBUG c.c.e.w.c.WalletControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:08.563 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:57:08.882 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@52aad32e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@25eeba9f, org.springframework.security.web.context.SecurityContextHolderFilter@6824cb21, org.springframework.security.web.header.HeaderWriterFilter@1cff2217, org.springframework.web.filter.CorsFilter@74de8a63, org.springframework.security.web.authentication.logout.LogoutFilter@40b6f0b4, com.crypto.exchange.web.security.JwtAuthenticationFilter@2a121a89, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51c1ec0a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@344b83bf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3c39b862, org.springframework.security.web.session.SessionManagementFilter@38804e8e, org.springframework.security.web.access.ExceptionTranslationFilter@4caebe59, org.springframework.security.web.access.intercept.AuthorizationFilter@7677db09]
+2026-09-19 19:57:08.942 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:57:08.942 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:57:08.942 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:57:08.942 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:57:08.949 [main] INFO  c.c.e.w.c.WalletControllerIntegrationTest - Started WalletControllerIntegrationTest in 0.4 seconds (process running for 18.26)
+2026-09-19 19:57:09.153 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:57:09.154 [main] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.TestService.testMethod() executed in 0 ms with result = successResult
+2026-09-19 19:57:09.156 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:57:09.156 [main] ERROR c.c.e.core.aspect.LoggingAspect - Illegal argument: [arg1] in com.crypto.exchange.TestService.testMethod()
+2026-09-19 19:57:09.162 [main] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.TestService.testMethod() with argument(s) = [arg1]
+2026-09-19 19:57:09.162 [main] ERROR c.c.e.core.aspect.LoggingAspect - Exception in com.crypto.exchange.TestService.testMethod() with cause = 'NULL' and exception = 'Database error'
+2026-09-19 19:57:09.165 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.UserControllerIntegrationTest]: UserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:09.168 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.UserControllerIntegrationTest
+2026-09-19 19:57:09.171 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:09.183 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Starting UserControllerIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:09.183 [main] DEBUG c.c.e.w.c.UserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:09.183 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:57:09.434 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@f406ff6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2fe5ca2f, org.springframework.security.web.context.SecurityContextHolderFilter@52caaf2d, org.springframework.security.web.header.HeaderWriterFilter@6127b389, org.springframework.web.filter.CorsFilter@527b091, org.springframework.security.web.authentication.logout.LogoutFilter@6d89b180, com.crypto.exchange.web.security.JwtAuthenticationFilter@3f929d60, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@339c2abe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6ffb6cbf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b45de6b, org.springframework.security.web.session.SessionManagementFilter@1fd34207, org.springframework.security.web.access.ExceptionTranslationFilter@607038e2, org.springframework.security.web.access.intercept.AuthorizationFilter@b38b28c]
+2026-09-19 19:57:09.493 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:57:09.493 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:57:09.493 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:57:09.494 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:57:09.500 [main] INFO  c.c.e.w.c.UserControllerIntegrationTest - Started UserControllerIntegrationTest in 0.329 seconds (process running for 18.811)
+2026-09-19 19:57:09.529 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.ExchangeApplicationTests]: ExchangeApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:09.534 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.ExchangeApplicationTests
+2026-09-19 19:57:09.538 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:09.552 [main] INFO  c.c.e.ExchangeApplicationTests - Starting ExchangeApplicationTests using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:09.552 [main] DEBUG c.c.e.ExchangeApplicationTests - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:09.552 [main] INFO  c.c.e.ExchangeApplicationTests - The following 1 profile is active: "test"
+2026-09-19 19:57:09.718 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-19 19:57:09.734 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 6 JPA repository interfaces.
+2026-09-19 19:57:09.774 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-09-19 19:57:09.775 [main] INFO  o.s.w.s.a.s.AnnotationActionEndpointMapping - Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2026-09-19 19:57:09.831 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-09-19 19:57:09.833 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-09-19 19:57:09.836 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-19 19:57:09.836 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-09-19 19:57:09.837 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:testdb user=SA
+2026-09-19 19:57:09.838 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-09-19 19:57:09.838 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-19 19:57:09.949 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-19 19:57:09.975 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:57:10.193 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-19 19:57:10.279 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3f4b7ca, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5d5c27cc, org.springframework.security.web.context.SecurityContextHolderFilter@6e0b68ca, org.springframework.security.web.header.HeaderWriterFilter@3c806e89, org.springframework.web.filter.CorsFilter@2d67c51e, org.springframework.security.web.authentication.logout.LogoutFilter@4a42868e, com.crypto.exchange.web.security.JwtAuthenticationFilter@32857133, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f55db76, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@409e1633, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@101862c7, org.springframework.security.web.session.SessionManagementFilter@14d569c2, org.springframework.security.web.access.ExceptionTranslationFilter@2947110c, org.springframework.security.web.access.intercept.AuthorizationFilter@2b82c815]
+2026-09-19 19:57:10.444 [main] INFO  c.c.e.ExchangeApplicationTests - Started ExchangeApplicationTests in 0.906 seconds (process running for 19.755)
+2026-09-19 19:57:10.445 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Enter: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() with argument(s) = []
+2026-09-19 19:57:10.445 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Starting crypto price synchronization...
+2026-09-19 19:57:10.464 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 999 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:57:10.468 [main] DEBUG c.c.e.c.s.CryptoPriceHistoryService - Fetching price history for crypto ID: 1 with pageable: Page request [number: 0, size 10, sort: UNSORTED]
+2026-09-19 19:57:10.474 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest]: AdminUserControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:10.478 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AdminUserControllerIntegrationTest
+2026-09-19 19:57:10.480 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:10.514 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Starting AdminUserControllerIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:10.514 [main] DEBUG c.c.e.w.c.AdminUserControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:10.515 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:57:10.552 [scheduling-1] INFO  c.c.e.c.s.CryptoInitializerService - Success! Updated and mapped 8 cryptocurrencies with CoinLore IDs
+2026-09-19 19:57:10.553 [scheduling-1] INFO  c.c.e.core.aspect.LoggingAspect - Exit: com.crypto.exchange.core.service.CryptoInitializerService.scheduledPriceUpdate() executed in 107 ms with result = null
+2026-09-19 19:57:10.759 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3f86316f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3d726fbb, org.springframework.security.web.context.SecurityContextHolderFilter@42b58676, org.springframework.security.web.header.HeaderWriterFilter@148b3469, org.springframework.web.filter.CorsFilter@1acf4a78, org.springframework.security.web.authentication.logout.LogoutFilter@71ce770b, com.crypto.exchange.web.security.JwtAuthenticationFilter@63d67940, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@408ad95e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@def955a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6cf0445c, org.springframework.security.web.session.SessionManagementFilter@3e4593c3, org.springframework.security.web.access.ExceptionTranslationFilter@68ed5a04, org.springframework.security.web.access.intercept.AuthorizationFilter@16ac0cb9]
+2026-09-19 19:57:10.817 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:57:10.818 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:57:10.818 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:57:10.818 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 0 ms
+2026-09-19 19:57:10.825 [main] INFO  c.c.e.w.c.AdminUserControllerIntegrationTest - Started AdminUserControllerIntegrationTest in 0.345 seconds (process running for 20.136)
+2026-09-19 19:57:10.881 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.controller.AuthControllerIntegrationTest]: AuthControllerIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:10.884 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.controller.AuthControllerIntegrationTest
+2026-09-19 19:57:10.886 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:10.897 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Starting AuthControllerIntegrationTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:10.897 [main] DEBUG c.c.e.w.c.AuthControllerIntegrationTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:10.897 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:57:11.108 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@99c9f0b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7e88af42, org.springframework.security.web.context.SecurityContextHolderFilter@3a2518a5, org.springframework.security.web.header.HeaderWriterFilter@307b8b21, org.springframework.web.filter.CorsFilter@3aca1f86, org.springframework.security.web.authentication.logout.LogoutFilter@63728238, com.crypto.exchange.web.security.JwtAuthenticationFilter@49a895e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@231bdbf9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4f557e38, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1ae64ce4, org.springframework.security.web.session.SessionManagementFilter@63abb81f, org.springframework.security.web.access.ExceptionTranslationFilter@78fc2b6b, org.springframework.security.web.access.intercept.AuthorizationFilter@7a0b50f3]
+2026-09-19 19:57:11.166 [main] DEBUG c.c.e.w.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-09-19 19:57:11.166 [main] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+2026-09-19 19:57:11.166 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+2026-09-19 19:57:11.167 [main] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 1 ms
+2026-09-19 19:57:11.174 [main] INFO  c.c.e.w.c.AuthControllerIntegrationTest - Started AuthControllerIntegrationTest in 0.288 seconds (process running for 20.485)
+2026-09-19 19:57:11.211 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: email: Некорректный формат email; 
+2026-09-19 19:57:11.228 [main] WARN  c.c.e.c.e.GlobalExceptionHandler - Validation failed: password: Пароль не может быть пустым; 
+2026-09-19 19:57:11.381 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.core.integration.client.CoinLoreApiClientTest]: CoinLoreApiClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:11.390 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.core.integration.client.CoinLoreApiClientTest
+2026-09-19 19:57:11.394 [main] INFO  o.s.b.d.r.RestartApplicationListener - Restart disabled due to context in which it is running
+2026-09-19 19:57:11.426 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Starting CoinLoreApiClientTest using Java 23.0.2 with PID 21172 (started by AxlLN in E:\exchange\CryptoExchange)
+2026-09-19 19:57:11.426 [main] DEBUG c.c.e.c.i.c.CoinLoreApiClientTest - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-09-19 19:57:11.427 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - No active profile set, falling back to 1 default profile: "default"
+2026-09-19 19:57:11.547 [main] INFO  c.c.e.c.i.c.CoinLoreApiClientTest - Started CoinLoreApiClientTest in 0.153 seconds (process running for 20.859)
+2026-09-19 19:57:11.569 [main] ERROR c.c.e.i.client.CoinLoreApiClient - Crypto API Error: 500 Internal Server Error: [no body]
+2026-09-19 19:57:11.572 [main] INFO  o.s.t.c.s.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest]: JwtTokenProviderIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-09-19 19:57:11.573 [main] INFO  o.s.b.t.c.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.crypto.exchange.ExchangeApplication for test class com.crypto.exchange.web.security.JwtTokenProviderIntegrationTest
+2026-09-19 19:57:11.815 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:57:11.824 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-09-19 19:57:11.826 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-09-19 19:57:11.833 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-19 19:57:11.834 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-09-19 19:57:11.835 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

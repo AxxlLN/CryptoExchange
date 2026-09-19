@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -15,16 +14,10 @@ import java.util.Arrays;
 public class LoggingAspect {
 
     /**
-     * Точка среза: все методы во всех контроллерах и сервисах
+     * Перехватывает вызовы методов во всех контроллерах и сервисах,
+     * замеряет время выполнения и логирует параметры.
      */
-    @Pointcut("within(com.crypto.exchange.web.controller..*) || within(com.crypto.exchange.core.service..*)")
-    public void applicationPackagePointcut() {
-    }
-
-    /**
-     * Around-совет: перехватывает вызов метода, замеряет время работы и логирует параметры
-     */
-    @Around("applicationPackagePointcut()")
+    @Around("within(com.crypto.exchange.web.controller..*) || within(com.crypto.exchange.core.service..*)")
     public Object logExecutionDetails(ProceedingJoinPoint joinPoint) throws Throwable {
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();

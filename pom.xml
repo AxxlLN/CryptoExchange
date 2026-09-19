@@ -161,6 +161,11 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/crypto/exchange/ExchangeApplication.class</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 
 			<plugin>
