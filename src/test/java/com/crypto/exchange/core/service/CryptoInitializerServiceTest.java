@@ -102,4 +102,74 @@ class CryptoInitializerServiceTest {
         verify(cryptoCurrencyRepository, never()).saveAll(anyCollection());
         verify(cryptoPriceHistoryRepository, never()).saveAll(anyCollection());
     }
+
+    @Test
+    void syncPricesShouldUpdateExistingCryptoFoundByExternalId() {
+        CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
+                "90", "BTC", "Bitcoin", "70000.00"
+        );
+        CoinLoreResponseDto responseDto = new CoinLoreResponseDto(List.of(apiData));
+
+        CryptoCurrency existingCrypto = CryptoCurrency.builder()
+                .id(1L)
+                .externalId("90")
+                .symbol("BTC")
+                .name("Bitcoin")
+                .priceUsd(new BigDecimal("60000.0000"))
+                .build();
+
+        when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.of(responseDto));
+        when(cryptoCurrencyRepository.findAllByExternalIdIn(anyCollection())).thenReturn(List.of(existingCrypto));
+        when(cryptoCurrencyRepository.findAllBySymbolIn(anyCollection())).thenReturn(Collections.emptyList());
+
+        when(cryptoCurrencyRepository.saveAll(anyCollection())).thenAnswer(invocation -> invocation.getArgument(0));
+
+        cryptoInitializerService.syncPrices();
+
+        ArgumentCaptor<List<CryptoCurrency>> cryptoCaptor = ArgumentCaptor.forClass(List.class);
+        verify(cryptoCurrencyRepository).saveAll(cryptoCaptor.capture());
+        List<CryptoCurrency> savedCryptos = cryptoCaptor.getValue();
+
+        assertThat(savedCryptos).hasSize(1);
+        assertThat(savedCryptos.get(0).getId()).isEqualTo(1L);
+        assertThat(savedCryptos.get(0).getExternalId()).isEqualTo("90");
+        assertThat(savedCryptos.get(0).getPriceUsd()).isEqualByComparingTo(new BigDecimal("70000.0000"));
+
+        verify(cryptoPriceHistoryRepository, times(1)).saveAll(anyCollection());
+    }
+
+    @Test
+    void syncPricesShouldUpdateExistingCryptoFoundBySymbolWhenExternalIdNotFound() {
+        CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
+                "90", "BTC", "Bitcoin", "72000.00"
+        );
+        CoinLoreResponseDto responseDto = new CoinLoreResponseDto(List.of(apiData));
+
+        CryptoCurrency existingCrypto = CryptoCurrency.builder()
+                .id(2L)
+                .externalId(null)
+                .symbol("BTC")
+                .name("Bitcoin")
+                .priceUsd(new BigDecimal("65000.0000"))
+                .build();
+
+        when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.of(responseDto));
+        when(cryptoCurrencyRepository.findAllByExternalIdIn(anyCollection())).thenReturn(Collections.emptyList());
+        when(cryptoCurrencyRepository.findAllBySymbolIn(anyCollection())).thenReturn(List.of(existingCrypto));
+
+        when(cryptoCurrencyRepository.saveAll(anyCollection())).thenAnswer(invocation -> invocation.getArgument(0));
+
+        cryptoInitializerService.syncPrices();
+
+        ArgumentCaptor<List<CryptoCurrency>> cryptoCaptor = ArgumentCaptor.forClass(List.class);
+        verify(cryptoCurrencyRepository).saveAll(cryptoCaptor.capture());
+        List<CryptoCurrency> savedCryptos = cryptoCaptor.getValue();
+
+        assertThat(savedCryptos).hasSize(1);
+        assertThat(savedCryptos.get(0).getId()).isEqualTo(2L);
+        assertThat(savedCryptos.get(0).getExternalId()).isEqualTo("90"); // Проверяем, что externalId присвоился
+        assertThat(savedCryptos.get(0).getPriceUsd()).isEqualByComparingTo(new BigDecimal("72000.0000"));
+
+        verify(cryptoPriceHistoryRepository, times(1)).saveAll(anyCollection());
+    }
 }

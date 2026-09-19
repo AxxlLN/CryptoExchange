@@ -172,6 +172,30 @@ class WalletServiceImplTest {
                     .isInstanceOf(ResourceNotFoundException.class)
                     .hasMessageContaining("Balance entry not found for externalId: ethereum");
         }
+
+        @Test
+        @DisplayName("deposit выбрасывает ResourceNotFoundException при попытке пополнить чужой кошелек")
+        void depositForeignUserThrowsException() {
+            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
+            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
+
+            assertThatThrownBy(() -> walletService.deposit(999L, 10L, request))
+                    .isInstanceOf(ResourceNotFoundException.class)
+                    .hasMessageContaining("Wallet not found: 10");
+
+            verify(walletBalanceRepository, never()).addBalanceByExternalIdNative(anyLong(), anyString(), any());
+        }
+
+        @Test
+        @DisplayName("deposit выбрасывает ResourceNotFoundException, если кошелек не найден в БД")
+        void depositWalletNotFoundThrowsException() {
+            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
+            when(walletRepository.findById(99L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> walletService.deposit(1L, 99L, request))
+                    .isInstanceOf(ResourceNotFoundException.class)
+                    .hasMessageContaining("Wallet not found: 99");
+        }
     }
 
     @Nested
@@ -204,6 +228,19 @@ class WalletServiceImplTest {
             assertThatThrownBy(() -> walletService.withdraw(1L, 10L, request))
                     .isInstanceOf(InsufficientFundsException.class)
                     .hasMessageContaining("Insufficient funds or balance entry not found for externalId: bitcoin");
+        }
+
+        @Test
+        @DisplayName("withdraw выбрасывает ResourceNotFoundException при попытке снять средства с чужого кошелька")
+        void withdrawForeignUserThrowsException() {
+            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
+            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
+
+            assertThatThrownBy(() -> walletService.withdraw(999L, 10L, request))
+                    .isInstanceOf(ResourceNotFoundException.class)
+                    .hasMessageContaining("Wallet not found: 10");
+
+            verify(walletBalanceRepository, never()).deductBalanceByExternalIdNative(anyLong(), anyString(), any());
         }
     }
 
@@ -243,6 +280,16 @@ class WalletServiceImplTest {
             assertThatThrownBy(() -> walletService.getWalletById(999L, 10L))
                     .isInstanceOf(ResourceNotFoundException.class)
                     .hasMessageContaining("Wallet not found with id: 10");
+        }
+
+        @Test
+        @DisplayName("getWalletById выбрасывает ResourceNotFoundException, если кошелек не найден")
+        void getWalletByIdNotFoundThrowsException() {
+            when(walletRepository.findById(99L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> walletService.getWalletById(1L, 99L))
+                    .isInstanceOf(ResourceNotFoundException.class)
+                    .hasMessageContaining("Wallet not found with id: 99");
         }
 
         @Test
