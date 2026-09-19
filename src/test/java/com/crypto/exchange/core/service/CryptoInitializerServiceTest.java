@@ -6,9 +6,11 @@ import com.crypto.exchange.core.repository.CryptoPriceHistoryRepository;
 import com.crypto.exchange.integration.client.CoinLoreApiClient;
 import com.crypto.exchange.integration.dto.CoinLoreResponseDto;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -39,19 +41,18 @@ class CryptoInitializerServiceTest {
     @InjectMocks
     private CryptoInitializerService cryptoInitializerService;
 
+    @Captor
+    private ArgumentCaptor<List<CryptoCurrency>> cryptoListCaptor;
+
     @BeforeEach
     void setUp() {
         ReflectionTestUtils.setField(cryptoInitializerService, "targetSymbols", Set.of("BTC"));
     }
 
     @Test
+    @DisplayName("syncPrices успешно создает новую криптовалюту, если её нет в БД")
     void syncPricesShouldFetchProcessAndSaveSuccessfully() {
-        CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
-                "90", "BTC", "Bitcoin", "65000.50"
-        );
-        CoinLoreResponseDto responseDto = new CoinLoreResponseDto(List.of(apiData));
-
-        when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.of(responseDto));
+        mockApiSuccess("90", "BTC", "Bitcoin", "65000.50");
         when(cryptoCurrencyRepository.findAllByExternalIdIn(anyCollection())).thenReturn(Collections.emptyList());
         when(cryptoCurrencyRepository.findAllBySymbolIn(anyCollection())).thenReturn(Collections.emptyList());
 
@@ -63,39 +64,29 @@ class CryptoInitializerServiceTest {
 
         cryptoInitializerService.syncPrices();
 
-        verify(coinLoreApiClient, times(1)).fetchLatestCryptoPrices();
-
-        ArgumentCaptor<List<CryptoCurrency>> cryptoCaptor = ArgumentCaptor.forClass(List.class);
-        verify(cryptoCurrencyRepository).saveAll(cryptoCaptor.capture());
-        List<CryptoCurrency> savedCryptos = cryptoCaptor.getValue();
-
-        assertThat(savedCryptos).hasSize(1);
-        assertThat(savedCryptos.get(0).getSymbol()).isEqualTo("BTC");
-        assertThat(savedCryptos.get(0).getExternalId()).isEqualTo("90");
-        assertThat(savedCryptos.get(0).getPriceUsd()).isEqualByComparingTo(new BigDecimal("65000.5000"));
+        CryptoCurrency saved = captureSingleSavedCrypto();
+        assertThat(saved.getSymbol()).isEqualTo("BTC");
+        assertThat(saved.getExternalId()).isEqualTo("90");
+        assertThat(saved.getPriceUsd()).isEqualByComparingTo(new BigDecimal("65000.5000"));
 
         verify(cryptoPriceHistoryRepository, times(1)).saveAll(anyCollection());
     }
 
     @Test
+    @DisplayName("syncPrices не выполняет действий, если API вернул empty")
     void syncPricesShouldSkipWhenApiReturnsEmpty() {
         when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.empty());
 
         cryptoInitializerService.syncPrices();
 
         verify(coinLoreApiClient, times(1)).fetchLatestCryptoPrices();
-        verifyNoInteractions(cryptoCurrencyRepository);
-        verifyNoInteractions(cryptoPriceHistoryRepository);
+        verifyNoInteractions(cryptoCurrencyRepository, cryptoPriceHistoryRepository);
     }
 
     @Test
+    @DisplayName("syncPrices фильтрует монеты, отсутствующие в targetSymbols")
     void syncPricesShouldFilterOutSymbolsNotInTargetSet() {
-        CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
-                "80", "ETH", "Ethereum", "3000.00"
-        );
-        CoinLoreResponseDto responseDto = new CoinLoreResponseDto(List.of(apiData));
-
-        when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.of(responseDto));
+        mockApiSuccess("80", "ETH", "Ethereum", "3000.00");
 
         cryptoInitializerService.syncPrices();
 
@@ -104,72 +95,66 @@ class CryptoInitializerServiceTest {
     }
 
     @Test
+    @DisplayName("syncPrices обновляет запись, если сущность найдена по externalId")
     void syncPricesShouldUpdateExistingCryptoFoundByExternalId() {
-        CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
-                "90", "BTC", "Bitcoin", "70000.00"
-        );
-        CoinLoreResponseDto responseDto = new CoinLoreResponseDto(List.of(apiData));
+        mockApiSuccess("90", "BTC", "Bitcoin", "70000.00");
+        CryptoCurrency existingCrypto = createCrypto(1L, "90", "BTC", "Bitcoin", "60000.0000");
 
-        CryptoCurrency existingCrypto = CryptoCurrency.builder()
-                .id(1L)
-                .externalId("90")
-                .symbol("BTC")
-                .name("Bitcoin")
-                .priceUsd(new BigDecimal("60000.0000"))
-                .build();
-
-        when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.of(responseDto));
         when(cryptoCurrencyRepository.findAllByExternalIdIn(anyCollection())).thenReturn(List.of(existingCrypto));
         when(cryptoCurrencyRepository.findAllBySymbolIn(anyCollection())).thenReturn(Collections.emptyList());
-
         when(cryptoCurrencyRepository.saveAll(anyCollection())).thenAnswer(invocation -> invocation.getArgument(0));
 
         cryptoInitializerService.syncPrices();
 
-        ArgumentCaptor<List<CryptoCurrency>> cryptoCaptor = ArgumentCaptor.forClass(List.class);
-        verify(cryptoCurrencyRepository).saveAll(cryptoCaptor.capture());
-        List<CryptoCurrency> savedCryptos = cryptoCaptor.getValue();
-
-        assertThat(savedCryptos).hasSize(1);
-        assertThat(savedCryptos.get(0).getId()).isEqualTo(1L);
-        assertThat(savedCryptos.get(0).getExternalId()).isEqualTo("90");
-        assertThat(savedCryptos.get(0).getPriceUsd()).isEqualByComparingTo(new BigDecimal("70000.0000"));
+        CryptoCurrency saved = captureSingleSavedCrypto();
+        assertThat(saved.getId()).isEqualTo(1L);
+        assertThat(saved.getExternalId()).isEqualTo("90");
+        assertThat(saved.getPriceUsd()).isEqualByComparingTo(new BigDecimal("70000.0000"));
 
         verify(cryptoPriceHistoryRepository, times(1)).saveAll(anyCollection());
     }
 
     @Test
+    @DisplayName("syncPrices обновляет запись и присваивает externalId, если сущность найдена только по symbol")
     void syncPricesShouldUpdateExistingCryptoFoundBySymbolWhenExternalIdNotFound() {
-        CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
-                "90", "BTC", "Bitcoin", "72000.00"
-        );
-        CoinLoreResponseDto responseDto = new CoinLoreResponseDto(List.of(apiData));
+        mockApiSuccess("90", "BTC", "Bitcoin", "72000.00");
+        CryptoCurrency existingCrypto = createCrypto(2L, null, "BTC", "Bitcoin", "65000.0000");
 
-        CryptoCurrency existingCrypto = CryptoCurrency.builder()
-                .id(2L)
-                .externalId(null)
-                .symbol("BTC")
-                .name("Bitcoin")
-                .priceUsd(new BigDecimal("65000.0000"))
-                .build();
-
-        when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.of(responseDto));
         when(cryptoCurrencyRepository.findAllByExternalIdIn(anyCollection())).thenReturn(Collections.emptyList());
         when(cryptoCurrencyRepository.findAllBySymbolIn(anyCollection())).thenReturn(List.of(existingCrypto));
-
         when(cryptoCurrencyRepository.saveAll(anyCollection())).thenAnswer(invocation -> invocation.getArgument(0));
 
         cryptoInitializerService.syncPrices();
 
-        ArgumentCaptor<List<CryptoCurrency>> cryptoCaptor = ArgumentCaptor.forClass(List.class);
-        verify(cryptoCurrencyRepository).saveAll(cryptoCaptor.capture());
-        List<CryptoCurrency> savedCryptos = cryptoCaptor.getValue();
-
-        assertThat(savedCryptos).hasSize(1);
-        assertThat(savedCryptos.get(0).getId()).isEqualTo(2L);
-        assertThat(savedCryptos.get(0).getExternalId()).isEqualTo("90"); // Проверяем, что externalId присвоился
-        assertThat(savedCryptos.get(0).getPriceUsd()).isEqualByComparingTo(new BigDecimal("72000.0000"));
+        CryptoCurrency saved = captureSingleSavedCrypto();
+        assertThat(saved.getId()).isEqualTo(2L);
+        assertThat(saved.getExternalId()).isEqualTo("90");
+        assertThat(saved.getPriceUsd()).isEqualByComparingTo(new BigDecimal("72000.0000"));
 
         verify(cryptoPriceHistoryRepository, times(1)).saveAll(anyCollection());
+    }
+
+    private void mockApiSuccess(String id, String symbol, String name, String price) {
+        CoinLoreResponseDto.CoinLoreCryptoData apiData =
+                new CoinLoreResponseDto.CoinLoreCryptoData(id, symbol, name, price);
+        CoinLoreResponseDto responseDto = new CoinLoreResponseDto(List.of(apiData));
+        when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.of(responseDto));
+    }
+
+    private CryptoCurrency createCrypto(Long id, String externalId, String symbol, String name, String priceUsd) {
+        return CryptoCurrency.builder()
+                .id(id)
+                .externalId(externalId)
+                .symbol(symbol)
+                .name(name)
+                .priceUsd(new BigDecimal(priceUsd))
+                .build();
+    }
+
+    private CryptoCurrency captureSingleSavedCrypto() {
+        verify(cryptoCurrencyRepository).saveAll(cryptoListCaptor.capture());
+        List<CryptoCurrency> savedList = cryptoListCaptor.getValue();
+        assertThat(savedList).hasSize(1);
+        return savedList.get(0);
     }
 }
