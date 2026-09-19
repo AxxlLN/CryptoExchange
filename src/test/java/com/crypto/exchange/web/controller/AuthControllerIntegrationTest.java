@@ -43,7 +43,7 @@ class AuthControllerIntegrationTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Test
-    void register_shouldReturnCreated_whenRequestIsValid() throws Exception {
+    void registerShouldReturnCreatedWhenRequestIsValid() throws Exception {
         RegisterRequest request = new RegisterRequest("newuser", "user@mail.com", "securePassword123");
 
         UserResponseDto userDto = new UserResponseDto(
@@ -63,7 +63,7 @@ class AuthControllerIntegrationTest {
     }
 
     @Test
-    void register_shouldReturnBadRequest_whenEmailIsInvalid() throws Exception {
+    void registerShouldReturnBadRequestWhenEmailIsInvalid() throws Exception {
         RegisterRequest request = new RegisterRequest("newuser", "invalid-email-format", "securePassword123");
 
         mockMvc.perform(post("/api/v1/auth/register")
@@ -73,7 +73,7 @@ class AuthControllerIntegrationTest {
     }
 
     @Test
-    void login_shouldReturnOk_whenRequestIsValid() throws Exception {
+    void loginShouldReturnOkWhenRequestIsValid() throws Exception {
         LoginRequest request = new LoginRequest("newuser", "securePassword123");
 
         UserResponseDto userDto = new UserResponseDto(
@@ -91,7 +91,7 @@ class AuthControllerIntegrationTest {
     }
 
     @Test
-    void login_shouldReturnBadRequest_whenPasswordIsBlank() throws Exception {
+    void loginShouldReturnBadRequestWhenPasswordIsBlank() throws Exception {
         LoginRequest request = new LoginRequest("newuser", "");
 
         mockMvc.perform(post("/api/v1/auth/login")

@@ -65,7 +65,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Успешно возвращает профиль существующего пользователя")
-        void getUserProfile_Success() {
+        void getUserProfileSuccess() {
             when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
             when(userMapper.toResponseDto(testUser)).thenReturn(expectedDto);
 
@@ -79,7 +79,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если пользователь не найден")
-        void getUserProfile_NotFound_ThrowsException() {
+        void getUserProfileNotFoundThrowsException() {
             when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> userService.getUserProfile(1L))
@@ -96,7 +96,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Возвращает список DTO всех пользователей")
-        void getAllUsers_Success() {
+        void getAllUsersSuccess() {
             when(userRepository.findAll()).thenReturn(List.of(testUser));
             when(userMapper.toResponseDto(testUser)).thenReturn(expectedDto);
 
@@ -110,7 +110,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Возвращает пустой список, если пользователей нет в системе")
-        void getAllUsers_EmptyList() {
+        void getAllUsersEmptyList() {
             when(userRepository.findAll()).thenReturn(Collections.emptyList());
 
             List<UserResponseDto> result = userService.getAllUsers();
@@ -127,7 +127,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Успешно возвращает пользователя по ID")
-        void getUserById_Success() {
+        void getUserByIdSuccess() {
             when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
             when(userMapper.toResponseDto(testUser)).thenReturn(expectedDto);
 
@@ -140,7 +140,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если пользователь с таким ID не существует")
-        void getUserById_NotFound_ThrowsException() {
+        void getUserByIdNotFoundThrowsException() {
             when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> userService.getUserById(1L))
@@ -155,7 +155,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Успешно удаляет существующего пользователя")
-        void deleteUser_Success() {
+        void deleteUserSuccess() {
             when(userRepository.existsById(1L)).thenReturn(true);
 
             userService.deleteUser(1L);
@@ -166,7 +166,7 @@ class UserServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException при попытке удалить несуществующего пользователя")
-        void deleteUser_NotFound_ThrowsException() {
+        void deleteUserNotFoundThrowsException() {
             when(userRepository.existsById(1L)).thenReturn(false);
 
             assertThatThrownBy(() -> userService.deleteUser(1L))

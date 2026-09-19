@@ -34,7 +34,7 @@ class CryptoServiceTest {
     private CryptoService cryptoService;
 
     @Test
-    void getAllCryptocurrencies_shouldReturnListOfDtos() {
+    void getAllCryptocurrenciesShouldReturnListOfDtos() {
         CryptoCurrency crypto = CryptoCurrency.builder()
                 .id(1L)
                 .symbol("BTC")
@@ -61,7 +61,7 @@ class CryptoServiceTest {
     }
 
     @Test
-    void getCryptoById_shouldReturnDto_whenCryptoExists() {
+    void getCryptoByIdShouldReturnDtoWhenCryptoExists() {
         Long cryptoId = 1L;
         CryptoCurrency crypto = CryptoCurrency.builder()
                 .id(cryptoId)
@@ -88,7 +88,7 @@ class CryptoServiceTest {
     }
 
     @Test
-    void getCryptoById_shouldThrowException_whenCryptoNotFound() {
+    void getCryptoByIdShouldThrowExceptionWhenCryptoNotFound() {
         Long cryptoId = 999L;
 
         when(cryptoRepository.findById(cryptoId)).thenReturn(Optional.empty());

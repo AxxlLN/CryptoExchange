@@ -12,6 +12,7 @@ class ExchangeApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Коммент чтобы сонар не ругался
 	}
 
 }

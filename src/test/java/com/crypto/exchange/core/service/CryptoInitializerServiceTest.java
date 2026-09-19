@@ -45,7 +45,7 @@ class CryptoInitializerServiceTest {
     }
 
     @Test
-    void syncPrices_shouldFetchProcessAndSaveSuccessfully() {
+    void syncPricesShouldFetchProcessAndSaveSuccessfully() {
         CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
                 "90", "BTC", "Bitcoin", "65000.50"
         );
@@ -78,7 +78,7 @@ class CryptoInitializerServiceTest {
     }
 
     @Test
-    void syncPrices_shouldSkipWhenApiReturnsEmpty() {
+    void syncPricesShouldSkipWhenApiReturnsEmpty() {
         when(coinLoreApiClient.fetchLatestCryptoPrices()).thenReturn(Optional.empty());
 
         cryptoInitializerService.syncPrices();
@@ -89,7 +89,7 @@ class CryptoInitializerServiceTest {
     }
 
     @Test
-    void syncPrices_shouldFilterOutSymbolsNotInTargetSet() {
+    void syncPricesShouldFilterOutSymbolsNotInTargetSet() {
         CoinLoreResponseDto.CoinLoreCryptoData apiData = new CoinLoreResponseDto.CoinLoreCryptoData(
                 "80", "ETH", "Ethereum", "3000.00"
         );

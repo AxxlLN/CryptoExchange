@@ -37,7 +37,7 @@ class UserControllerIntegrationTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Test
-    void getMyProfile_shouldReturnProfile_whenAuthenticated() throws Exception {
+    void getMyProfileShouldReturnProfileWhenAuthenticated() throws Exception {
         Long userId = 1L;
         UserPrincipal principal = new UserPrincipal(
                 userId, "myuser", "my@mail.com", "password", Role.ROLE_USER
@@ -62,7 +62,7 @@ class UserControllerIntegrationTest {
     }
 
     @Test
-    void getMyProfile_shouldReturnForbidden_whenUnauthenticated() throws Exception {
+    void getMyProfileShouldReturnForbiddenWhenUnauthenticated() throws Exception {
         mockMvc.perform(get("/api/v1/users/me"))
                 .andExpect(status().isForbidden());
     }

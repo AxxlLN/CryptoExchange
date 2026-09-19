@@ -45,7 +45,7 @@ class CryptoCurrencyControllerIntegrationTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Test
-    void getAllCryptos_shouldReturnList_whenCryptosExist() throws Exception {
+    void getAllCryptosShouldReturnListWhenCryptosExist() throws Exception {
         CryptoCurrencyResponseDto dto = new CryptoCurrencyResponseDto(
                 1L, "BTC", "Bitcoin", new BigDecimal("65000.00"), OffsetDateTime.now(ZoneOffset.UTC)
         );
@@ -61,7 +61,7 @@ class CryptoCurrencyControllerIntegrationTest {
     }
 
     @Test
-    void getCryptoById_shouldReturnCrypto_whenIdExists() throws Exception {
+    void getCryptoByIdShouldReturnCryptoWhenIdExists() throws Exception {
         Long cryptoId = 1L;
         CryptoCurrencyResponseDto dto = new CryptoCurrencyResponseDto(
                 cryptoId, "ETH", "Ethereum", new BigDecimal("3500.50"), OffsetDateTime.now(ZoneOffset.UTC)
@@ -77,7 +77,7 @@ class CryptoCurrencyControllerIntegrationTest {
     }
 
     @Test
-    void getPriceHistory_shouldReturnPageOfHistory_whenValidIdProvided() throws Exception {
+    void getPriceHistoryShouldReturnPageOfHistoryWhenValidIdProvided() throws Exception {
         Long cryptoId = 1L;
         CryptoPriceHistoryDto historyDto = new CryptoPriceHistoryDto(
                 new BigDecimal("3450.00"), OffsetDateTime.now(ZoneOffset.UTC)

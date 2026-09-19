@@ -44,7 +44,7 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void doFilterInternal_shouldAuthenticateUser_whenValidTokenProvided() throws ServletException, IOException {
+    void doFilterInternalShouldAuthenticateUserWhenValidTokenProvided() throws ServletException, IOException {
         String token = "valid.jwt.token";
         String username = "crypto_user";
         Long userId = 10L;
@@ -73,7 +73,7 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void doFilterInternal_shouldNotAuthenticate_whenTokenIsInvalid() throws ServletException, IOException {
+    void doFilterInternalShouldNotAuthenticateWhenTokenIsInvalid() throws ServletException, IOException {
         String token = "invalid.jwt.token";
 
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -89,7 +89,7 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void doFilterInternal_shouldNotAuthenticate_whenHeaderIsMissing() throws ServletException, IOException {
+    void doFilterInternalShouldNotAuthenticateWhenHeaderIsMissing() throws ServletException, IOException {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 

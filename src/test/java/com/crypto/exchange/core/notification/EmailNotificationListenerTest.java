@@ -37,7 +37,7 @@ class EmailNotificationListenerTest {
     private EmailNotificationListener emailNotificationListener;
 
     @Test
-    void handleTransactionCompleted_shouldSendEmailSuccessfully() {
+    void handleTransactionCompletedShouldSendEmailSuccessfully() {
         TransactionResponseDto txDto = new TransactionResponseDto(
                 1L,
                 10L,
@@ -63,7 +63,7 @@ class EmailNotificationListenerTest {
     }
 
     @Test
-    void handleTransactionCompleted_shouldSkipWhenEmailIsNullOrBlank() {
+    void handleTransactionCompletedShouldSkipWhenEmailIsNullOrBlank() {
         TransactionResponseDto txDto = new TransactionResponseDto(
                 1L,
                 10L,
@@ -87,7 +87,7 @@ class EmailNotificationListenerTest {
     }
 
     @Test
-    void handleTransactionCompleted_shouldCatchExceptionAndNotThrow() {
+    void handleTransactionCompletedShouldCatchExceptionAndNotThrow() {
         TransactionResponseDto txDto = new TransactionResponseDto(
                 1L,
                 10L,

@@ -45,7 +45,7 @@ class UserMapperTest {
 
         @Test
         @DisplayName("Успешно маппит сущность User в UserResponseDto")
-        void toResponseDto_Success() {
+        void toResponseDtoSuccess() {
             UserResponseDto dto = userMapper.toResponseDto(testUser);
 
             assertThat(dto).isNotNull();
@@ -58,7 +58,7 @@ class UserMapperTest {
 
         @Test
         @DisplayName("Возвращает null при передаче null сущности User")
-        void toResponseDto_NullEntity_ReturnsNull() {
+        void toResponseDtoNullEntityReturnsNull() {
             assertThat(userMapper.toResponseDto(null)).isNull();
         }
     }
@@ -69,7 +69,7 @@ class UserMapperTest {
 
         @Test
         @DisplayName("Успешно маппит RegisterRequest в User с игнорированием системных полей")
-        void toEntity_Success() {
+        void toEntitySuccess() {
             User entity = userMapper.toEntity(registerRequest);
 
             assertThat(entity).isNotNull();
@@ -87,7 +87,7 @@ class UserMapperTest {
 
         @Test
         @DisplayName("Возвращает null при передаче null DTO")
-        void toEntity_NullRequest_ReturnsNull() {
+        void toEntityNullRequestReturnsNull() {
             assertThat(userMapper.toEntity(null)).isNull();
         }
     }

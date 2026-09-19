@@ -86,7 +86,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("Успешное создание первого кошелька (автоматически назначается isDefault=true)")
-        void createWallet_FirstWallet_SetDefaultTrue() {
+        void createWalletFirstWalletSetDefaultTrue() {
             CreateWalletRequestDto request = new CreateWalletRequestDto("Main Wallet", false);
             CryptoCurrency btc = CryptoCurrency.builder().id(100L).externalId("bitcoin").build();
 
@@ -106,7 +106,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("Создание нового дефолтного кошелька сбрасывает флаг isDefault у ранее существующих")
-        void createWallet_NewDefaultWallet_ResetsExistingDefault() {
+        void createWalletNewDefaultWalletResetsExistingDefault() {
             CreateWalletRequestDto request = new CreateWalletRequestDto("New Default Wallet", true);
             Wallet existingDefaultWallet = Wallet.builder()
                     .id(5L)
@@ -130,7 +130,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если пользователь не найден")
-        void createWallet_UserNotFound_ThrowsException() {
+        void createWalletUserNotFoundThrowsException() {
             CreateWalletRequestDto request = new CreateWalletRequestDto("Wallet", false);
             when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -146,7 +146,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("Успешное пополнение баланса")
-        void deposit_Success() {
+        void depositSuccess() {
             BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
 
             when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
@@ -162,7 +162,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если баланс по externalId не существует")
-        void deposit_BalanceEntryNotFound_ThrowsException() {
+        void depositBalanceEntryNotFoundThrowsException() {
             BalanceOperationRequestDto request = new BalanceOperationRequestDto("ethereum", new BigDecimal("2.0"));
 
             when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
@@ -180,7 +180,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("Успешное списание средств с баланса")
-        void withdraw_Success() {
+        void withdrawSuccess() {
             BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
 
             when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
@@ -195,7 +195,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает InsufficientFundsException при недостаточном количестве средств")
-        void withdraw_InsufficientFunds_ThrowsException() {
+        void withdrawInsufficientFundsThrowsException() {
             BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("999.0"));
 
             when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
@@ -213,7 +213,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("getUserWallets возвращает список кошельков пользователя")
-        void getUserWallets_Success() {
+        void getUserWalletsSuccess() {
             when(walletRepository.findAllByUserId(1L)).thenReturn(List.of(testWallet));
             when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
 
@@ -225,7 +225,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("getWalletById возвращает кошелек настоящему владельцу")
-        void getWalletById_Success() {
+        void getWalletByIdSuccess() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
             when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
 
@@ -237,7 +237,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("getWalletById выбрасывает ResourceNotFoundException, если запрашивает сторонний пользователь")
-        void getWalletById_ForeignUser_ThrowsException() {
+        void getWalletByIdForeignUserThrowsException() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
 
             assertThatThrownBy(() -> walletService.getWalletById(999L, 10L))
@@ -247,7 +247,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("getWalletByAddress возвращает кошелек по его публичному адресу")
-        void getWalletByAddress_Success() {
+        void getWalletByAddressSuccess() {
             when(walletRepository.findByAddress("0x123456789abcdef")).thenReturn(Optional.of(testWallet));
             when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
 
@@ -259,7 +259,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("getWalletByAddress выбрасывает ResourceNotFoundException при несуществующем адресе")
-        void getWalletByAddress_NotFound_ThrowsException() {
+        void getWalletByAddressNotFoundThrowsException() {
             when(walletRepository.findByAddress("0xInvalid")).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> walletService.getWalletByAddress("0xInvalid"))
@@ -269,7 +269,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("getAggregatedBalances возвращает список агрегированных остатков")
-        void getAggregatedBalances_Success() {
+        void getAggregatedBalancesSuccess() {
             AggregatedBalanceDto dto = new AggregatedBalanceDto(100L, "BTC", "Bitcoin", new BigDecimal("10.5"));
 
             when(userRepository.existsById(1L)).thenReturn(true);
@@ -284,7 +284,7 @@ class WalletServiceImplTest {
 
         @Test
         @DisplayName("getAggregatedBalances выбрасывает ResourceNotFoundException при несуществующем пользователе")
-        void getAggregatedBalances_UserNotFound_ThrowsException() {
+        void getAggregatedBalancesUserNotFoundThrowsException() {
             when(userRepository.existsById(1L)).thenReturn(false);
 
             assertThatThrownBy(() -> walletService.getAggregatedBalances(1L))

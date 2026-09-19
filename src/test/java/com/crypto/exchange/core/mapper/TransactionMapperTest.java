@@ -49,7 +49,7 @@ class TransactionMapperTest {
 
         @Test
         @DisplayName("Определяет направление OUTGOING, если отправитель - текущий пользователь")
-        void toResponseDto_OutgoingDirection() {
+        void toResponseDtoOutgoingDirection() {
             Transaction transaction = Transaction.builder()
                     .id(1000L)
                     .fromWallet(walletUser1)
@@ -75,7 +75,7 @@ class TransactionMapperTest {
 
         @Test
         @DisplayName("Определяет направление INCOMING, если получатель - текущий пользователь")
-        void toResponseDto_IncomingDirection() {
+        void toResponseDtoIncomingDirection() {
             Transaction transaction = Transaction.builder()
                     .id(1001L)
                     .fromWallet(walletUser2)
@@ -96,7 +96,7 @@ class TransactionMapperTest {
 
         @Test
         @DisplayName("Определяет направление SELF, если оба кошелька принадлежат текущему пользователю")
-        void toResponseDto_SelfDirection() {
+        void toResponseDtoSelfDirection() {
             Transaction transaction = Transaction.builder()
                     .id(1002L)
                     .fromWallet(walletUser1)
@@ -122,7 +122,7 @@ class TransactionMapperTest {
 
         @Test
         @DisplayName("Корректно обрабатывает null в fromWallet (например, внешнее пополнение)")
-        void calculateDirection_NullFromWallet_ReturnsIncoming() {
+        void calculateDirectionNullFromWalletReturnsIncoming() {
             Transaction transaction = Transaction.builder()
                     .fromWallet(null)
                     .toWallet(walletUser1)
@@ -135,7 +135,7 @@ class TransactionMapperTest {
 
         @Test
         @DisplayName("Корректно обрабатывает null в toWallet (например, вывод на внешний адрес)")
-        void calculateDirection_NullToWallet_ReturnsOutgoing() {
+        void calculateDirectionNullToWalletReturnsOutgoing() {
             Transaction transaction = Transaction.builder()
                     .fromWallet(walletUser1)
                     .toWallet(null)
@@ -148,7 +148,7 @@ class TransactionMapperTest {
 
         @Test
         @DisplayName("Возвращает null при передаче null сущности Transaction")
-        void toResponseDto_NullEntity_ReturnsNull() {
+        void toResponseDtoNullEntityReturnsNull() {
             assertThat(transactionMapper.toResponseDto(null, 1L)).isNull();
         }
     }

@@ -45,13 +45,13 @@ class TransactionControllerIntegrationTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Test
-    void getUserTransactions_shouldReturnForbidden_whenUnauthenticated() throws Exception {
+    void getUserTransactionsShouldReturnForbiddenWhenUnauthenticated() throws Exception {
        mockMvc.perform(get("/api/v1/transactions"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    void getUserTransactions_shouldReturnPageOfTransactions_whenAuthenticated() throws Exception {
+    void getUserTransactionsShouldReturnPageOfTransactionsWhenAuthenticated() throws Exception {
         Long userId = 1L;
         UserPrincipal principal = new UserPrincipal(
                 userId, "testuser", "test@mail.com", "password", Role.ROLE_USER

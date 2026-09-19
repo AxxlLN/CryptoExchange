@@ -69,7 +69,7 @@ class TransactionServiceImplTest {
 
     @Test
     @DisplayName("Возвращает пагинированный список транзакций пользователя с маппингом в DTO")
-    void getUserTransactions_ReturnsPageOfTransactionResponseDto() {
+    void getUserTransactionsReturnsPageOfTransactionResponseDto() {
         Page<Transaction> transactionPage = new PageImpl<>(List.of(transaction1, transaction2), pageable, 2);
 
         when(transactionRepository.findAllByUserIdInvolved(userId, pageable)).thenReturn(transactionPage);
@@ -89,7 +89,7 @@ class TransactionServiceImplTest {
 
     @Test
     @DisplayName("Возвращает пустую страницу, если у пользователя нет транзакций")
-    void getUserTransactions_EmptyPage_ReturnsEmpty() {
+    void getUserTransactionsEmptyPageReturnsEmpty() {
         Page<Transaction> emptyPage = new PageImpl<>(List.of(), pageable, 0);
 
         when(transactionRepository.findAllByUserIdInvolved(userId, pageable)).thenReturn(emptyPage);

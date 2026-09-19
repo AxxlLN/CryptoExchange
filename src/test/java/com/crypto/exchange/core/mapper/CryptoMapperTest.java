@@ -48,7 +48,7 @@ class CryptoMapperTest {
 
         @Test
         @DisplayName("Успешно маппит CryptoCurrency в CryptoCurrencyResponseDto")
-        void toResponseDto_Success() {
+        void toResponseDtoSuccess() {
             CryptoCurrencyResponseDto dto = cryptoMapper.toResponseDto(cryptoCurrency);
 
             assertThat(dto).isNotNull();
@@ -61,7 +61,7 @@ class CryptoMapperTest {
 
         @Test
         @DisplayName("Возвращает null при передаче null сущности CryptoCurrency")
-        void toResponseDto_NullEntity_ReturnsNull() {
+        void toResponseDtoNullEntityReturnsNull() {
             assertThat(cryptoMapper.toResponseDto(null)).isNull();
         }
     }
@@ -72,7 +72,7 @@ class CryptoMapperTest {
 
         @Test
         @DisplayName("Успешно маппит CryptoPriceHistory в CryptoPriceHistoryDto")
-        void toHistoryDto_Success() {
+        void toHistoryDtoSuccess() {
             CryptoPriceHistoryDto dto = cryptoMapper.toHistoryDto(priceHistory);
 
             assertThat(dto).isNotNull();
@@ -82,7 +82,7 @@ class CryptoMapperTest {
 
         @Test
         @DisplayName("Возвращает null при передаче null сущности CryptoPriceHistory")
-        void toHistoryDto_NullEntity_ReturnsNull() {
+        void toHistoryDtoNullEntityReturnsNull() {
             assertThat(cryptoMapper.toHistoryDto(null)).isNull();
         }
     }

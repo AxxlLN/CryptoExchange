@@ -26,14 +26,14 @@ class SecurityConfigIntegrationTest {
     private JwtTokenProvider tokenProvider;
 
     @Test
-    void shouldDenyAccessToProtectedEndpoints_whenUnauthenticated() throws Exception {
+    void shouldDenyAccessToProtectedEndpointsWhenUnauthenticated() throws Exception {
         mockMvc.perform(get("/api/v1/wallets"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     @WithMockUser(username = "user", roles = {"USER"})
-    void shouldDenyAccessToAdminEndpoints_whenUserHasRegularRole() throws Exception {
+    void shouldDenyAccessToAdminEndpointsWhenUserHasRegularRole() throws Exception {
         mockMvc.perform(get("/api/v1/admin/stats"))
                 .andExpect(status().isForbidden());
     }

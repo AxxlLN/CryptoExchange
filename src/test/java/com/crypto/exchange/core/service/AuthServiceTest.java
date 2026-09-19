@@ -94,7 +94,7 @@ class AuthServiceTest {
 
         @Test
         @DisplayName("Успешная регистрация нового пользователя")
-        void register_Success() {
+        void registerSuccess() {
             when(userRepository.existsByUsername("john_doe")).thenReturn(false);
             when(userRepository.existsByEmail("john@example.com")).thenReturn(false);
             when(userMapper.toEntity(registerRequest)).thenReturn(userEntity);
@@ -117,7 +117,7 @@ class AuthServiceTest {
 
         @Test
         @DisplayName("Выбрасывает UserAlreadyExistsException, если username уже занят")
-        void register_UsernameAlreadyExists_ThrowsException() {
+        void registerUsernameAlreadyExistsThrowsException() {
             when(userRepository.existsByUsername("john_doe")).thenReturn(true);
 
             assertThatThrownBy(() -> authService.register(registerRequest))
@@ -130,7 +130,7 @@ class AuthServiceTest {
 
         @Test
         @DisplayName("Выбрасывает UserAlreadyExistsException, если email уже занят")
-        void register_EmailAlreadyExists_ThrowsException() {
+        void registerEmailAlreadyExistsThrowsException() {
             when(userRepository.existsByUsername("john_doe")).thenReturn(false);
             when(userRepository.existsByEmail("john@example.com")).thenReturn(true);
 
@@ -148,7 +148,7 @@ class AuthServiceTest {
 
         @Test
         @DisplayName("Успешная аутентификация и генерация токена")
-        void login_Success() {
+        void loginSuccess() {
             when(userRepository.findByUsernameOrEmail("john_doe")).thenReturn(Optional.of(userEntity));
             when(tokenProvider.generateToken(userEntity)).thenReturn(jwtToken);
             when(userMapper.toResponseDto(userEntity)).thenReturn(userResponseDto);
@@ -169,7 +169,7 @@ class AuthServiceTest {
 
         @Test
         @DisplayName("Выбрасывает исключение, если пользователь не найден в БД после успешной аутентификации")
-        void login_UserNotFoundAfterAuth_ThrowsException() {
+        void loginUserNotFoundAfterAuthThrowsException() {
             when(userRepository.findByUsernameOrEmail("john_doe")).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> authService.login(loginRequest))

@@ -3,6 +3,7 @@ package com.crypto.exchange.core.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.nio.file.AccessDeniedException;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -25,7 +24,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ErrorResponse handleNotFoundException(Exception ex) {
+    public ErrorResponse handleNotFoundException(ResourceNotFoundException ex) {
         log.warn("Resource not found: {}", ex.getMessage());
         return new ErrorResponse(
                 OffsetDateTime.now(ZoneOffset.UTC),
@@ -36,7 +35,7 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MethodArgumentNotValidException.class, InsufficientFundsException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handleValidationExceptions(MethodArgumentNotValidException ex) {
         StringBuilder errorMessage = new StringBuilder();
         ex.getBindingResult().getAllErrors().forEach(error -> {
@@ -59,7 +58,8 @@ public class GlobalExceptionHandler {
             IllegalArgumentException.class,
             HttpMessageNotReadableException.class,
             MethodArgumentTypeMismatchException.class,
-            MissingServletRequestParameterException.class
+            MissingServletRequestParameterException.class,
+            InsufficientFundsException.class
     })
     public ErrorResponse handleBadRequestException(Exception ex) {
         log.warn("Bad Request: {}", ex.getMessage());

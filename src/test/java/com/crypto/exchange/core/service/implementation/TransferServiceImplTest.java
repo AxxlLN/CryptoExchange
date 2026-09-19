@@ -113,7 +113,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Успешный перевод, когда у получателя уже есть баланс этой криптовалюты")
-        void transfer_Success_ExistingRecipientBalance() {
+        void transferSuccessExistingRecipientBalance() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
             when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
             when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.of(btcCrypto));
@@ -152,7 +152,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Успешный перевод, когда у получателя нет записи баланса (создается новая запись)")
-        void transfer_Success_CreatesNewRecipientBalance() {
+        void transferSuccessCreatesNewRecipientBalance() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
             when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
             when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.of(btcCrypto));
@@ -181,7 +181,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если кошелек отправителя не найден")
-        void transfer_SenderWalletNotFound_ThrowsException() {
+        void transferSenderWalletNotFoundThrowsException() {
             when(walletRepository.findById(10L)).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> transferService.transfer(1L, transferRequestDto))
@@ -191,7 +191,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если кошелек не принадлежит пользователю")
-        void transfer_SenderWalletBelongsToAnotherUser_ThrowsException() {
+        void transferSenderWalletBelongsToAnotherUserThrowsException() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
 
             assertThatThrownBy(() -> transferService.transfer(999L, transferRequestDto))
@@ -201,7 +201,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если кошелек получателя не найден по адресу")
-        void transfer_RecipientWalletNotFound_ThrowsException() {
+        void transferRecipientWalletNotFoundThrowsException() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
             when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.empty());
 
@@ -212,7 +212,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает IllegalArgumentException при попытке перевести средства на тот же кошелек")
-        void transfer_SameWallet_ThrowsException() {
+        void transferSameWalletThrowsException() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
             when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(senderWallet));
 
@@ -223,7 +223,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает ResourceNotFoundException, если криптовалюта не найдена")
-        void transfer_CryptoNotFound_ThrowsException() {
+        void transferCryptoNotFoundThrowsException() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
             when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
             when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.empty());
@@ -235,7 +235,7 @@ class TransferServiceImplTest {
 
         @Test
         @DisplayName("Выбрасывает InsufficientFundsException, если не удалось списать баланс (недостаточно средств)")
-        void transfer_InsufficientFunds_ThrowsException() {
+        void transferInsufficientFundsThrowsException() {
             when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
             when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
             when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.of(btcCrypto));

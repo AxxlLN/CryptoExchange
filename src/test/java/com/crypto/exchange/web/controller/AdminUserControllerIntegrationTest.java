@@ -38,21 +38,21 @@ class AdminUserControllerIntegrationTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Test
-    void getAllUsers_shouldReturnForbidden_whenUnauthenticated() throws Exception {
+    void getAllUsersShouldReturnForbiddenWhenUnauthenticated() throws Exception {
         mockMvc.perform(get("/api/v1/admin/users"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     @WithMockUser(roles = "USER")
-    void getAllUsers_shouldReturnForbidden_whenUserIsNotAdmin() throws Exception {
+    void getAllUsersShouldReturnForbiddenWhenUserIsNotAdmin() throws Exception {
         mockMvc.perform(get("/api/v1/admin/users"))
                 .andExpect(status().isForbidden());
     }
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void getAllUsers_shouldReturnOk_whenUserIsAdmin() throws Exception {
+    void getAllUsersShouldReturnOkWhenUserIsAdmin() throws Exception {
         UserResponseDto dto = new UserResponseDto(
                 1L, "testuser", "test@mail.com", Role.ROLE_ADMIN, OffsetDateTime.now(ZoneOffset.UTC)
         );
@@ -65,7 +65,7 @@ class AdminUserControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void getUserById_shouldReturnOk_whenUserIsAdmin() throws Exception {
+    void getUserByIdShouldReturnOkWhenUserIsAdmin() throws Exception {
         Long userId = 1L;
         UserResponseDto dto = new UserResponseDto(
                 userId, "testuser", "test@mail.com", Role.ROLE_ADMIN, OffsetDateTime.now(ZoneOffset.UTC)
@@ -80,7 +80,7 @@ class AdminUserControllerIntegrationTest {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    void deleteUser_shouldReturnNoContent_whenUserIsAdmin() throws Exception {
+    void deleteUserShouldReturnNoContentWhenUserIsAdmin() throws Exception {
         Long userId = 1L;
         doNothing().when(userService).deleteUser(userId);
 

@@ -46,7 +46,7 @@ class TransferControllerIntegrationTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Test
-    void transfer_shouldSucceed_whenValidRequestProvided() throws Exception {
+    void transferShouldSucceedWhenValidRequestProvided() throws Exception {
         Long userId = 1L;
         UserPrincipal principal = new UserPrincipal(
                 userId, "testuser", "test@mail.com", "password", Role.ROLE_USER
@@ -87,7 +87,7 @@ class TransferControllerIntegrationTest {
     }
 
     @Test
-    void transfer_shouldFail_whenValidationFails() throws Exception {
+    void transferShouldFailWhenValidationFails() throws Exception {
         UserPrincipal principal = new UserPrincipal(
                 1L, "testuser", "test@mail.com", "password", Role.ROLE_USER
         );
@@ -111,7 +111,7 @@ class TransferControllerIntegrationTest {
     }
 
     @Test
-    void transfer_shouldReturnForbidden_whenUnauthenticated() throws Exception {
+    void transferShouldReturnForbiddenWhenUnauthenticated() throws Exception {
         TransferRequestDto requestDto = new TransferRequestDto(
                 10L,
                 "0x123456789abcdef",

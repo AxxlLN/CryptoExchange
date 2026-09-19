@@ -34,7 +34,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Long userId = tokenProvider.getUserIdFromToken(jwt);
             String role = tokenProvider.getRoleFromToken(jwt);
 
-            // Создаем Lightweight Principal без обращения к БД
             UserPrincipal principal = new UserPrincipal(userId, username, null, null,
                     com.crypto.exchange.core.entity.Role.valueOf(role));
 

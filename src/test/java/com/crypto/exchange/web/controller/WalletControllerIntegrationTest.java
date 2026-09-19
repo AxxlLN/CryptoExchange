@@ -55,7 +55,7 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
-    void createWallet_shouldReturnCreated_whenRequestIsValid() throws Exception {
+    void createWalletShouldReturnCreatedWhenRequestIsValid() throws Exception {
         CreateWalletRequestDto requestDto = new CreateWalletRequestDto("Main Wallet", true);
         WalletResponseDto responseDto = new WalletResponseDto(1L, "0xAddress123", "Main Wallet", true, List.of());
 
@@ -72,7 +72,7 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
-    void getMyWallets_shouldReturnList_whenAuthenticated() throws Exception {
+    void getMyWalletsShouldReturnListWhenAuthenticated() throws Exception {
         WalletResponseDto responseDto = new WalletResponseDto(1L, "0xAddress123", "Main Wallet", true, List.of());
 
         given(walletService.getUserWallets(1L)).willReturn(List.of(responseDto));
@@ -85,7 +85,7 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
-    void getWalletById_shouldReturnWallet_whenExists() throws Exception {
+    void getWalletByIdShouldReturnWalletWhenExists() throws Exception {
         Long walletId = 1L;
         WalletResponseDto responseDto = new WalletResponseDto(walletId, "0xAddress123", "Main Wallet", true, List.of());
 
@@ -98,7 +98,7 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
-    void deposit_shouldReturnUpdatedWallet_whenRequestIsValid() throws Exception {
+    void depositShouldReturnUpdatedWalletWhenRequestIsValid() throws Exception {
         Long walletId = 1L;
         BalanceOperationRequestDto requestDto = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
         WalletResponseDto responseDto = new WalletResponseDto(walletId, "0xAddress123", "Main Wallet", true, List.of());
@@ -114,7 +114,7 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
-    void withdraw_shouldReturnUpdatedWallet_whenRequestIsValid() throws Exception {
+    void withdrawShouldReturnUpdatedWalletWhenRequestIsValid() throws Exception {
         Long walletId = 1L;
         BalanceOperationRequestDto requestDto = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
         WalletResponseDto responseDto = new WalletResponseDto(walletId, "0xAddress123", "Main Wallet", true, List.of());
@@ -130,7 +130,7 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
-    void getWalletByAddress_shouldReturnWallet_whenAddressExists() throws Exception {
+    void getWalletByAddressShouldReturnWalletWhenAddressExists() throws Exception {
         String address = "0xAddress123";
         WalletResponseDto responseDto = new WalletResponseDto(1L, address, "Main Wallet", true, List.of());
 
@@ -143,7 +143,7 @@ class WalletControllerIntegrationTest {
     }
 
     @Test
-    void getAggregatedBalances_shouldReturnSummary_whenAuthenticated() throws Exception {
+    void getAggregatedBalancesShouldReturnSummaryWhenAuthenticated() throws Exception {
         AggregatedBalanceDto balanceDto = new AggregatedBalanceDto(1L, "BTC", "Bitcoin", new BigDecimal("2.5"));
 
         given(walletService.getAggregatedBalances(1L)).willReturn(List.of(balanceDto));

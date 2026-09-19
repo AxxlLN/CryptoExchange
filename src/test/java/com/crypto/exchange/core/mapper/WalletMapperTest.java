@@ -57,7 +57,7 @@ class WalletMapperTest {
 
         @Test
         @DisplayName("Успешно маппит Wallet со всем содержимым и балансами")
-        void toResponseDto_Success() {
+        void toResponseDtoSuccess() {
             WalletResponseDto responseDto = walletMapper.toResponseDto(wallet);
 
             assertThat(responseDto).isNotNull();
@@ -80,7 +80,7 @@ class WalletMapperTest {
 
         @Test
         @DisplayName("Возвращает null при передаче null сущности Wallet")
-        void toResponseDto_NullEntity_ReturnsNull() {
+        void toResponseDtoNullEntityReturnsNull() {
             assertThat(walletMapper.toResponseDto(null)).isNull();
         }
     }
@@ -91,7 +91,7 @@ class WalletMapperTest {
 
         @Test
         @DisplayName("Успешный маппинг WalletBalance с корректным рассчетом стоимости")
-        void toBalanceResponseDto_Success() {
+        void toBalanceResponseDtoSuccess() {
             WalletBalanceResponseDto dto = walletMapper.toBalanceResponseDto(btcBalance);
 
             assertThat(dto).isNotNull();
@@ -107,7 +107,7 @@ class WalletMapperTest {
 
         @Test
         @DisplayName("Безопасная обработка null при вызове getCurrentPriceSafe и calculateTotalValue")
-        void helperMethods_NullSafety() {
+        void helperMethodsNullSafety() {
             assertThat(walletMapper.getCurrentPriceSafe(null)).isEqualTo(BigDecimal.ZERO);
             assertThat(walletMapper.calculateTotalValue(null)).isEqualTo(BigDecimal.ZERO);
 

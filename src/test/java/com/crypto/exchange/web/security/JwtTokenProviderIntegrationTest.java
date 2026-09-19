@@ -19,7 +19,7 @@ class JwtTokenProviderIntegrationTest {
     private JwtTokenProvider tokenProvider;
 
     @Test
-    void generateAndValidateToken_shouldUsePropertiesSuccessfully() {
+    void generateAndValidateTokenShouldUsePropertiesSuccessfully() {
         User user = new User();
         user.setId(1L);
         user.setUsername("test_user");
@@ -35,7 +35,7 @@ class JwtTokenProviderIntegrationTest {
     }
 
     @Test
-    void validateToken_shouldReturnFalse_whenTokenIsInvalid() {
+    void validateTokenShouldReturnFalseWhenTokenIsInvalid() {
         boolean isValid = tokenProvider.validateToken("invalid.jwt.token.string");
         assertThat(isValid).isFalse();
     }

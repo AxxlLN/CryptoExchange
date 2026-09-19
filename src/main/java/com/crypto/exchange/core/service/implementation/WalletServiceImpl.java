@@ -14,9 +14,7 @@ import com.crypto.exchange.core.repository.WalletRepository;
 import com.crypto.exchange.core.service.WalletService;
 import com.crypto.exchange.web.dto.request.BalanceOperationRequestDto;
 import com.crypto.exchange.web.dto.request.CreateWalletRequestDto;
-import com.crypto.exchange.web.dto.request.TransferRequestDto;
 import com.crypto.exchange.web.dto.response.AggregatedBalanceDto;
-import com.crypto.exchange.web.dto.response.TransferResponseDto;
 import com.crypto.exchange.web.dto.response.WalletResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -104,7 +102,7 @@ public class WalletServiceImpl implements WalletService {
         Wallet wallet = getWalletAndVerifyOwner(userId, walletId);
 
         int updatedRows = walletBalanceRepository.addBalanceByExternalIdNative(
-                walletId,
+                wallet.getId(),
                 request.externalId(),
                 request.amount()
         );
@@ -130,7 +128,7 @@ public class WalletServiceImpl implements WalletService {
         Wallet wallet = getWalletAndVerifyOwner(userId, walletId);
 
         int updatedRows = walletBalanceRepository.deductBalanceByExternalIdNative(
-                walletId,
+                wallet.getId(),
                 request.externalId(),
                 request.amount()
         );
