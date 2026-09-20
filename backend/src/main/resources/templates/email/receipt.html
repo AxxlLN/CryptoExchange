@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Чек транзакции</title>
+</head>
+<body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px;">
+
+<div style="max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+
+    <!-- Header -->
+    <div style="background-color: #1a202c; padding: 20px; text-align: center; color: #ffffff;">
+        <h2 style="margin: 0; font-size: 20px; font-weight: 600;">Crypto Exchange</h2>
+        <p style="margin: 5px 0 0 0; color: #a0aec0; font-size: 13px;">Квитанция об операции</p>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 30px;">
+        <div style="text-align: center; margin-bottom: 25px;">
+                <span style="font-size: 32px; font-weight: bold; color: #2d3748;"
+                      th:text="${tx.fromAmount + ' ' + tx.fromCryptoSymbol}">5 BTC</span>
+            <div style="margin-top: 8px;">
+                    <span style="display: inline-block; background-color: #e6fffa; color: #234e52; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold;"
+                          th:text="${tx.direction}">OUTGOING</span>
+            </div>
+        </div>
+
+        <!-- Details Table -->
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px; color: #4a5568;">
+            <tr style="border-bottom: 1px solid #edf2f7;">
+                <td style="padding: 10px 0; color: #718096;">ID транзакции:</td>
+                <td style="padding: 10px 0; text-align: right; font-weight: bold;" th:text="${'#' + tx.id}">#123</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #edf2f7;">
+                <td style="padding: 10px 0; color: #718096;">Тип операции:</td>
+                <td style="padding: 10px 0; text-align: right; font-weight: bold;" th:text="${tx.type}">TRANSFER</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #edf2f7;">
+                <td style="padding: 10px 0; color: #718096;">ID кошелька списания:</td>
+                <td style="padding: 10px 0; text-align: right;" th:text="${tx.fromWalletId}">1</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #edf2f7;">
+                <td style="padding: 10px 0; color: #718096;">ID кошелька зачисления:</td>
+                <td style="padding: 10px 0; text-align: right;" th:text="${tx.toWalletId}">2</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 0; color: #718096;">Дата и время:</td>
+                <td style="padding: 10px 0; text-align: right;" th:text="${#temporals.format(tx.createdAt, 'yyyy-MM-dd HH:mm')}">2026-09-16 20:22</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <div style="background-color: #f7fafc; padding: 15px; text-align: center; color: #a0aec0; font-size: 12px;">
+        Если вы не совершали эту операцию, немедленно обратитесь в службу поддержки.
+    </div>
+</div>
+
+</body>
+</html>
