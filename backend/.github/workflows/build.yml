@@ -23,10 +23,10 @@ jobs:
           distribution: 'zulu'
 
       - name: Make wrapper executable
-        run: chmod +x mvnw
+        run: chmod +x backend/mvnw
 
       - name: Build and Test with JaCoCo
-        run: ./mvnw -B clean test jacoco:report
+        run: cd backend && ./mvnw -B clean test jacoco:report
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -38,5 +38,8 @@ jobs:
             -Dsonar.organization=axxlln
             -Dsonar.projectKey=AxxlLN_CryptoExchange
             -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.sources=src/main/java
+            -Dsonar.tests=src/test/java
             -Dsonar.java.binaries=target/classes
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            -Dsonar.projectBaseDir=backend
