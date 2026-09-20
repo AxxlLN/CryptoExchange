@@ -56,6 +56,32 @@ public class User {
     private Role role;
 
     /**
+     * Аватар пользователя
+     */
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
+    /**
+     * Статус аккаунта (удален - не удален)
+     */
+    @Builder.Default
+    @Column(name = "is_deleted", nullable = false)
+    private boolean deleted = false;
+
+    /**
+     * Время удаления
+     */
+    @Column(name = "deleted_at")
+    private OffsetDateTime deletedAt;
+
+    /**
+     * Блокировка аккаунта
+     */
+    @Builder.Default
+    @Column(name = "is_blocked", nullable = false)
+    private boolean blocked = false;
+
+    /**
      * Дата и время создания аккаунта.
      */
     @Column(name = "created_at", nullable = false, updatable = false)

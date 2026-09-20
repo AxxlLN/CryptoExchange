@@ -106,4 +106,6 @@ public interface WalletBalanceRepository extends JpaRepository<WalletBalance, Lo
                                      @Param("externalId") String externalId,
                                      @Param("amount") BigDecimal amount);
 
+    @Query("SELECT COUNT(wb) > 0 FROM WalletBalance wb WHERE wb.wallet.user.id = :userId AND wb.amount > 0")
+    boolean hasPositiveBalances(@Param("userId") Long userId);
 }

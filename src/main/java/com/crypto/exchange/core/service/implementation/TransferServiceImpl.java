@@ -2,6 +2,7 @@ package com.crypto.exchange.core.service.implementation;
 
 import com.crypto.exchange.core.entity.CryptoCurrency;
 import com.crypto.exchange.core.entity.Transaction;
+import com.crypto.exchange.core.entity.Transaction.TransactionStatus;
 import com.crypto.exchange.core.entity.Transaction.TransactionType;
 import com.crypto.exchange.core.entity.Wallet;
 import com.crypto.exchange.core.entity.WalletBalance;
@@ -22,10 +23,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-
 @Service
 @RequiredArgsConstructor
 public class TransferServiceImpl implements TransferService {
@@ -40,11 +37,11 @@ public class TransferServiceImpl implements TransferService {
     @Override
     @Transactional
     public TransferResponseDto transfer(Long userId, TransferRequestDto request) {
-        Wallet senderWallet = walletRepository.findById(request.fromWalletId())
-                .orElseThrow(() -> new ResourceNotFoundException("Wallet not found: " + request.fromWalletId()));
+        Wallet senderWallet = walletRepository.findByAddress(request.fromAddress())
+                .orElseThrow(() -> new ResourceNotFoundException("Sender wallet not found with address: " + request.fromAddress()));
 
         if (!senderWallet.getUser().getId().equals(userId)) {
-            throw new ResourceNotFoundException("Wallet not found: " + request.fromWalletId());
+            throw new ResourceNotFoundException("Sender wallet not found with address: " + request.fromAddress());
         }
 
         Wallet recipientWallet = walletRepository.findByAddress(request.recipientAddress())
@@ -93,6 +90,7 @@ public class TransferServiceImpl implements TransferService {
                 .fromAmount(request.amount())
                 .toAmount(request.amount())
                 .type(TransactionType.TRANSFER)
+                .status(TransactionStatus.SUCCESS)
                 .build();
 
         Transaction savedTransaction = transactionRepository.save(transaction);
@@ -103,13 +101,6 @@ public class TransferServiceImpl implements TransferService {
                 responseDto
         ));
 
-        return new TransferResponseDto(
-                senderWallet.getAddress(),
-                recipientWallet.getAddress(),
-                crypto.getSymbol(),
-                request.amount(),
-                OffsetDateTime.now(ZoneOffset.UTC),
-                "SUCCESS"
-        );
+        return transactionMapper.toTransferResponseDto(savedTransaction);
     }
 }

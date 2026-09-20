@@ -1,7 +1,12 @@
 package com.crypto.exchange.core.exception;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -9,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,21 +44,14 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleBadCredentialsShouldReturn401() throws Exception {
-        mockMvc.perform(get("/test/bad-credentials"))
-                .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$.status").value(401))
-                .andExpect(jsonPath("$.error").value("Unauthorized"))
-                .andExpect(jsonPath("$.message").value("Неверное имя пользователя или пароль"));
-    }
-
-    @Test
-    void handleAuthenticationExceptionShouldReturn401() throws Exception {
-        mockMvc.perform(get("/test/authentication-error"))
-                .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$.status").value(401))
-                .andExpect(jsonPath("$.error").value("Unauthorized"))
-                .andExpect(jsonPath("$.message").value("Неверные учетные данные или невалидный токен"));
+    void handleValidationExceptionsShouldReturn400() throws Exception {
+        mockMvc.perform(post("/test/validation")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.message").value("title: must not be blank;"));
     }
 
     @Test
@@ -78,6 +77,35 @@ class GlobalExceptionHandlerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error").value("Bad Request"));
+    }
+
+    @Test
+    void handleHttpMessageNotReadableShouldReturn400() throws Exception {
+        mockMvc.perform(post("/test/validation")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("invalid json {"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error").value("Bad Request"))
+                .andExpect(jsonPath("$.message").value("Некорректный формат JSON или тела запроса"));
+    }
+
+    @Test
+    void handleBadCredentialsShouldReturn401() throws Exception {
+        mockMvc.perform(get("/test/bad-credentials"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.error").value("Unauthorized"))
+                .andExpect(jsonPath("$.message").value("Неверное имя пользователя или пароль"));
+    }
+
+    @Test
+    void handleAuthenticationExceptionShouldReturn401() throws Exception {
+        mockMvc.perform(get("/test/authentication-error"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.error").value("Unauthorized"))
+                .andExpect(jsonPath("$.message").value("Неверные учетные данные или невалидный токен"));
     }
 
     @Test
@@ -126,6 +154,10 @@ class GlobalExceptionHandlerTest {
             throw new ResourceNotFoundException("Cryptocurrency not found");
         }
 
+        @PostMapping("/test/validation")
+        public void validateDto(@Valid @RequestBody TestDto dto) {
+        }
+
         @GetMapping("/test/bad-credentials")
         public void throwBadCredentials() {
             throw new BadCredentialsException("Bad credentials");
@@ -153,22 +185,22 @@ class GlobalExceptionHandlerTest {
 
         @GetMapping("/test/missing-param")
         public void throwMissingParam(@RequestParam("requiredParam") String param) {
-            // Spring автоматически выбросит MissingServletRequestParameterException, если параметра нет
         }
 
         @GetMapping("/test/type-mismatch")
         public void throwTypeMismatch(@RequestParam("id") Long id) {
-            // Spring автоматически выбросит MethodArgumentTypeMismatchException при неверном типе
-        }
-
-        @PostMapping("/test/json-body")
-        public void throwMalformedJson(@org.springframework.web.bind.annotation.RequestBody String body) {
-            // Spring автоматически выбросит HttpMessageNotReadableException при невалидном JSON
         }
 
         @GetMapping("/test/internal-error")
         public void throwInternalError() {
             throw new IllegalStateException("Unexpected internal state");
         }
+    }
+
+    @Getter
+    @Setter
+    static class TestDto {
+        @NotBlank(message = "must not be blank")
+        private String title;
     }
 }

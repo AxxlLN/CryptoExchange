@@ -4,14 +4,10 @@ import com.crypto.exchange.core.entity.Role;
 import com.crypto.exchange.core.entity.User;
 import com.crypto.exchange.web.dto.request.RegisterRequest;
 import com.crypto.exchange.web.dto.response.UserResponseDto;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,76 +15,68 @@ class UserMapperTest {
 
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
-    private User testUser;
-    private RegisterRequest registerRequest;
-
-    @BeforeEach
-    void setUp() {
-        testUser = User.builder()
+    @Test
+    void toResponseDtoShouldMapAllFieldsCorrectly() {
+        OffsetDateTime now = OffsetDateTime.now();
+        User entity = User.builder()
                 .id(1L)
-                .username("john_doe")
+                .username("johndoe")
                 .email("john@example.com")
+                .avatarUrl("https://example.com/avatar.png")
                 .role(Role.ROLE_USER)
-                .createdAt(OffsetDateTime.now(ZoneOffset.UTC))
+                .blocked(false)
+                .deleted(false)
+                .createdAt(now)
                 .build();
 
-        registerRequest = new RegisterRequest(
-                "jane_doe",
-                "jane@example.com",
+        UserResponseDto dto = userMapper.toResponseDto(entity);
+
+        assertThat(dto).isNotNull();
+        assertThat(dto.id()).isEqualTo(1L);
+        assertThat(dto.username()).isEqualTo("johndoe");
+        assertThat(dto.email()).isEqualTo("john@example.com");
+        assertThat(dto.avatarUrl()).isEqualTo("https://example.com/avatar.png");
+        assertThat(dto.role()).isEqualTo(Role.ROLE_USER);
+        assertThat(dto.blocked()).isFalse();
+        assertThat(dto.deleted()).isFalse();
+        assertThat(dto.createdAt()).isEqualTo(now);
+    }
+
+    @Test
+    void toResponseDtoShouldReturnNullWhenEntityIsNull() {
+        UserResponseDto dto = userMapper.toResponseDto(null);
+
+        assertThat(dto).isNull();
+    }
+
+    @Test
+    void toEntityShouldMapRegisterRequestToUserIgnoringUnmappedFields() {
+        RegisterRequest request = new RegisterRequest(
+                "johndoe",
+                "john@example.com",
                 "secretPassword123"
         );
+
+        User entity = userMapper.toEntity(request);
+
+        assertThat(entity).isNotNull();
+        assertThat(entity.getUsername()).isEqualTo("johndoe");
+        assertThat(entity.getEmail()).isEqualTo("john@example.com");
+
+        assertThat(entity.getId()).isNull();
+        assertThat(entity.getPassword()).isNull();
+        assertThat(entity.getRole()).isNull();
+        assertThat(entity.getAvatarUrl()).isNull();
+        assertThat(entity.getCreatedAt()).isNull();
+        assertThat(entity.getDeletedAt()).isNull();
+        assertThat(entity.isBlocked()).isFalse();
+        assertThat(entity.isDeleted()).isFalse();
     }
 
-    @Nested
-    @DisplayName("Маппинг User -> UserResponseDto")
-    class UserToResponseDtoTests {
+    @Test
+    void toEntityShouldReturnNullWhenRequestIsNull() {
+        User entity = userMapper.toEntity(null);
 
-        @Test
-        @DisplayName("Успешно маппит сущность User в UserResponseDto")
-        void toResponseDtoSuccess() {
-            UserResponseDto dto = userMapper.toResponseDto(testUser);
-
-            assertThat(dto).isNotNull();
-            assertThat(dto.id()).isEqualTo(1L);
-            assertThat(dto.username()).isEqualTo("john_doe");
-            assertThat(dto.email()).isEqualTo("john@example.com");
-            assertThat(dto.role()).isEqualTo(Role.ROLE_USER);
-            assertThat(dto.createdAt()).isEqualTo(testUser.getCreatedAt());
-        }
-
-        @Test
-        @DisplayName("Возвращает null при передаче null сущности User")
-        void toResponseDtoNullEntityReturnsNull() {
-            assertThat(userMapper.toResponseDto(null)).isNull();
-        }
-    }
-
-    @Nested
-    @DisplayName("Маппинг RegisterRequest -> User")
-    class RegisterRequestToUserTests {
-
-        @Test
-        @DisplayName("Успешно маппит RegisterRequest в User с игнорированием системных полей")
-        void toEntitySuccess() {
-            User entity = userMapper.toEntity(registerRequest);
-
-            assertThat(entity).isNotNull();
-            assertThat(entity.getUsername()).isEqualTo("jane_doe");
-            assertThat(entity.getEmail()).isEqualTo("jane@example.com");
-
-            assertThat(entity.getId()).isNull();
-            assertThat(entity.getPassword()).isNull();
-            assertThat(entity.getRole()).isNull();
-            assertThat(entity.getCreatedAt()).isNull();
-
-            assertThat(entity.getWallets()).isEmpty();
-            assertThat(entity.getTransactions()).isEmpty();
-        }
-
-        @Test
-        @DisplayName("Возвращает null при передаче null DTO")
-        void toEntityNullRequestReturnsNull() {
-            assertThat(userMapper.toEntity(null)).isNull();
-        }
+        assertThat(entity).isNull();
     }
 }

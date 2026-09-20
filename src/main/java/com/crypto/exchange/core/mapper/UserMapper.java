@@ -18,5 +18,9 @@ public interface UserMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "wallets", ignore = true)
     @Mapping(target = "transactions", ignore = true)
+    @Mapping(target = "blocked", ignore = true)
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @Mapping(target = "avatarUrl", ignore = true)
     User toEntity(RegisterRequest request);
 }

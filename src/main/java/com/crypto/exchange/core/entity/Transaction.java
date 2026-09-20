@@ -9,7 +9,7 @@ import java.time.ZoneOffset;
 
 /**
  * Сущность финансовой транзакции.
- * Хранит историю пополнений, выводов и обменов монет пользователей.
+ * Хранит историю пополнений, выводов, обменов монет и P2P-переводов.
  */
 @Entity
 @Table(name = "transactions")
@@ -20,46 +20,43 @@ import java.time.ZoneOffset;
 @Builder
 public class Transaction {
 
-    /**
-     * Уникальный идентификатор транзакции (Primary Key).
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * Связь N:1 с пользователем, совершившим операцию.
+     * Пользователь, инициализировавший транзакцию (отправитель при переводе).
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     /**
-     * Кошелек списания средств.
+     * Кошелек списания средств (null для внешнего DEPOSIT).
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_wallet_id")
     private Wallet fromWallet;
 
     /**
-     * Кошелек зачисления средств.
+     * Кошелек зачисления средств (null для внешнего WITHDRAWAL).
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_wallet_id")
     private Wallet toWallet;
 
     /**
-     * Связь N:1 с исходной криптовалютой (что пользователь продает/отдает).
+     * Исходная криптовалюта (или единственная валюта при TRANSFER / DEPOSIT / WITHDRAWAL).
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_crypto_id", nullable = false)
+    @JoinColumn(name = "from_crypto_id")
     private CryptoCurrency fromCrypto;
 
     /**
-     * Связь N:1 с целевой криптовалютой (что пользователь покупает/получает).
+     * Целевая криптовалюта (актуально только для EXCHANGE).
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_crypto_id", nullable = false)
+    @JoinColumn(name = "to_crypto_id")
     private CryptoCurrency toCrypto;
 
     /**
@@ -69,17 +66,24 @@ public class Transaction {
     private BigDecimal fromAmount;
 
     /**
-     * Сумма зачисления в целевой валюте.
+     * Сумма зачисления в целевой валюте (для TRANSFER обычно равна fromAmount).
      */
     @Column(name = "to_amount", nullable = false, precision = 19, scale = 8)
     private BigDecimal toAmount;
 
     /**
-     * Тип проведенной операции (например: DEPOSIT, WITHDRAWAL, EXCHANGE).
+     * Тип проведенной операции.
      */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private TransactionType type;
+
+    /**
+     * Статус выполнения транзакции.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private TransactionStatus status;
 
     /**
      * Дата и время проведения транзакции.
@@ -90,15 +94,22 @@ public class Transaction {
     @PrePersist
     protected void onCreate() {
         this.createdAt = OffsetDateTime.now(ZoneOffset.UTC);
+        if (this.status == null) {
+            this.status = TransactionStatus.PENDING;
+        }
     }
 
-    /**
-     * Вложенный Enum для типов транзакций.
-     */
     public enum TransactionType {
         DEPOSIT,    /** Пополнение счета */
         WITHDRAWAL, /** Вывод средств */
         EXCHANGE,   /** Обмен одной валюты на другую */
-        TRANSFER    /** Перевод на другой кошелек определенной валюты */
+        TRANSFER    /** Перевод на другой кошелек */
+    }
+
+    public enum TransactionStatus {
+        PENDING,   /** В обработке */
+        SUCCESS,   /** Успешно завершена */
+        FAILED,    /** Ошибка выполнения */
+        CANCELLED  /** Отменена */
     }
 }

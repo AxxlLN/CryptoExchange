@@ -2,6 +2,8 @@ package com.crypto.exchange.core.service.implementation;
 
 import com.crypto.exchange.core.entity.CryptoCurrency;
 import com.crypto.exchange.core.entity.Transaction;
+import com.crypto.exchange.core.entity.Transaction.TransactionStatus;
+import com.crypto.exchange.core.entity.Transaction.TransactionType;
 import com.crypto.exchange.core.entity.User;
 import com.crypto.exchange.core.entity.Wallet;
 import com.crypto.exchange.core.entity.WalletBalance;
@@ -17,8 +19,6 @@ import com.crypto.exchange.web.dto.request.TransferRequestDto;
 import com.crypto.exchange.web.dto.response.TransactionResponseDto;
 import com.crypto.exchange.web.dto.response.TransferResponseDto;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -28,6 +28,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,195 +62,186 @@ class TransferServiceImplTest {
     @InjectMocks
     private TransferServiceImpl transferService;
 
+    private User senderUser;
     private Wallet senderWallet;
-
     private Wallet recipientWallet;
-
-    private CryptoCurrency btcCrypto;
-
-    private TransferRequestDto transferRequestDto;
+    private CryptoCurrency crypto;
+    private TransferRequestDto requestDto;
 
     @BeforeEach
     void setUp() {
-        User senderUser = User.builder()
+        senderUser = User.builder()
                 .id(1L)
                 .email("sender@example.com")
                 .build();
 
-        User recipientUser = User.builder()
-                .id(2L)
-                .email("recipient@example.com")
-                .build();
-
         senderWallet = Wallet.builder()
                 .id(10L)
-                .address("sender-address-123")
+                .address("0xSENDER")
                 .user(senderUser)
                 .build();
 
         recipientWallet = Wallet.builder()
                 .id(20L)
-                .address("recipient-address-456")
-                .user(recipientUser)
+                .address("0xRECIPIENT")
+                .user(User.builder().id(2L).email("recipient@example.com").build())
                 .build();
 
-        btcCrypto = CryptoCurrency.builder()
+        crypto = CryptoCurrency.builder()
                 .id(100L)
-                .externalId("bitcoin")
                 .symbol("BTC")
-                .name("Bitcoin")
                 .build();
 
-        transferRequestDto = new TransferRequestDto(
-                10L,
-                "recipient-address-456",
-                "bitcoin",
+        requestDto = new TransferRequestDto(
+                "0xSENDER",
+                "0xRECIPIENT",
+                "bitcoin-ext-id",
                 new BigDecimal("1.5")
         );
     }
 
-    @Nested
-    @DisplayName("Успешные сценарии перевода")
-    class SuccessScenarios {
+    @Test
+    void transferShouldThrowResourceNotFoundExceptionWhenSenderWalletNotFound() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.empty());
 
-        @Test
-        @DisplayName("Успешный перевод, когда у получателя уже есть баланс этой криптовалюты")
-        void transferSuccessExistingRecipientBalance() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
-            when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
-            when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.of(btcCrypto));
+        assertThatThrownBy(() -> transferService.transfer(1L, requestDto))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("Sender wallet not found with address: 0xSENDER");
 
-            when(walletBalanceRepository.deductBalanceNative(10L, 100L, new BigDecimal("1.5"))).thenReturn(1);
-            when(walletBalanceRepository.addBalanceNative(20L, 100L, new BigDecimal("1.5"))).thenReturn(1);
-
-            Transaction mockSavedTransaction = Transaction.builder().id(999L).build();
-            when(transactionRepository.save(any(Transaction.class))).thenReturn(mockSavedTransaction);
-
-            TransactionResponseDto mockResponseDto = new TransactionResponseDto(
-                    999L, 10L, 20L, "BTC", "BTC",
-                    new BigDecimal("1.5"), new BigDecimal("1.5"),
-                    Transaction.TransactionType.TRANSFER,
-                    TransactionResponseDto.TransactionDirection.OUTGOING,
-                    null
-            );
-            when(transactionMapper.toResponseDto(mockSavedTransaction, 1L)).thenReturn(mockResponseDto);
-
-            TransferResponseDto result = transferService.transfer(1L, transferRequestDto);
-
-            assertThat(result).isNotNull();
-            assertThat(result.senderAddress()).isEqualTo("sender-address-123");
-            assertThat(result.recipientAddress()).isEqualTo("recipient-address-456");
-            assertThat(result.cryptoSymbol()).isEqualTo("BTC");
-            assertThat(result.amount()).isEqualTo(new BigDecimal("1.5"));
-            assertThat(result.status()).isEqualTo("SUCCESS");
-
-            verify(walletBalanceRepository, never()).save(any(WalletBalance.class));
-
-            ArgumentCaptor<TransactionCompletedEvent> eventCaptor = ArgumentCaptor.forClass(TransactionCompletedEvent.class);
-            verify(eventPublisher).publishEvent(eventCaptor.capture());
-            assertThat(eventCaptor.getValue().recipientEmail()).isEqualTo("sender@example.com");
-            assertThat(eventCaptor.getValue().transaction()).isEqualTo(mockResponseDto);
-        }
-
-        @Test
-        @DisplayName("Успешный перевод, когда у получателя нет записи баланса (создается новая запись)")
-        void transferSuccessCreatesNewRecipientBalance() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
-            when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
-            when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.of(btcCrypto));
-
-            when(walletBalanceRepository.deductBalanceNative(10L, 100L, new BigDecimal("1.5"))).thenReturn(1);
-            when(walletBalanceRepository.addBalanceNative(20L, 100L, new BigDecimal("1.5"))).thenReturn(0);
-
-            Transaction mockSavedTransaction = Transaction.builder().id(999L).build();
-            when(transactionRepository.save(any(Transaction.class))).thenReturn(mockSavedTransaction);
-
-            transferService.transfer(1L, transferRequestDto);
-
-            ArgumentCaptor<WalletBalance> balanceCaptor = ArgumentCaptor.forClass(WalletBalance.class);
-            verify(walletBalanceRepository).save(balanceCaptor.capture());
-
-            WalletBalance savedBalance = balanceCaptor.getValue();
-            assertThat(savedBalance.getWallet()).isEqualTo(recipientWallet);
-            assertThat(savedBalance.getCryptoCurrency()).isEqualTo(btcCrypto);
-            assertThat(savedBalance.getAmount()).isEqualTo(new BigDecimal("1.5"));
-        }
+        verify(walletBalanceRepository, never()).deductBalanceNative(any(), any(), any());
     }
 
-    @Nested
-    @DisplayName("Сценарии с ошибками и исключениями")
-    class ExceptionScenarios {
+    @Test
+    void transferShouldThrowResourceNotFoundExceptionWhenSenderWalletBelongsToAnotherUser() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.of(senderWallet));
 
-        @Test
-        @DisplayName("Выбрасывает ResourceNotFoundException, если кошелек отправителя не найден")
-        void transferSenderWalletNotFoundThrowsException() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> transferService.transfer(999L, requestDto))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("Sender wallet not found with address: 0xSENDER");
 
-            assertThatThrownBy(() -> transferService.transfer(1L, transferRequestDto))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found: 10");
-        }
+        verify(walletBalanceRepository, never()).deductBalanceNative(any(), any(), any());
+    }
 
-        @Test
-        @DisplayName("Выбрасывает ResourceNotFoundException, если кошелек не принадлежит пользователю")
-        void transferSenderWalletBelongsToAnotherUserThrowsException() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
+    @Test
+    void transferShouldThrowResourceNotFoundExceptionWhenRecipientWalletNotFound() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.of(senderWallet));
+        when(walletRepository.findByAddress("0xRECIPIENT")).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> transferService.transfer(999L, transferRequestDto))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found: 10");
-        }
+        assertThatThrownBy(() -> transferService.transfer(1L, requestDto))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("Recipient wallet not found with address: 0xRECIPIENT");
 
-        @Test
-        @DisplayName("Выбрасывает ResourceNotFoundException, если кошелек получателя не найден по адресу")
-        void transferRecipientWalletNotFoundThrowsException() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
-            when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.empty());
+        verify(walletBalanceRepository, never()).deductBalanceNative(any(), any(), any());
+    }
 
-            assertThatThrownBy(() -> transferService.transfer(1L, transferRequestDto))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Recipient wallet not found with address: recipient-address-456");
-        }
+    @Test
+    void transferShouldThrowIllegalArgumentExceptionWhenTransferringToSameWallet() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.of(senderWallet));
+        when(walletRepository.findByAddress("0xRECIPIENT")).thenReturn(Optional.of(senderWallet));
 
-        @Test
-        @DisplayName("Выбрасывает IllegalArgumentException при попытке перевести средства на тот же кошелек")
-        void transferSameWalletThrowsException() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
-            when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(senderWallet));
+        assertThatThrownBy(() -> transferService.transfer(1L, requestDto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Cannot transfer funds to the same wallet");
 
-            assertThatThrownBy(() -> transferService.transfer(1L, transferRequestDto))
-                    .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("Cannot transfer funds to the same wallet");
-        }
+        verify(walletBalanceRepository, never()).deductBalanceNative(any(), any(), any());
+    }
 
-        @Test
-        @DisplayName("Выбрасывает ResourceNotFoundException, если криптовалюта не найдена")
-        void transferCryptoNotFoundThrowsException() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
-            when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
-            when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.empty());
+    @Test
+    void transferShouldThrowResourceNotFoundExceptionWhenCryptoNotFound() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.of(senderWallet));
+        when(walletRepository.findByAddress("0xRECIPIENT")).thenReturn(Optional.of(recipientWallet));
+        when(cryptoCurrencyRepository.findByExternalId("bitcoin-ext-id")).thenReturn(Optional.empty());
 
-            assertThatThrownBy(() -> transferService.transfer(1L, transferRequestDto))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Crypto currency not found with externalId: bitcoin");
-        }
+        assertThatThrownBy(() -> transferService.transfer(1L, requestDto))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("Crypto currency not found with externalId: bitcoin-ext-id");
 
-        @Test
-        @DisplayName("Выбрасывает InsufficientFundsException, если не удалось списать баланс (недостаточно средств)")
-        void transferInsufficientFundsThrowsException() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(senderWallet));
-            when(walletRepository.findByAddress("recipient-address-456")).thenReturn(Optional.of(recipientWallet));
-            when(cryptoCurrencyRepository.findByExternalId("bitcoin")).thenReturn(Optional.of(btcCrypto));
+        verify(walletBalanceRepository, never()).deductBalanceNative(any(), any(), any());
+    }
 
-            when(walletBalanceRepository.deductBalanceNative(10L, 100L, new BigDecimal("1.5"))).thenReturn(0);
+    @Test
+    void transferShouldThrowInsufficientFundsExceptionWhenDeductFails() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.of(senderWallet));
+        when(walletRepository.findByAddress("0xRECIPIENT")).thenReturn(Optional.of(recipientWallet));
+        when(cryptoCurrencyRepository.findByExternalId("bitcoin-ext-id")).thenReturn(Optional.of(crypto));
+        when(walletBalanceRepository.deductBalanceNative(10L, 100L, new BigDecimal("1.5"))).thenReturn(0);
 
-            assertThatThrownBy(() -> transferService.transfer(1L, transferRequestDto))
-                    .isInstanceOf(InsufficientFundsException.class)
-                    .hasMessageContaining("Insufficient funds or balance entry not found for: BTC");
+        assertThatThrownBy(() -> transferService.transfer(1L, requestDto))
+                .isInstanceOf(InsufficientFundsException.class)
+                .hasMessageContaining("Insufficient funds or balance entry not found for: BTC");
 
-            verify(walletBalanceRepository, never()).addBalanceNative(any(), any(), any());
-            verify(transactionRepository, never()).save(any());
-            verify(eventPublisher, never()).publishEvent(any());
-        }
+        verify(walletBalanceRepository, never()).addBalanceNative(any(), any(), any());
+    }
+
+    @Test
+    void transferShouldSuccessfullyTransferWhenRecipientAlreadyHasBalanceEntry() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.of(senderWallet));
+        when(walletRepository.findByAddress("0xRECIPIENT")).thenReturn(Optional.of(recipientWallet));
+        when(cryptoCurrencyRepository.findByExternalId("bitcoin-ext-id")).thenReturn(Optional.of(crypto));
+        when(walletBalanceRepository.deductBalanceNative(10L, 100L, new BigDecimal("1.5"))).thenReturn(1);
+        when(walletBalanceRepository.addBalanceNative(20L, 100L, new BigDecimal("1.5"))).thenReturn(1);
+
+        Transaction savedTx = Transaction.builder()
+                .id(500L)
+                .type(TransactionType.TRANSFER)
+                .status(TransactionStatus.SUCCESS)
+                .build();
+        when(transactionRepository.save(any(Transaction.class))).thenReturn(savedTx);
+
+        TransactionResponseDto txResponseDto = new TransactionResponseDto(
+                500L, "0xSENDER", "0xRECIPIENT", "BTC", "BTC",
+                new BigDecimal("1.5"), new BigDecimal("1.5"),
+                TransactionType.TRANSFER, TransactionStatus.SUCCESS,
+                TransactionResponseDto.TransactionDirection.OUTGOING, OffsetDateTime.now()
+        );
+        when(transactionMapper.toResponseDto(savedTx, 1L)).thenReturn(txResponseDto);
+
+        TransferResponseDto expectedTransferResponse = new TransferResponseDto(
+                500L, "0xSENDER", "0xRECIPIENT", "BTC", new BigDecimal("1.5"), OffsetDateTime.now(), TransactionStatus.SUCCESS
+        );
+        when(transactionMapper.toTransferResponseDto(savedTx)).thenReturn(expectedTransferResponse);
+
+        TransferResponseDto result = transferService.transfer(1L, requestDto);
+
+        assertThat(result).isEqualTo(expectedTransferResponse);
+
+        verify(walletBalanceRepository, never()).save(any(WalletBalance.class));
+
+        ArgumentCaptor<TransactionCompletedEvent> eventCaptor = ArgumentCaptor.forClass(TransactionCompletedEvent.class);
+        verify(eventPublisher).publishEvent(eventCaptor.capture());
+
+        TransactionCompletedEvent capturedEvent = eventCaptor.getValue();
+        assertThat(capturedEvent.recipientEmail()).isEqualTo("sender@example.com");
+        assertThat(capturedEvent.transaction()).isEqualTo(txResponseDto);
+    }
+
+    @Test
+    void transferShouldCreateNewWalletBalanceForRecipientWhenAddBalanceNativeReturnsZero() {
+        when(walletRepository.findByAddress("0xSENDER")).thenReturn(Optional.of(senderWallet));
+        when(walletRepository.findByAddress("0xRECIPIENT")).thenReturn(Optional.of(recipientWallet));
+        when(cryptoCurrencyRepository.findByExternalId("bitcoin-ext-id")).thenReturn(Optional.of(crypto));
+        when(walletBalanceRepository.deductBalanceNative(10L, 100L, new BigDecimal("1.5"))).thenReturn(1);
+        when(walletBalanceRepository.addBalanceNative(20L, 100L, new BigDecimal("1.5"))).thenReturn(0);
+
+        Transaction savedTx = Transaction.builder().id(501L).build();
+        when(transactionRepository.save(any(Transaction.class))).thenReturn(savedTx);
+
+        TransactionResponseDto txResponseDto = new TransactionResponseDto(
+                501L, "0xSENDER", "0xRECIPIENT", "BTC", "BTC",
+                new BigDecimal("1.5"), new BigDecimal("1.5"),
+                TransactionType.TRANSFER, TransactionStatus.SUCCESS,
+                TransactionResponseDto.TransactionDirection.OUTGOING, OffsetDateTime.now()
+        );
+        when(transactionMapper.toResponseDto(savedTx, 1L)).thenReturn(txResponseDto);
+
+        transferService.transfer(1L, requestDto);
+
+        ArgumentCaptor<WalletBalance> balanceCaptor = ArgumentCaptor.forClass(WalletBalance.class);
+        verify(walletBalanceRepository).save(balanceCaptor.capture());
+
+        WalletBalance savedBalance = balanceCaptor.getValue();
+        assertThat(savedBalance.getWallet()).isEqualTo(recipientWallet);
+        assertThat(savedBalance.getCryptoCurrency()).isEqualTo(crypto);
+        assertThat(savedBalance.getAmount()).isEqualTo(new BigDecimal("1.5"));
     }
 }

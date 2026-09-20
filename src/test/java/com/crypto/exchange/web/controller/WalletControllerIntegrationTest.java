@@ -1,22 +1,26 @@
 package com.crypto.exchange.web.controller;
 
 import com.crypto.exchange.core.entity.Role;
+import com.crypto.exchange.core.exception.ResourceNotFoundException;
+import com.crypto.exchange.core.repository.UserRepository;
 import com.crypto.exchange.core.service.WalletService;
 import com.crypto.exchange.web.dto.request.BalanceOperationRequestDto;
 import com.crypto.exchange.web.dto.request.CreateWalletRequestDto;
 import com.crypto.exchange.web.dto.response.AggregatedBalanceDto;
+import com.crypto.exchange.web.dto.response.WalletBalanceResponseDto;
 import com.crypto.exchange.web.dto.response.WalletResponseDto;
 import com.crypto.exchange.web.security.JwtTokenProvider;
 import com.crypto.exchange.web.security.SecurityConfig;
 import com.crypto.exchange.web.security.UserPrincipal;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -24,12 +28,10 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(WalletController.class)
 @Import(SecurityConfig.class)
@@ -47,111 +49,211 @@ class WalletControllerIntegrationTest {
     @MockBean
     private JwtTokenProvider jwtTokenProvider;
 
-    private UsernamePasswordAuthenticationToken createAuthToken() {
-        UserPrincipal principal = new UserPrincipal(
-                1L, "testuser", "test@mail.com", "password", Role.ROLE_USER
+    @MockBean
+    private UserDetailsService userDetailsService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    private UserPrincipal createTestUserPrincipal(Long id, String username) {
+        return new UserPrincipal(
+                id,
+                username,
+                username + "@example.com",
+                "password123",
+                Role.ROLE_USER,
+                false,
+                false
         );
-        return new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+    }
+
+    private WalletResponseDto createSampleWalletDto(String address, String name) {
+        WalletBalanceResponseDto balanceDto = new WalletBalanceResponseDto(
+                1L,
+                1L,
+                "bitcoin",
+                "BTC",
+                "Bitcoin",
+                new BigDecimal("2.5"),
+                new BigDecimal("65000.00"),
+                new BigDecimal("162500.00")
+        );
+
+        return new WalletResponseDto(
+                1L,
+                address,
+                name,
+                true,
+                List.of(balanceDto)
+        );
     }
 
     @Test
-    void createWalletShouldReturnCreatedWhenRequestIsValid() throws Exception {
-        CreateWalletRequestDto requestDto = new CreateWalletRequestDto("Main Wallet", true);
-        WalletResponseDto responseDto = new WalletResponseDto(1L, "0xAddress123", "Main Wallet", true, List.of());
+    @DisplayName("POST /api/v1/wallets - должен возвращать 201 Created при успешном создании кошелька")
+    void createWalletShouldReturn201() throws Exception {
+        Long userId = 1L;
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        CreateWalletRequestDto request = new CreateWalletRequestDto("Main Wallet", true);
+        WalletResponseDto responseDto = createSampleWalletDto("0xWalletAddress123", "Main Wallet");
 
-        given(walletService.createWallet(eq(1L), any(CreateWalletRequestDto.class))).willReturn(responseDto);
+        when(walletService.createWallet(eq(userId), any(CreateWalletRequestDto.class))).thenReturn(responseDto);
 
         mockMvc.perform(post("/api/v1/wallets")
-                        .with(authentication(createAuthToken()))
+                        .with(user(principal))
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto)))
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.address").value("0xAddress123"))
-                .andExpect(jsonPath("$.name").value("Main Wallet"));
+                .andExpect(jsonPath("$.address").value("0xWalletAddress123"))
+                .andExpect(jsonPath("$.name").value("Main Wallet"))
+                .andExpect(jsonPath("$.isDefault").value(true))
+                .andExpect(jsonPath("$.balances.length()").value(1))
+                .andExpect(jsonPath("$.balances[0].symbol").value("BTC"))
+                .andExpect(jsonPath("$.balances[0].amount").value(2.5))
+                .andExpect(jsonPath("$.balances[0].totalValueUsd").value(162500.00));
+
+        verify(walletService, times(1)).createWallet(eq(userId), any(CreateWalletRequestDto.class));
     }
 
     @Test
-    void getMyWalletsShouldReturnListWhenAuthenticated() throws Exception {
-        WalletResponseDto responseDto = new WalletResponseDto(1L, "0xAddress123", "Main Wallet", true, List.of());
+    @DisplayName("POST /api/v1/wallets - должен возвращать 401 Unauthorized для неаутентифицированного запроса")
+    void createWalletShouldReturn401WhenUnauthenticated() throws Exception {
+        CreateWalletRequestDto request = new CreateWalletRequestDto("Main Wallet", true);
 
-        given(walletService.getUserWallets(1L)).willReturn(List.of(responseDto));
+        mockMvc.perform(post("/api/v1/wallets")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+
+        verifyNoInteractions(walletService);
+    }
+
+    @Test
+    @DisplayName("GET /api/v1/wallets - должен возвращать 200 OK и список кошельков пользователя")
+    void getMyWalletsShouldReturn200AndList() throws Exception {
+        Long userId = 1L;
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        List<WalletResponseDto> wallets = List.of(
+                createSampleWalletDto("0xWallet1", "Wallet 1"),
+                createSampleWalletDto("0xWallet2", "Wallet 2")
+        );
+
+        when(walletService.getUserWallets(userId)).thenReturn(wallets);
 
         mockMvc.perform(get("/api/v1/wallets")
-                        .with(authentication(createAuthToken())))
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1L))
-                .andExpect(jsonPath("$[0].name").value("Main Wallet"));
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].address").value("0xWallet1"))
+                .andExpect(jsonPath("$[1].address").value("0xWallet2"));
+
+        verify(walletService, times(1)).getUserWallets(userId);
     }
 
     @Test
-    void getWalletByIdShouldReturnWalletWhenExists() throws Exception {
-        Long walletId = 1L;
-        WalletResponseDto responseDto = new WalletResponseDto(walletId, "0xAddress123", "Main Wallet", true, List.of());
+    @DisplayName("GET /api/v1/wallets/{address} - должен возвращать 200 OK и кошелек по адресу")
+    void getWalletByAddressShouldReturn200() throws Exception {
+        Long userId = 1L;
+        String address = "0xWallet123";
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        WalletResponseDto responseDto = createSampleWalletDto(address, "My Wallet");
 
-        given(walletService.getWalletById(1L, walletId)).willReturn(responseDto);
+        when(walletService.getWalletByAddressAndUser(userId, address)).thenReturn(responseDto);
 
-        mockMvc.perform(get("/api/v1/wallets/{walletId}", walletId)
-                        .with(authentication(createAuthToken())))
+        mockMvc.perform(get("/api/v1/wallets/{address}", address)
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(walletId));
+                .andExpect(jsonPath("$.address").value(address))
+                .andExpect(jsonPath("$.name").value("My Wallet"));
+
+        verify(walletService, times(1)).getWalletByAddressAndUser(userId, address);
     }
 
     @Test
-    void depositShouldReturnUpdatedWalletWhenRequestIsValid() throws Exception {
-        Long walletId = 1L;
-        BalanceOperationRequestDto requestDto = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
-        WalletResponseDto responseDto = new WalletResponseDto(walletId, "0xAddress123", "Main Wallet", true, List.of());
+    @DisplayName("GET /api/v1/wallets/{address} - должен возвращать 404 Not Found, если кошелек не найден")
+    void getWalletByAddressShouldReturn404WhenNotFound() throws Exception {
+        Long userId = 1L;
+        String address = "0xUnknownWallet";
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
 
-        given(walletService.deposit(eq(1L), eq(walletId), any(BalanceOperationRequestDto.class))).willReturn(responseDto);
+        when(walletService.getWalletByAddressAndUser(userId, address))
+                .thenThrow(new ResourceNotFoundException("Wallet not found"));
 
-        mockMvc.perform(post("/api/v1/wallets/{walletId}/deposit", walletId)
-                        .with(authentication(createAuthToken()))
+        mockMvc.perform(get("/api/v1/wallets/{address}", address)
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        verify(walletService, times(1)).getWalletByAddressAndUser(userId, address);
+    }
+
+    @Test
+    @DisplayName("POST /api/v1/wallets/{address}/deposit - должен возвращать 200 OK при успешном депозите")
+    void depositShouldReturn200() throws Exception {
+        Long userId = 1L;
+        String address = "0xWallet123";
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.0"));
+        WalletResponseDto responseDto = createSampleWalletDto(address, "Main Wallet");
+
+        when(walletService.deposit(eq(userId), eq(address), any(BalanceOperationRequestDto.class))).thenReturn(responseDto);
+
+        mockMvc.perform(post("/api/v1/wallets/{address}/deposit", address)
+                        .with(user(principal))
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(walletId));
-    }
-
-    @Test
-    void withdrawShouldReturnUpdatedWalletWhenRequestIsValid() throws Exception {
-        Long walletId = 1L;
-        BalanceOperationRequestDto requestDto = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
-        WalletResponseDto responseDto = new WalletResponseDto(walletId, "0xAddress123", "Main Wallet", true, List.of());
-
-        given(walletService.withdraw(eq(1L), eq(walletId), any(BalanceOperationRequestDto.class))).willReturn(responseDto);
-
-        mockMvc.perform(post("/api/v1/wallets/{walletId}/withdraw", walletId)
-                        .with(authentication(createAuthToken()))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(walletId));
-    }
-
-    @Test
-    void getWalletByAddressShouldReturnWalletWhenAddressExists() throws Exception {
-        String address = "0xAddress123";
-        WalletResponseDto responseDto = new WalletResponseDto(1L, address, "Main Wallet", true, List.of());
-
-        given(walletService.getWalletByAddress(address)).willReturn(responseDto);
-
-        mockMvc.perform(get("/api/v1/wallets/by-address/{address}", address)
-                        .with(authentication(createAuthToken())))
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.address").value(address));
+
+        verify(walletService, times(1)).deposit(eq(userId), eq(address), any(BalanceOperationRequestDto.class));
     }
 
     @Test
-    void getAggregatedBalancesShouldReturnSummaryWhenAuthenticated() throws Exception {
-        AggregatedBalanceDto balanceDto = new AggregatedBalanceDto(1L, "BTC", "Bitcoin", new BigDecimal("2.5"));
+    @DisplayName("POST /api/v1/wallets/{address}/withdraw - должен возвращать 200 OK при успешном выводе")
+    void withdrawShouldReturn200() throws Exception {
+        Long userId = 1L;
+        String address = "0xWallet123";
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
+        WalletResponseDto responseDto = createSampleWalletDto(address, "Main Wallet");
 
-        given(walletService.getAggregatedBalances(1L)).willReturn(List.of(balanceDto));
+        when(walletService.withdraw(eq(userId), eq(address), any(BalanceOperationRequestDto.class))).thenReturn(responseDto);
+
+        mockMvc.perform(post("/api/v1/wallets/{address}/withdraw", address)
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.address").value(address));
+
+        verify(walletService, times(1)).withdraw(eq(userId), eq(address), any(BalanceOperationRequestDto.class));
+    }
+
+    @Test
+    @DisplayName("GET /api/v1/wallets/balances/summary - должен возвращать 200 OK и агрегированные балансы")
+    void getAggregatedBalancesShouldReturn200() throws Exception {
+        Long userId = 1L;
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        AggregatedBalanceDto aggregatedDto = new AggregatedBalanceDto(
+                1L,
+                "BTC",
+                "Bitcoin",
+                new BigDecimal("3.5")
+        );
+
+        when(walletService.getAggregatedBalances(userId)).thenReturn(List.of(aggregatedDto));
 
         mockMvc.perform(get("/api/v1/wallets/balances/summary")
-                        .with(authentication(createAuthToken())))
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].cryptoId").value(1))
                 .andExpect(jsonPath("$[0].symbol").value("BTC"))
-                .andExpect(jsonPath("$[0].totalAmount").value(2.5));
+                .andExpect(jsonPath("$[0].name").value("Bitcoin"))
+                .andExpect(jsonPath("$[0].totalAmount").value(3.5));
+
+        verify(walletService, times(1)).getAggregatedBalances(userId);
     }
 }

@@ -6,15 +6,12 @@ import com.crypto.exchange.core.entity.User;
 import com.crypto.exchange.core.entity.Wallet;
 import com.crypto.exchange.web.dto.response.TransactionResponseDto;
 import com.crypto.exchange.web.dto.response.TransactionResponseDto.TransactionDirection;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
+import com.crypto.exchange.web.dto.response.TransferResponseDto;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,136 +19,171 @@ class TransactionMapperTest {
 
     private final TransactionMapper transactionMapper = Mappers.getMapper(TransactionMapper.class);
 
-    private Wallet walletUser1;
+    @Test
+    void toResponseDtoShouldMapAllFieldsCorrectlyAndSetOutgoingDirection() {
+        Long currentUserId = 100L;
+        Long otherUserId = 200L;
 
-    private Wallet walletUser1Second;
+        User currentUser = User.builder().id(currentUserId).build();
+        User otherUser = User.builder().id(otherUserId).build();
 
-    private Wallet walletUser2;
+        Wallet fromWallet = Wallet.builder().address("0xFROM").user(currentUser).build();
+        Wallet toWallet = Wallet.builder().address("0xTO").user(otherUser).build();
 
-    private CryptoCurrency btcCrypto;
+        CryptoCurrency btc = CryptoCurrency.builder().symbol("BTC").build();
+        CryptoCurrency usdt = CryptoCurrency.builder().symbol("USDT").build();
 
-    private OffsetDateTime now;
+        OffsetDateTime now = OffsetDateTime.now();
 
-    @BeforeEach
-    void setUp() {
-        User user1 = User.builder().id(1L).build();
-        User user2 = User.builder().id(2L).build();
+        Transaction transaction = Transaction.builder()
+                .id(1L)
+                .fromWallet(fromWallet)
+                .toWallet(toWallet)
+                .fromCrypto(btc)
+                .toCrypto(usdt)
+                .fromAmount(new BigDecimal("1.0"))
+                .toAmount(new BigDecimal("50000.0"))
+                .type(Transaction.TransactionType.EXCHANGE)
+                .status(Transaction.TransactionStatus.SUCCESS)
+                .createdAt(now)
+                .build();
 
-        walletUser1 = Wallet.builder().id(10L).user(user1).build();
-        walletUser1Second = Wallet.builder().id(11L).user(user1).build();
-        walletUser2 = Wallet.builder().id(20L).user(user2).build();
+        TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, currentUserId);
 
-        btcCrypto = CryptoCurrency.builder().id(100L).symbol("BTC").build();
-        now = OffsetDateTime.now(ZoneOffset.UTC);
+        assertThat(dto).isNotNull();
+        assertThat(dto.id()).isEqualTo(1L);
+        assertThat(dto.fromWalletAddress()).isEqualTo("0xFROM");
+        assertThat(dto.toWalletAddress()).isEqualTo("0xTO");
+        assertThat(dto.fromCryptoSymbol()).isEqualTo("BTC");
+        assertThat(dto.toCryptoSymbol()).isEqualTo("USDT");
+        assertThat(dto.fromAmount()).isEqualTo(new BigDecimal("1.0"));
+        assertThat(dto.toAmount()).isEqualTo(new BigDecimal("50000.0"));
+        assertThat(dto.type()).isEqualTo(Transaction.TransactionType.EXCHANGE);
+        assertThat(dto.status()).isEqualTo(Transaction.TransactionStatus.SUCCESS);
+        assertThat(dto.direction()).isEqualTo(TransactionDirection.OUTGOING);
+        assertThat(dto.createdAt()).isEqualTo(now);
     }
 
-    @Nested
-    @DisplayName("Маппинг основных полей и направления (Direction)")
-    class DirectionAndMappingTests {
+    @Test
+    void toResponseDtoShouldSetIncomingDirectionWhenReceivingFromOtherUser() {
+        Long currentUserId = 100L;
+        Long otherUserId = 200L;
 
-        @Test
-        @DisplayName("Определяет направление OUTGOING, если отправитель - текущий пользователь")
-        void toResponseDtoOutgoingDirection() {
-            Transaction transaction = Transaction.builder()
-                    .id(1000L)
-                    .fromWallet(walletUser1)
-                    .toWallet(walletUser2)
-                    .fromCrypto(btcCrypto)
-                    .toCrypto(btcCrypto)
-                    .fromAmount(new BigDecimal("1.0"))
-                    .toAmount(new BigDecimal("1.0"))
-                    .type(Transaction.TransactionType.TRANSFER)
-                    .createdAt(now)
-                    .build();
+        User currentUser = User.builder().id(currentUserId).build();
+        User otherUser = User.builder().id(otherUserId).build();
 
-            TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, 1L);
+        Wallet fromWallet = Wallet.builder().address("0xFROM").user(otherUser).build();
+        Wallet toWallet = Wallet.builder().address("0xTO").user(currentUser).build();
 
-            assertThat(dto).isNotNull();
-            assertThat(dto.id()).isEqualTo(1000L);
-            assertThat(dto.fromWalletId()).isEqualTo(10L);
-            assertThat(dto.toWalletId()).isEqualTo(20L);
-            assertThat(dto.fromCryptoSymbol()).isEqualTo("BTC");
-            assertThat(dto.toCryptoSymbol()).isEqualTo("BTC");
-            assertThat(dto.direction()).isEqualTo(TransactionDirection.OUTGOING);
-        }
+        Transaction transaction = Transaction.builder()
+                .fromWallet(fromWallet)
+                .toWallet(toWallet)
+                .build();
 
-        @Test
-        @DisplayName("Определяет направление INCOMING, если получатель - текущий пользователь")
-        void toResponseDtoIncomingDirection() {
-            Transaction transaction = Transaction.builder()
-                    .id(1001L)
-                    .fromWallet(walletUser2)
-                    .toWallet(walletUser1)
-                    .fromCrypto(btcCrypto)
-                    .toCrypto(btcCrypto)
-                    .fromAmount(new BigDecimal("2.0"))
-                    .toAmount(new BigDecimal("2.0"))
-                    .type(Transaction.TransactionType.TRANSFER)
-                    .createdAt(now)
-                    .build();
+        TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, currentUserId);
 
-            TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, 1L);
-
-            assertThat(dto).isNotNull();
-            assertThat(dto.direction()).isEqualTo(TransactionDirection.INCOMING);
-        }
-
-        @Test
-        @DisplayName("Определяет направление SELF, если оба кошелька принадлежат текущему пользователю")
-        void toResponseDtoSelfDirection() {
-            Transaction transaction = Transaction.builder()
-                    .id(1002L)
-                    .fromWallet(walletUser1)
-                    .toWallet(walletUser1Second)
-                    .fromCrypto(btcCrypto)
-                    .toCrypto(btcCrypto)
-                    .fromAmount(new BigDecimal("0.5"))
-                    .toAmount(new BigDecimal("0.5"))
-                    .type(Transaction.TransactionType.TRANSFER)
-                    .createdAt(now)
-                    .build();
-
-            TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, 1L);
-
-            assertThat(dto).isNotNull();
-            assertThat(dto.direction()).isEqualTo(TransactionDirection.SELF);
-        }
+        assertThat(dto).isNotNull();
+        assertThat(dto.direction()).isEqualTo(TransactionDirection.INCOMING);
     }
 
-    @Nested
-    @DisplayName("Корректность обработки null значений в кошельках")
-    class NullSafetyTests {
+    @Test
+    void toResponseDtoShouldSetSelfDirectionWhenTransferringBetweenOwnWallets() {
+        Long currentUserId = 100L;
 
-        @Test
-        @DisplayName("Корректно обрабатывает null в fromWallet (например, внешнее пополнение)")
-        void calculateDirectionNullFromWalletReturnsIncoming() {
-            Transaction transaction = Transaction.builder()
-                    .fromWallet(null)
-                    .toWallet(walletUser1)
-                    .build();
+        User currentUser = User.builder().id(currentUserId).build();
 
-            TransactionDirection direction = transactionMapper.calculateDirection(transaction, 1L);
+        Wallet fromWallet = Wallet.builder().address("0xMY_WALLET_1").user(currentUser).build();
+        Wallet toWallet = Wallet.builder().address("0xMY_WALLET_2").user(currentUser).build();
 
-            assertThat(direction).isEqualTo(TransactionDirection.INCOMING);
-        }
+        Transaction transaction = Transaction.builder()
+                .fromWallet(fromWallet)
+                .toWallet(toWallet)
+                .build();
 
-        @Test
-        @DisplayName("Корректно обрабатывает null в toWallet (например, вывод на внешний адрес)")
-        void calculateDirectionNullToWalletReturnsOutgoing() {
-            Transaction transaction = Transaction.builder()
-                    .fromWallet(walletUser1)
-                    .toWallet(null)
-                    .build();
+        TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, currentUserId);
 
-            TransactionDirection direction = transactionMapper.calculateDirection(transaction, 1L);
+        assertThat(dto).isNotNull();
+        assertThat(dto.direction()).isEqualTo(TransactionDirection.SELF);
+    }
 
-            assertThat(direction).isEqualTo(TransactionDirection.OUTGOING);
-        }
+    @Test
+    void toResponseDtoShouldSetIncomingDirectionWhenFromWalletIsNull() {
+        Long currentUserId = 100L;
 
-        @Test
-        @DisplayName("Возвращает null при передаче null сущности Transaction")
-        void toResponseDtoNullEntityReturnsNull() {
-            assertThat(transactionMapper.toResponseDto(null, 1L)).isNull();
-        }
+        User currentUser = User.builder().id(currentUserId).build();
+        Wallet toWallet = Wallet.builder().address("0xTO").user(currentUser).build();
+
+        Transaction transaction = Transaction.builder()
+                .fromWallet(null)
+                .toWallet(toWallet)
+                .build();
+
+        TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, currentUserId);
+
+        assertThat(dto).isNotNull();
+        assertThat(dto.fromWalletAddress()).isNull();
+        assertThat(dto.direction()).isEqualTo(TransactionDirection.INCOMING);
+    }
+
+    @Test
+    void toResponseDtoShouldSetIncomingDirectionWhenToWalletIsNull() {
+        Long currentUserId = 100L;
+
+        User otherUser = User.builder().id(200L).build();
+        Wallet fromWallet = Wallet.builder().address("0xFROM").user(otherUser).build();
+
+        Transaction transaction = Transaction.builder()
+                .fromWallet(fromWallet)
+                .toWallet(null)
+                .build();
+
+        TransactionResponseDto dto = transactionMapper.toResponseDto(transaction, currentUserId);
+
+        assertThat(dto).isNotNull();
+        assertThat(dto.toWalletAddress()).isNull();
+        assertThat(dto.direction()).isEqualTo(TransactionDirection.INCOMING);
+    }
+
+    @Test
+    void toResponseDtoShouldReturnNullWhenEntityIsNull() {
+        TransactionResponseDto dto = transactionMapper.toResponseDto(null, 100L);
+
+        assertThat(dto).isNull();
+    }
+
+    @Test
+    void toTransferResponseDtoShouldMapAllFieldsCorrectly() {
+        Wallet fromWallet = Wallet.builder().address("0xSENDER").build();
+        Wallet toWallet = Wallet.builder().address("0xRECIPIENT").build();
+        CryptoCurrency eth = CryptoCurrency.builder().symbol("ETH").build();
+        OffsetDateTime now = OffsetDateTime.now();
+
+        Transaction transaction = Transaction.builder()
+                .id(10L)
+                .fromWallet(fromWallet)
+                .toWallet(toWallet)
+                .fromCrypto(eth)
+                .fromAmount(new BigDecimal("2.5"))
+                .status(Transaction.TransactionStatus.SUCCESS)
+                .createdAt(now)
+                .build();
+
+        TransferResponseDto dto = transactionMapper.toTransferResponseDto(transaction);
+
+        assertThat(dto).isNotNull();
+        assertThat(dto.transactionId()).isEqualTo(10L);
+        assertThat(dto.senderAddress()).isEqualTo("0xSENDER");
+        assertThat(dto.recipientAddress()).isEqualTo("0xRECIPIENT");
+        assertThat(dto.cryptoSymbol()).isEqualTo("ETH");
+        assertThat(dto.amount()).isEqualTo(new BigDecimal("2.5"));
+        assertThat(dto.status()).isEqualTo(Transaction.TransactionStatus.SUCCESS);
+        assertThat(dto.timestamp()).isEqualTo(now);
+    }
+
+    @Test
+    void toTransferResponseDtoShouldReturnNullWhenEntityIsNull() {
+        TransferResponseDto dto = transactionMapper.toTransferResponseDto(null);
+
+        assertThat(dto).isNull();
     }
 }

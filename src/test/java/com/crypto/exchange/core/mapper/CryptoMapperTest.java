@@ -4,15 +4,11 @@ import com.crypto.exchange.core.entity.CryptoCurrency;
 import com.crypto.exchange.core.entity.CryptoPriceHistory;
 import com.crypto.exchange.web.dto.response.CryptoCurrencyResponseDto;
 import com.crypto.exchange.web.dto.response.CryptoPriceHistoryDto;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,70 +16,55 @@ class CryptoMapperTest {
 
     private final CryptoMapper cryptoMapper = Mappers.getMapper(CryptoMapper.class);
 
-    private CryptoCurrency cryptoCurrency;
-    private CryptoPriceHistory priceHistory;
-    private OffsetDateTime now;
-
-    @BeforeEach
-    void setUp() {
-        now = OffsetDateTime.now(ZoneOffset.UTC);
-
-        cryptoCurrency = CryptoCurrency.builder()
+    @Test
+    void toResponseDtoShouldMapAllFieldsCorrectly() {
+        OffsetDateTime now = OffsetDateTime.now();
+        CryptoCurrency entity = CryptoCurrency.builder()
                 .id(1L)
+                .externalId("bitcoin")
                 .symbol("BTC")
                 .name("Bitcoin")
-                .priceUsd(new BigDecimal("60000.00"))
+                .priceUsd(new BigDecimal("50000.0000"))
                 .updatedAt(now)
                 .build();
 
-        priceHistory = CryptoPriceHistory.builder()
-                .priceUsd(new BigDecimal("59500.00"))
+        CryptoCurrencyResponseDto dto = cryptoMapper.toResponseDto(entity);
+
+        assertThat(dto).isNotNull();
+        assertThat(dto.id()).isEqualTo(1L);
+        assertThat(dto.symbol()).isEqualTo("BTC");
+        assertThat(dto.name()).isEqualTo("Bitcoin");
+        assertThat(dto.priceUsd()).isEqualTo(new BigDecimal("50000.0000"));
+        assertThat(dto.updatedAt()).isEqualTo(now);
+    }
+
+    @Test
+    void toResponseDtoShouldReturnNullWhenEntityIsNull() {
+        CryptoCurrencyResponseDto dto = cryptoMapper.toResponseDto(null);
+
+        assertThat(dto).isNull();
+    }
+
+    @Test
+    void toHistoryDtoShouldMapAllFieldsCorrectly() {
+        OffsetDateTime now = OffsetDateTime.now();
+        CryptoPriceHistory entity = CryptoPriceHistory.builder()
+                .id(10L)
+                .priceUsd(new BigDecimal("65000.5000"))
                 .recordedAt(now)
                 .build();
+
+        CryptoPriceHistoryDto dto = cryptoMapper.toHistoryDto(entity);
+
+        assertThat(dto).isNotNull();
+        assertThat(dto.priceUsd()).isEqualTo(new BigDecimal("65000.5000"));
+        assertThat(dto.recordedAt()).isEqualTo(now);
     }
 
-    @Nested
-    @DisplayName("Маппинг CryptoCurrency -> CryptoCurrencyResponseDto")
-    class CryptoCurrencyToDtoTests {
+    @Test
+    void toHistoryDtoShouldReturnNullWhenEntityIsNull() {
+        CryptoPriceHistoryDto dto = cryptoMapper.toHistoryDto(null);
 
-        @Test
-        @DisplayName("Успешно маппит CryptoCurrency в CryptoCurrencyResponseDto")
-        void toResponseDtoSuccess() {
-            CryptoCurrencyResponseDto dto = cryptoMapper.toResponseDto(cryptoCurrency);
-
-            assertThat(dto).isNotNull();
-            assertThat(dto.id()).isEqualTo(1L);
-            assertThat(dto.symbol()).isEqualTo("BTC");
-            assertThat(dto.name()).isEqualTo("Bitcoin");
-            assertThat(dto.priceUsd()).isEqualByComparingTo("60000.00");
-            assertThat(dto.updatedAt()).isEqualTo(now);
-        }
-
-        @Test
-        @DisplayName("Возвращает null при передаче null сущности CryptoCurrency")
-        void toResponseDtoNullEntityReturnsNull() {
-            assertThat(cryptoMapper.toResponseDto(null)).isNull();
-        }
-    }
-
-    @Nested
-    @DisplayName("Маппинг CryptoPriceHistory -> CryptoPriceHistoryDto")
-    class CryptoPriceHistoryToDtoTests {
-
-        @Test
-        @DisplayName("Успешно маппит CryptoPriceHistory в CryptoPriceHistoryDto")
-        void toHistoryDtoSuccess() {
-            CryptoPriceHistoryDto dto = cryptoMapper.toHistoryDto(priceHistory);
-
-            assertThat(dto).isNotNull();
-            assertThat(dto.priceUsd()).isEqualByComparingTo("59500.00");
-            assertThat(dto.recordedAt()).isEqualTo(now);
-        }
-
-        @Test
-        @DisplayName("Возвращает null при передаче null сущности CryptoPriceHistory")
-        void toHistoryDtoNullEntityReturnsNull() {
-            assertThat(cryptoMapper.toHistoryDto(null)).isNull();
-        }
+        assertThat(dto).isNull();
     }
 }

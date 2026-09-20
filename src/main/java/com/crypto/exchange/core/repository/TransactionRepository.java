@@ -36,6 +36,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             """, nativeQuery = true)
     List<Transaction> findTopSubstantialTransactionsNative(@Param("userId") Long userId, @Param("limit") int limit);
 
+    @Query("""
+            SELECT DISTINCT t FROM Transaction t
+            LEFT JOIN t.fromWallet fw
+            LEFT JOIN t.toWallet tw
+            WHERE fw.user.id = :userId OR tw.user.id = :userId
+            ORDER BY t.createdAt DESC
+            """)
+    List<Transaction> findAllByUserIdInvolvedList(@Param("userId") Long userId);
+
     /**
      * Поиск транзакций пользователя с пагинацией:
      * находит транзакции, где пользователь является владельцем fromWallet ИЛИ toWallet.

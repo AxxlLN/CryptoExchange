@@ -28,7 +28,7 @@ class SecurityConfigIntegrationTest {
     @Test
     void shouldDenyAccessToProtectedEndpointsWhenUnauthenticated() throws Exception {
         mockMvc.perform(get("/api/v1/wallets"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test

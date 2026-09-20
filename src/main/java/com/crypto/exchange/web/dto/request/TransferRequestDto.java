@@ -7,8 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public record TransferRequestDto(
-        @NotNull(message = "Укажите ID кошелька списания")
-        Long fromWalletId,
+        @NotNull(message = "Укажите адрес кошелька списания")
+        String fromAddress,
 
         @NotBlank(message = "Укажите адрес кошелька получателя")
         String recipientAddress,

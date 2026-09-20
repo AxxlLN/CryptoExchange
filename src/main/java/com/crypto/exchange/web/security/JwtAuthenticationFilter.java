@@ -1,5 +1,7 @@
 package com.crypto.exchange.web.security;
 
+import com.crypto.exchange.core.entity.User;
+import com.crypto.exchange.core.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider tokenProvider;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -29,18 +32,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
             String username = tokenProvider.getUsernameFromToken(jwt);
-            Long userId = tokenProvider.getUserIdFromToken(jwt);
-            String role = tokenProvider.getRoleFromToken(jwt);
 
-            UserPrincipal principal = new UserPrincipal(userId, username, null, null,
-                    com.crypto.exchange.core.entity.Role.valueOf(role));
+            User user = userRepository.findByUsernameOrEmail(username).orElse(null);
 
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+            if (user != null && !user.isBlocked() && !user.isDeleted()) {
+                UserPrincipal principal = UserPrincipal.create(user);
 
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
 
         filterChain.doFilter(request, response);

@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface TransactionService {
     Page<TransactionResponseDto> getUserTransactions(Long userId, Pageable pageable);
+
+    byte[] generatePdfReport(Long userId, String username);
 }

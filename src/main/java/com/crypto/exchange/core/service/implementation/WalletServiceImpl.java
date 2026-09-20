@@ -11,6 +11,7 @@ import com.crypto.exchange.core.repository.CryptoCurrencyRepository;
 import com.crypto.exchange.core.repository.UserRepository;
 import com.crypto.exchange.core.repository.WalletBalanceRepository;
 import com.crypto.exchange.core.repository.WalletRepository;
+import com.crypto.exchange.core.service.PortfolioService;
 import com.crypto.exchange.core.service.WalletService;
 import com.crypto.exchange.web.dto.request.BalanceOperationRequestDto;
 import com.crypto.exchange.web.dto.request.CreateWalletRequestDto;
@@ -32,6 +33,7 @@ public class WalletServiceImpl implements WalletService {
     private final CryptoCurrencyRepository cryptoCurrencyRepository;
     private final WalletMapper walletMapper;
     private final WalletBalanceRepository walletBalanceRepository;
+    private final PortfolioService portfolioService;
 
     @Override
     @Transactional
@@ -74,6 +76,7 @@ public class WalletServiceImpl implements WalletService {
 
         return walletMapper.toResponseDto(finalWallet);
     }
+
     @Override
     @Transactional(readOnly = true)
     public List<WalletResponseDto> getUserWallets(Long userId) {
@@ -85,21 +88,15 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     @Transactional(readOnly = true)
-    public WalletResponseDto getWalletById(Long userId, Long walletId) {
-        Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new ResourceNotFoundException("Wallet not found with id: " + walletId));
-
-        if (!wallet.getUser().getId().equals(userId)) {
-            throw new ResourceNotFoundException("Wallet not found with id: " + walletId);
-        }
-
+    public WalletResponseDto getWalletByAddressAndUser(Long userId, String address) {
+        Wallet wallet = getWalletAndVerifyOwner(userId, address);
         return walletMapper.toResponseDto(wallet);
     }
 
     @Override
     @Transactional
-    public WalletResponseDto deposit(Long userId, Long walletId, BalanceOperationRequestDto request) {
-        Wallet wallet = getWalletAndVerifyOwner(userId, walletId);
+    public WalletResponseDto deposit(Long userId, String address, BalanceOperationRequestDto request) {
+        Wallet wallet = getWalletAndVerifyOwner(userId, address);
 
         int updatedRows = walletBalanceRepository.addBalanceByExternalIdNative(
                 wallet.getId(),
@@ -111,21 +108,15 @@ public class WalletServiceImpl implements WalletService {
             throw new ResourceNotFoundException("Balance entry not found for externalId: " + request.externalId());
         }
 
-        return walletMapper.toResponseDto(walletRepository.findById(walletId).orElseThrow());
-    }
+        portfolioService.takeSnapshot(userId);
 
-    @Override
-    @Transactional(readOnly = true)
-    public WalletResponseDto getWalletByAddress(String address) {
-        Wallet wallet = walletRepository.findByAddress(address)
-                .orElseThrow(() -> new ResourceNotFoundException("Wallet not found with address: " + address));
-        return walletMapper.toResponseDto(wallet);
+        return walletMapper.toResponseDto(walletRepository.findById(wallet.getId()).orElseThrow());
     }
 
     @Override
     @Transactional
-    public WalletResponseDto withdraw(Long userId, Long walletId, BalanceOperationRequestDto request) {
-        Wallet wallet = getWalletAndVerifyOwner(userId, walletId);
+    public WalletResponseDto withdraw(Long userId, String address, BalanceOperationRequestDto request) {
+        Wallet wallet = getWalletAndVerifyOwner(userId, address);
 
         int updatedRows = walletBalanceRepository.deductBalanceByExternalIdNative(
                 wallet.getId(),
@@ -137,16 +128,9 @@ public class WalletServiceImpl implements WalletService {
             throw new InsufficientFundsException("Insufficient funds or balance entry not found for externalId: " + request.externalId());
         }
 
-        return walletMapper.toResponseDto(walletRepository.findById(walletId).orElseThrow());
-    }
+        portfolioService.takeSnapshot(userId);
 
-    private Wallet getWalletAndVerifyOwner(Long userId, Long walletId) {
-        Wallet wallet = walletRepository.findById(walletId)
-                .orElseThrow(() -> new ResourceNotFoundException("Wallet not found: " + walletId));
-        if (!wallet.getUser().getId().equals(userId)) {
-            throw new ResourceNotFoundException("Wallet not found: " + walletId);
-        }
-        return wallet;
+        return walletMapper.toResponseDto(walletRepository.findById(wallet.getId()).orElseThrow());
     }
 
     @Override
@@ -157,5 +141,16 @@ public class WalletServiceImpl implements WalletService {
         }
 
         return walletBalanceRepository.getAggregatedBalancesByUserId(userId);
+    }
+
+    private Wallet getWalletAndVerifyOwner(Long userId, String address) {
+        Wallet wallet = walletRepository.findByAddress(address)
+                .orElseThrow(() -> new ResourceNotFoundException("Wallet not found with address: " + address));
+
+        if (!wallet.getUser().getId().equals(userId)) {
+            throw new ResourceNotFoundException("Wallet not found with address: " + address);
+        }
+
+        return wallet;
     }
 }

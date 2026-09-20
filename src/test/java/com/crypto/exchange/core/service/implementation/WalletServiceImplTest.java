@@ -3,6 +3,7 @@ package com.crypto.exchange.core.service.implementation;
 import com.crypto.exchange.core.entity.CryptoCurrency;
 import com.crypto.exchange.core.entity.User;
 import com.crypto.exchange.core.entity.Wallet;
+import com.crypto.exchange.core.entity.WalletBalance;
 import com.crypto.exchange.core.exception.InsufficientFundsException;
 import com.crypto.exchange.core.exception.ResourceNotFoundException;
 import com.crypto.exchange.core.mapper.WalletMapper;
@@ -10,6 +11,7 @@ import com.crypto.exchange.core.repository.CryptoCurrencyRepository;
 import com.crypto.exchange.core.repository.UserRepository;
 import com.crypto.exchange.core.repository.WalletBalanceRepository;
 import com.crypto.exchange.core.repository.WalletRepository;
+import com.crypto.exchange.core.service.PortfolioService;
 import com.crypto.exchange.web.dto.request.BalanceOperationRequestDto;
 import com.crypto.exchange.web.dto.request.CreateWalletRequestDto;
 import com.crypto.exchange.web.dto.response.AggregatedBalanceDto;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -32,311 +35,293 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class WalletServiceImplTest {
 
     @Mock
     private WalletRepository walletRepository;
+
     @Mock
     private UserRepository userRepository;
+
     @Mock
     private CryptoCurrencyRepository cryptoCurrencyRepository;
+
     @Mock
     private WalletMapper walletMapper;
+
     @Mock
     private WalletBalanceRepository walletBalanceRepository;
+
+    @Mock
+    private PortfolioService portfolioService;
 
     @InjectMocks
     private WalletServiceImpl walletService;
 
-    private User testUser;
-    private Wallet testWallet;
-    private WalletResponseDto expectedDto;
+    private User user;
+    private User wrongUser;
+    private Wallet wallet;
+    private WalletResponseDto walletResponseDto;
 
     @BeforeEach
     void setUp() {
-        testUser = User.builder()
+        user = User.builder()
                 .id(1L)
-                .email("test@example.com")
+                .username("john_doe")
                 .build();
 
-        testWallet = Wallet.builder()
+        wrongUser = User.builder()
+                .id(2L)
+                .username("other_user")
+                .build();
+
+        wallet = Wallet.builder()
                 .id(10L)
-                .address("0x123456789abcdef")
-                .name("Primary Wallet")
+                .address("0x123abc")
+                .name("Main Wallet")
                 .isDefault(true)
-                .user(testUser)
+                .user(user)
                 .balances(new HashSet<>())
                 .build();
 
-        expectedDto = new WalletResponseDto(
-                10L,
-                "0x123456789abcdef",
-                "Primary Wallet",
-                true,
-                Collections.emptyList()
-        );
+        walletResponseDto = new WalletResponseDto(10L, "0x123abc", "Main Wallet", true, Collections.emptyList());
     }
 
     @Nested
-    @DisplayName("Создание кошелька (createWallet)")
+    @DisplayName("Тесты метода createWallet")
     class CreateWalletTests {
 
         @Test
-        @DisplayName("Успешное создание первого кошелька (автоматически назначается isDefault=true)")
-        void createWalletFirstWalletSetDefaultTrue() {
-            CreateWalletRequestDto request = new CreateWalletRequestDto("Main Wallet", false);
-            CryptoCurrency btc = CryptoCurrency.builder().id(100L).externalId("bitcoin").build();
-
-            when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
-            when(walletRepository.findAllByUserId(1L)).thenReturn(Collections.emptyList());
-            when(walletRepository.save(any(Wallet.class))).thenAnswer(inv -> inv.getArgument(0));
-            when(cryptoCurrencyRepository.findAll()).thenReturn(List.of(btc));
-            when(walletMapper.toResponseDto(any(Wallet.class))).thenReturn(expectedDto);
-
-            WalletResponseDto result = walletService.createWallet(1L, request);
-
-            assertThat(result).isNotNull();
-            verify(walletRepository, times(2)).save(any(Wallet.class));
-            verify(cryptoCurrencyRepository).findAll();
-            verify(walletRepository, never()).saveAll(anyList());
-        }
-
-        @Test
-        @DisplayName("Создание нового дефолтного кошелька сбрасывает флаг isDefault у ранее существующих")
-        void createWalletNewDefaultWalletResetsExistingDefault() {
-            CreateWalletRequestDto request = new CreateWalletRequestDto("New Default Wallet", true);
-            Wallet existingDefaultWallet = Wallet.builder()
-                    .id(5L)
-                    .name("Old Default")
-                    .isDefault(true)
-                    .user(testUser)
-                    .build();
-
-            when(userRepository.findById(1L)).thenReturn(Optional.of(testUser));
-            when(walletRepository.findAllByUserId(1L)).thenReturn(List.of(existingDefaultWallet));
-            when(walletRepository.save(any(Wallet.class))).thenAnswer(inv -> inv.getArgument(0));
-            when(cryptoCurrencyRepository.findAll()).thenReturn(Collections.emptyList());
-            when(walletMapper.toResponseDto(any(Wallet.class))).thenReturn(expectedDto);
-
-            WalletResponseDto result = walletService.createWallet(1L, request);
-
-            assertThat(result).isNotNull();
-            assertThat(existingDefaultWallet.getIsDefault()).isFalse();
-            verify(walletRepository).saveAll(List.of(existingDefaultWallet));
-        }
-
-        @Test
-        @DisplayName("Выбрасывает ResourceNotFoundException, если пользователь не найден")
-        void createWalletUserNotFoundThrowsException() {
-            CreateWalletRequestDto request = new CreateWalletRequestDto("Wallet", false);
+        void createWalletShouldThrowResourceNotFoundExceptionWhenUserNotFound() {
+            CreateWalletRequestDto request = new CreateWalletRequestDto("Main", true);
             when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
             assertThatThrownBy(() -> walletService.createWallet(1L, request))
                     .isInstanceOf(ResourceNotFoundException.class)
                     .hasMessageContaining("User not found with id: 1");
+
+            verify(walletRepository, never()).save(any());
+        }
+
+        @Test
+        void createWalletFirstWalletShouldBeDefaultAutomatically() {
+            CreateWalletRequestDto request = new CreateWalletRequestDto("First Wallet", false);
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+            when(walletRepository.findAllByUserId(1L)).thenReturn(Collections.emptyList());
+
+            CryptoCurrency btc = CryptoCurrency.builder().id(100L).symbol("BTC").externalId("bitcoin").build();
+            when(cryptoCurrencyRepository.findAll()).thenReturn(List.of(btc));
+
+            Wallet savedWalletWithoutBalances = Wallet.builder()
+                    .id(10L)
+                    .name("First Wallet")
+                    .isDefault(true)
+                    .user(user)
+                    .balances(new HashSet<>())
+                    .build();
+            when(walletRepository.save(any(Wallet.class))).thenReturn(savedWalletWithoutBalances);
+
+            when(walletMapper.toResponseDto(any(Wallet.class))).thenReturn(walletResponseDto);
+
+            WalletResponseDto result = walletService.createWallet(1L, request);
+
+            assertThat(result).isEqualTo(walletResponseDto);
+
+            ArgumentCaptor<Wallet> walletCaptor = ArgumentCaptor.forClass(Wallet.class);
+            verify(walletRepository, times(2)).save(walletCaptor.capture());
+
+            Wallet initialSaved = walletCaptor.getAllValues().get(0);
+            assertThat(initialSaved.getIsDefault()).isTrue();
+            assertThat(initialSaved.getName()).isEqualTo("First Wallet");
+
+            Wallet finalSaved = walletCaptor.getAllValues().get(1);
+            assertThat(finalSaved.getBalances()).hasSize(1);
+            WalletBalance createdBalance = finalSaved.getBalances().iterator().next();
+            assertThat(createdBalance.getCryptoCurrency()).isEqualTo(btc);
+            assertThat(createdBalance.getAmount()).isEqualTo(BigDecimal.ZERO);
+        }
+
+        @Test
+        void createWalletNewDefaultWalletShouldResetPreviousDefaultWallets() {
+            CreateWalletRequestDto request = new CreateWalletRequestDto("Second Wallet", true);
+
+            Wallet existingDefaultWallet = Wallet.builder()
+                    .id(10L)
+                    .name("Old Default")
+                    .isDefault(true)
+                    .user(user)
+                    .build();
+
+            when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+            when(walletRepository.findAllByUserId(1L)).thenReturn(List.of(existingDefaultWallet));
+            when(cryptoCurrencyRepository.findAll()).thenReturn(Collections.emptyList());
+
+            Wallet savedWallet = Wallet.builder()
+                    .id(11L)
+                    .name("Second Wallet")
+                    .isDefault(true)
+                    .user(user)
+                    .balances(new HashSet<>())
+                    .build();
+            when(walletRepository.save(any(Wallet.class))).thenReturn(savedWallet);
+            when(walletMapper.toResponseDto(any(Wallet.class))).thenReturn(walletResponseDto);
+
+            walletService.createWallet(1L, request);
+
+            assertThat(existingDefaultWallet.getIsDefault()).isFalse();
+            verify(walletRepository).saveAll(List.of(existingDefaultWallet));
         }
     }
 
     @Nested
-    @DisplayName("Депозит средств (deposit)")
-    class DepositTests {
+    @DisplayName("Тесты метода getUserWallets")
+    class GetUserWalletsTests {
 
         @Test
-        @DisplayName("Успешное пополнение баланса")
-        void depositSuccess() {
-            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
-
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-            when(walletBalanceRepository.addBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("1.5"))).thenReturn(1);
-            when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
-
-            WalletResponseDto result = walletService.deposit(1L, 10L, request);
-
-            assertThat(result).isNotNull();
-            verify(walletBalanceRepository).addBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("1.5"));
-            verify(walletRepository, times(2)).findById(10L);
-        }
-
-        @Test
-        @DisplayName("Выбрасывает ResourceNotFoundException, если баланс по externalId не существует")
-        void depositBalanceEntryNotFoundThrowsException() {
-            BalanceOperationRequestDto request = new BalanceOperationRequestDto("ethereum", new BigDecimal("2.0"));
-
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-            when(walletBalanceRepository.addBalanceByExternalIdNative(10L, "ethereum", new BigDecimal("2.0"))).thenReturn(0);
-
-            assertThatThrownBy(() -> walletService.deposit(1L, 10L, request))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Balance entry not found for externalId: ethereum");
-        }
-
-        @Test
-        @DisplayName("deposit выбрасывает ResourceNotFoundException при попытке пополнить чужой кошелек")
-        void depositForeignUserThrowsException() {
-            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-
-            assertThatThrownBy(() -> walletService.deposit(999L, 10L, request))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found: 10");
-
-            verify(walletBalanceRepository, never()).addBalanceByExternalIdNative(anyLong(), anyString(), any());
-        }
-
-        @Test
-        @DisplayName("deposit выбрасывает ResourceNotFoundException, если кошелек не найден в БД")
-        void depositWalletNotFoundThrowsException() {
-            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
-            when(walletRepository.findById(99L)).thenReturn(Optional.empty());
-
-            assertThatThrownBy(() -> walletService.deposit(1L, 99L, request))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found: 99");
-        }
-    }
-
-    @Nested
-    @DisplayName("Вывод средств (withdraw)")
-    class WithdrawTests {
-
-        @Test
-        @DisplayName("Успешное списание средств с баланса")
-        void withdrawSuccess() {
-            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
-
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-            when(walletBalanceRepository.deductBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("0.5"))).thenReturn(1);
-            when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
-
-            WalletResponseDto result = walletService.withdraw(1L, 10L, request);
-
-            assertThat(result).isNotNull();
-            verify(walletBalanceRepository).deductBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("0.5"));
-        }
-
-        @Test
-        @DisplayName("Выбрасывает InsufficientFundsException при недостаточном количестве средств")
-        void withdrawInsufficientFundsThrowsException() {
-            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("999.0"));
-
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-            when(walletBalanceRepository.deductBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("999.0"))).thenReturn(0);
-
-            assertThatThrownBy(() -> walletService.withdraw(1L, 10L, request))
-                    .isInstanceOf(InsufficientFundsException.class)
-                    .hasMessageContaining("Insufficient funds or balance entry not found for externalId: bitcoin");
-        }
-
-        @Test
-        @DisplayName("withdraw выбрасывает ResourceNotFoundException при попытке снять средства с чужого кошелька")
-        void withdrawForeignUserThrowsException() {
-            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-
-            assertThatThrownBy(() -> walletService.withdraw(999L, 10L, request))
-                    .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found: 10");
-
-            verify(walletBalanceRepository, never()).deductBalanceByExternalIdNative(anyLong(), anyString(), any());
-        }
-    }
-
-    @Nested
-    @DisplayName("Получение данных и проверка владельца")
-    class ReadAndSecurityTests {
-
-        @Test
-        @DisplayName("getUserWallets возвращает список кошельков пользователя")
-        void getUserWalletsSuccess() {
-            when(walletRepository.findAllByUserId(1L)).thenReturn(List.of(testWallet));
-            when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
+        void getUserWalletsShouldReturnListOfWalletResponseDtos() {
+            when(walletRepository.findAllByUserId(1L)).thenReturn(List.of(wallet));
+            when(walletMapper.toResponseDto(wallet)).thenReturn(walletResponseDto);
 
             List<WalletResponseDto> result = walletService.getUserWallets(1L);
 
-            assertThat(result).hasSize(1);
-            assertThat(result.get(0)).isEqualTo(expectedDto);
+            assertThat(result).containsExactly(walletResponseDto);
+            verify(walletRepository).findAllByUserId(1L);
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты метода getWalletByAddressAndUser")
+    class GetWalletByAddressAndUserTests {
+
+        @Test
+        void getWalletByAddressAndUserShouldReturnDtoWhenUserIsOwner() {
+            when(walletRepository.findByAddress("0x123abc")).thenReturn(Optional.of(wallet));
+            when(walletMapper.toResponseDto(wallet)).thenReturn(walletResponseDto);
+
+            WalletResponseDto result = walletService.getWalletByAddressAndUser(1L, "0x123abc");
+
+            assertThat(result).isEqualTo(walletResponseDto);
         }
 
         @Test
-        @DisplayName("getWalletById возвращает кошелек настоящему владельцу")
-        void getWalletByIdSuccess() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-            when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
+        void getWalletByAddressAndUserShouldThrowExceptionWhenWalletNotFound() {
+            when(walletRepository.findByAddress("0x123abc")).thenReturn(Optional.empty());
 
-            WalletResponseDto result = walletService.getWalletById(1L, 10L);
-
-            assertThat(result).isNotNull();
-            assertThat(result).isEqualTo(expectedDto);
-        }
-
-        @Test
-        @DisplayName("getWalletById выбрасывает ResourceNotFoundException, если запрашивает сторонний пользователь")
-        void getWalletByIdForeignUserThrowsException() {
-            when(walletRepository.findById(10L)).thenReturn(Optional.of(testWallet));
-
-            assertThatThrownBy(() -> walletService.getWalletById(999L, 10L))
+            assertThatThrownBy(() -> walletService.getWalletByAddressAndUser(1L, "0x123abc"))
                     .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found with id: 10");
+                    .hasMessageContaining("Wallet not found with address: 0x123abc");
         }
 
         @Test
-        @DisplayName("getWalletById выбрасывает ResourceNotFoundException, если кошелек не найден")
-        void getWalletByIdNotFoundThrowsException() {
-            when(walletRepository.findById(99L)).thenReturn(Optional.empty());
+        void getWalletByAddressAndUserShouldThrowExceptionWhenUserIsNotOwner() {
+            wallet.setUser(wrongUser);
+            when(walletRepository.findByAddress("0x123abc")).thenReturn(Optional.of(wallet));
 
-            assertThatThrownBy(() -> walletService.getWalletById(1L, 99L))
+            assertThatThrownBy(() -> walletService.getWalletByAddressAndUser(1L, "0x123abc"))
                     .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found with id: 99");
+                    .hasMessageContaining("Wallet not found with address: 0x123abc");
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты метода deposit")
+    class DepositTests {
+
+        @Test
+        void depositShouldIncreaseBalanceAndTakeSnapshot() {
+            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("1.5"));
+
+            when(walletRepository.findByAddress("0x123abc")).thenReturn(Optional.of(wallet));
+            when(walletBalanceRepository.addBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("1.5"))).thenReturn(1);
+            when(walletRepository.findById(10L)).thenReturn(Optional.of(wallet));
+            when(walletMapper.toResponseDto(wallet)).thenReturn(walletResponseDto);
+
+            WalletResponseDto result = walletService.deposit(1L, "0x123abc", request);
+
+            assertThat(result).isEqualTo(walletResponseDto);
+            verify(portfolioService).takeSnapshot(1L);
         }
 
         @Test
-        @DisplayName("getWalletByAddress возвращает кошелек по его публичному адресу")
-        void getWalletByAddressSuccess() {
-            when(walletRepository.findByAddress("0x123456789abcdef")).thenReturn(Optional.of(testWallet));
-            when(walletMapper.toResponseDto(testWallet)).thenReturn(expectedDto);
+        void depositShouldThrowResourceNotFoundExceptionWhenBalanceEntryNotFound() {
+            BalanceOperationRequestDto request = new BalanceOperationRequestDto("unknown", new BigDecimal("1.5"));
 
-            WalletResponseDto result = walletService.getWalletByAddress("0x123456789abcdef");
+            when(walletRepository.findByAddress("0x123abc")).thenReturn(Optional.of(wallet));
+            when(walletBalanceRepository.addBalanceByExternalIdNative(10L, "unknown", new BigDecimal("1.5"))).thenReturn(0);
 
-            assertThat(result).isNotNull();
-            verify(walletRepository).findByAddress("0x123456789abcdef");
-        }
-
-        @Test
-        @DisplayName("getWalletByAddress выбрасывает ResourceNotFoundException при несуществующем адресе")
-        void getWalletByAddressNotFoundThrowsException() {
-            when(walletRepository.findByAddress("0xInvalid")).thenReturn(Optional.empty());
-
-            assertThatThrownBy(() -> walletService.getWalletByAddress("0xInvalid"))
+            assertThatThrownBy(() -> walletService.deposit(1L, "0x123abc", request))
                     .isInstanceOf(ResourceNotFoundException.class)
-                    .hasMessageContaining("Wallet not found with address: 0xInvalid");
+                    .hasMessageContaining("Balance entry not found for externalId: unknown");
+
+            verify(portfolioService, never()).takeSnapshot(any());
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты метода withdraw")
+    class WithdrawTests {
+
+        @Test
+        void withdrawShouldDeductBalanceAndTakeSnapshot() {
+            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("0.5"));
+
+            when(walletRepository.findByAddress("0x123abc")).thenReturn(Optional.of(wallet));
+            when(walletBalanceRepository.deductBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("0.5"))).thenReturn(1);
+            when(walletRepository.findById(10L)).thenReturn(Optional.of(wallet));
+            when(walletMapper.toResponseDto(wallet)).thenReturn(walletResponseDto);
+
+            WalletResponseDto result = walletService.withdraw(1L, "0x123abc", request);
+
+            assertThat(result).isEqualTo(walletResponseDto);
+            verify(portfolioService).takeSnapshot(1L);
         }
 
         @Test
-        @DisplayName("getAggregatedBalances возвращает список агрегированных остатков")
-        void getAggregatedBalancesSuccess() {
-            AggregatedBalanceDto dto = new AggregatedBalanceDto(100L, "BTC", "Bitcoin", new BigDecimal("10.5"));
+        void withdrawShouldThrowInsufficientFundsExceptionWhenUpdatedRowsIsZero() {
+            BalanceOperationRequestDto request = new BalanceOperationRequestDto("bitcoin", new BigDecimal("100.0"));
 
+            when(walletRepository.findByAddress("0x123abc")).thenReturn(Optional.of(wallet));
+            when(walletBalanceRepository.deductBalanceByExternalIdNative(10L, "bitcoin", new BigDecimal("100.0"))).thenReturn(0);
+
+            assertThatThrownBy(() -> walletService.withdraw(1L, "0x123abc", request))
+                    .isInstanceOf(InsufficientFundsException.class)
+                    .hasMessageContaining("Insufficient funds or balance entry not found for externalId: bitcoin");
+
+            verify(portfolioService, never()).takeSnapshot(any());
+        }
+    }
+
+    @Nested
+    @DisplayName("Тесты метода getAggregatedBalances")
+    class GetAggregatedBalancesTests {
+
+        @Test
+        void getAggregatedBalancesShouldReturnListWhenUserExists() {
+            AggregatedBalanceDto aggregatedDto = new AggregatedBalanceDto(100L, "BTC", "Bitcoin", new BigDecimal("2.5"));
             when(userRepository.existsById(1L)).thenReturn(true);
-            when(walletBalanceRepository.getAggregatedBalancesByUserId(1L)).thenReturn(List.of(dto));
+            when(walletBalanceRepository.getAggregatedBalancesByUserId(1L)).thenReturn(List.of(aggregatedDto));
 
             List<AggregatedBalanceDto> result = walletService.getAggregatedBalances(1L);
 
-            assertThat(result).hasSize(1);
-            assertThat(result.get(0).totalAmount()).isEqualTo(new BigDecimal("10.5"));
-            assertThat(result.get(0).symbol()).isEqualTo("BTC");
+            assertThat(result).containsExactly(aggregatedDto);
         }
 
         @Test
-        @DisplayName("getAggregatedBalances выбрасывает ResourceNotFoundException при несуществующем пользователе")
-        void getAggregatedBalancesUserNotFoundThrowsException() {
+        void getAggregatedBalancesShouldThrowResourceNotFoundExceptionWhenUserDoesNotExist() {
             when(userRepository.existsById(1L)).thenReturn(false);
 
             assertThatThrownBy(() -> walletService.getAggregatedBalances(1L))
                     .isInstanceOf(ResourceNotFoundException.class)
                     .hasMessageContaining("User not found with id: 1");
+
+            verify(walletBalanceRepository, never()).getAggregatedBalancesByUserId(any());
         }
     }
 }

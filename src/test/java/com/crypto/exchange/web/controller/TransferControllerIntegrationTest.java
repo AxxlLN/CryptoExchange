@@ -1,6 +1,10 @@
 package com.crypto.exchange.web.controller;
 
 import com.crypto.exchange.core.entity.Role;
+import com.crypto.exchange.core.entity.Transaction.TransactionStatus;
+import com.crypto.exchange.core.exception.InsufficientFundsException;
+import com.crypto.exchange.core.exception.ResourceNotFoundException;
+import com.crypto.exchange.core.repository.UserRepository;
 import com.crypto.exchange.core.service.TransferService;
 import com.crypto.exchange.web.dto.request.TransferRequestDto;
 import com.crypto.exchange.web.dto.response.TransferResponseDto;
@@ -8,13 +12,14 @@ import com.crypto.exchange.web.security.JwtTokenProvider;
 import com.crypto.exchange.web.security.SecurityConfig;
 import com.crypto.exchange.web.security.UserPrincipal;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -23,11 +28,10 @@ import java.time.ZoneOffset;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
+import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TransferController.class)
 @Import(SecurityConfig.class)
@@ -45,83 +49,140 @@ class TransferControllerIntegrationTest {
     @MockBean
     private JwtTokenProvider jwtTokenProvider;
 
-    @Test
-    void transferShouldSucceedWhenValidRequestProvided() throws Exception {
-        Long userId = 1L;
-        UserPrincipal principal = new UserPrincipal(
-                userId, "testuser", "test@mail.com", "password", Role.ROLE_USER
-        );
+    @MockBean
+    private UserDetailsService userDetailsService;
 
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                principal, null, principal.getAuthorities()
-        );
+    @MockBean
+    private UserRepository userRepository;
 
-        TransferRequestDto requestDto = new TransferRequestDto(
-                10L,
-                "0x123456789abcdef",
+    private UserPrincipal createTestUserPrincipal(Long id, String username) {
+        return new UserPrincipal(
+                id,
+                username,
+                username + "@example.com",
+                "password123",
+                Role.ROLE_USER,
+                false,
+                false
+        );
+    }
+
+    private TransferRequestDto createSampleTransferRequest() {
+        return new TransferRequestDto(
+                "0xSenderWalletAddress",
+                "0xRecipientWalletAddress",
                 "bitcoin",
-                new BigDecimal("0.5")
+                new BigDecimal("1.5")
         );
+    }
 
-        TransferResponseDto responseDto = new TransferResponseDto(
-                "0xSenderAddress",
-                "0x123456789abcdef",
+    private TransferResponseDto createSampleTransferResponse() {
+        return new TransferResponseDto(
+                500L,
+                "0xSenderWalletAddress",
+                "0xRecipientWalletAddress",
                 "BTC",
-                new BigDecimal("0.5"),
-                OffsetDateTime.now(ZoneOffset.UTC),
-                "SUCCESS"
+                new BigDecimal("1.5"),
+                OffsetDateTime.of(2026, 9, 20, 12, 0, 0, 0, ZoneOffset.UTC),
+                TransactionStatus.SUCCESS
         );
-
-        given(transferService.transfer(eq(userId), any(TransferRequestDto.class)))
-                .willReturn(responseDto);
-
-        mockMvc.perform(post("/api/v1/transfers")
-                        .with(authentication(auth))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.senderAddress").value("0xSenderAddress"))
-                .andExpect(jsonPath("$.recipientAddress").value("0x123456789abcdef"))
-                .andExpect(jsonPath("$.cryptoSymbol").value("BTC"))
-                .andExpect(jsonPath("$.status").value("SUCCESS"));
     }
 
     @Test
-    void transferShouldFailWhenValidationFails() throws Exception {
-        UserPrincipal principal = new UserPrincipal(
-                1L, "testuser", "test@mail.com", "password", Role.ROLE_USER
-        );
+    @DisplayName("POST /api/v1/transfers - должен возвращать 201 Created при успешном P2P переводе")
+    void transferShouldReturn201Created() throws Exception {
+        Long userId = 1L;
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        TransferRequestDto request = createSampleTransferRequest();
+        TransferResponseDto response = createSampleTransferResponse();
 
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                principal, null, principal.getAuthorities()
-        );
+        when(transferService.transfer(eq(userId), any(TransferRequestDto.class))).thenReturn(response);
+
+        mockMvc.perform(post("/api/v1/transfers")
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.transactionId").value(500))
+                .andExpect(jsonPath("$.senderAddress").value("0xSenderWalletAddress"))
+                .andExpect(jsonPath("$.recipientAddress").value("0xRecipientWalletAddress"))
+                .andExpect(jsonPath("$.cryptoSymbol").value("BTC"))
+                .andExpect(jsonPath("$.amount").value(1.5))
+                .andExpect(jsonPath("$.status").value("SUCCESS"));
+
+        verify(transferService, times(1)).transfer(eq(userId), any(TransferRequestDto.class));
+    }
+
+    @Test
+    @DisplayName("POST /api/v1/transfers - должен возвращать 400 Bad Request при невалидных входных данных")
+    void transferShouldReturn400WhenValidationFails() throws Exception {
+        Long userId = 1L;
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
 
         TransferRequestDto invalidRequest = new TransferRequestDto(
                 null,
                 "",
                 "",
-                new BigDecimal("0.00")
+                new BigDecimal("0.00000000")
         );
 
         mockMvc.perform(post("/api/v1/transfers")
-                        .with(authentication(auth))
+                        .with(user(principal))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidRequest)))
                 .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(transferService);
     }
 
     @Test
-    void transferShouldReturnForbiddenWhenUnauthenticated() throws Exception {
-        TransferRequestDto requestDto = new TransferRequestDto(
-                10L,
-                "0x123456789abcdef",
-                "bitcoin",
-                new BigDecimal("0.5")
-        );
+    @DisplayName("POST /api/v1/transfers - должен возвращать 401 Unauthorized для неаутентифицированного запроса")
+    void transferShouldReturn401WhenUnauthenticated() throws Exception {
+        TransferRequestDto request = createSampleTransferRequest();
 
         mockMvc.perform(post("/api/v1/transfers")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestDto)))
-                .andExpect(status().isForbidden());
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isUnauthorized());
+
+        verifyNoInteractions(transferService);
+    }
+
+    @Test
+    @DisplayName("POST /api/v1/transfers - должен возвращать 404 Not Found, если кошелек не найден")
+    void transferShouldReturn404WhenWalletNotFound() throws Exception {
+        Long userId = 1L;
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        TransferRequestDto request = createSampleTransferRequest();
+
+        when(transferService.transfer(eq(userId), any(TransferRequestDto.class)))
+                .thenThrow(new ResourceNotFoundException("Target wallet not found"));
+
+        mockMvc.perform(post("/api/v1/transfers")
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound());
+
+        verify(transferService, times(1)).transfer(eq(userId), any(TransferRequestDto.class));
+    }
+
+    @Test
+    @DisplayName("POST /api/v1/transfers - должен возвращать 400 Bad Request при недостатке средств")
+    void transferShouldReturn400WhenInsufficientFunds() throws Exception {
+        Long userId = 1L;
+        UserPrincipal principal = createTestUserPrincipal(userId, "john_doe");
+        TransferRequestDto request = createSampleTransferRequest();
+
+        when(transferService.transfer(eq(userId), any(TransferRequestDto.class)))
+                .thenThrow(new InsufficientFundsException("Insufficient funds for transfer"));
+
+        mockMvc.perform(post("/api/v1/transfers")
+                        .with(user(principal))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+
+        verify(transferService, times(1)).transfer(eq(userId), any(TransferRequestDto.class));
     }
 }

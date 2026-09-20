@@ -10,9 +10,8 @@ import java.util.List;
 public interface WalletService {
     WalletResponseDto createWallet(Long userId, CreateWalletRequestDto request);
     List<WalletResponseDto> getUserWallets(Long userId);
-    WalletResponseDto getWalletById(Long userId, Long walletId);
-    WalletResponseDto getWalletByAddress(String address);
-    WalletResponseDto deposit(Long userId, Long walletId, BalanceOperationRequestDto request);
-    WalletResponseDto withdraw(Long userId, Long walletId, BalanceOperationRequestDto request);
+    WalletResponseDto getWalletByAddressAndUser(Long userId, String address);
+    WalletResponseDto deposit(Long userId, String address, BalanceOperationRequestDto request);
+    WalletResponseDto withdraw(Long userId, String address, BalanceOperationRequestDto request);
     List<AggregatedBalanceDto> getAggregatedBalances(Long userId);
 }
