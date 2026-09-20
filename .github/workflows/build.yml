@@ -3,7 +3,7 @@ name: SonarQube Build
 on:
   push:
     branches:
-      - main
+      - backend
   pull_request:
     types: [opened, synchronize, reopened]
 
