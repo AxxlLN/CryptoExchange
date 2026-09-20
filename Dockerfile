@@ -10,8 +10,8 @@ RUN mvn package -DskipTests
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-RUN mkdir -p logs && chown -R appuser:appgroup logs
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup \
+    && mkdir -p logs && chown -R appuser:appgroup logs
 
 USER appuser:appgroup
 
